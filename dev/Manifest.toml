@@ -5,9 +5,9 @@ manifest_format = "2.0"
 
 [[deps.AbstractFFTs]]
 deps = ["ChainRulesCore", "LinearAlgebra"]
-git-tree-sha1 = "6f1d9bc1c08f9f4a8fa92e3ea3cb50153a1b40d4"
+git-tree-sha1 = "69f7020bd72f069c219b5e8c236c1fa90d2cb409"
 uuid = "621f4979-c628-5d54-868e-fcf4e3e8185c"
-version = "1.1.0"
+version = "1.2.1"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra"]
@@ -20,9 +20,9 @@ uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
 
 [[deps.ArrayInterfaceCore]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "5e732808bcf7bbf730e810a9eaafc52705b38bb5"
+git-tree-sha1 = "7d255eb1d2e409335835dc8624c35d97453011eb"
 uuid = "30b0a656-2188-435a-8636-2ec0e6a096e2"
-version = "0.1.13"
+version = "0.1.14"
 
 [[deps.ArrayLayouts]]
 deps = ["FillArrays", "LinearAlgebra", "SparseArrays"]
@@ -50,9 +50,9 @@ uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
 [[deps.BlockArrays]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra"]
-git-tree-sha1 = "6bf9cdd29d7f0fb7a1a342026d5cefbdb61e25fb"
+git-tree-sha1 = "43b09ac794ed8347592dd90539756d1c3416e5f2"
 uuid = "8e7c35d0-a365-5155-bbbb-fb81a777f24e"
-version = "0.16.18"
+version = "0.16.19"
 
 [[deps.Bravais]]
 deps = ["LinearAlgebra", "StaticArrays"]
@@ -68,9 +68,9 @@ version = "0.5.7"
 
 [[deps.ChainRulesCore]]
 deps = ["Compat", "LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "9489214b993cd42d17f44c36e359bf6a7c919abf"
+git-tree-sha1 = "2dd813e5f2f7eec2d1268c57cf2373d3ee91fcea"
 uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-version = "1.15.0"
+version = "1.15.1"
 
 [[deps.ChangesOfVariables]]
 deps = ["ChainRulesCore", "LinearAlgebra", "Test"]
@@ -107,14 +107,14 @@ version = "1.7.0"
 
 [[deps.ConstructionBase]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "c096d0e321368ac23eb1be1ea405814f8b32adb3"
+git-tree-sha1 = "59d00b3139a9de4eb961057eabb65ac6522be954"
 uuid = "187b0558-2788-49d3-abe0-74a17ed4e7c9"
-version = "1.3.1"
+version = "1.4.0"
 
 [[deps.DFTK]]
 deps = ["AbstractFFTs", "AtomsBase", "BlockArrays", "Brillouin", "Conda", "Dates", "FFTW", "ForwardDiff", "InteratomicPotentials", "Interpolations", "IterTools", "IterativeSolvers", "Libxc", "LineSearches", "LinearAlgebra", "LinearMaps", "MPI", "Markdown", "NLsolve", "Optim", "OrderedCollections", "PeriodicTable", "Polynomials", "Primes", "Printf", "ProgressMeter", "PyCall", "Requires", "Roots", "SparseArrays", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TimerOutputs", "Unitful", "UnitfulAtomic", "spglib_jll"]
-git-tree-sha1 = "b9a6f890820e69b9c50296e3660128d1d3970cf7"
-repo-rev = "e59df0ecfb7a10e7b39ad5e286ee927255a71f6c"
+git-tree-sha1 = "173e5d27c9760d52d5286ab6a6b56ef1bd4d4662"
+repo-rev = "d962dc2a23b34397766df471e24374034df9dacb"
 repo-url = "https://github.com/JuliaMolSim/DFTK.jl.git"
 uuid = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
 version = "0.5.3"
@@ -429,9 +429,9 @@ uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 
 [[deps.OffsetArrays]]
 deps = ["Adapt"]
-git-tree-sha1 = "ec2e30596282d722f018ae784b7f44f3b88065e4"
+git-tree-sha1 = "1ea784113a6aa054c5ebd95945fa5e52c2f378e7"
 uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
-version = "1.12.6"
+version = "1.12.7"
 
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
@@ -488,9 +488,9 @@ uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 
 [[deps.Polynomials]]
 deps = ["LinearAlgebra", "MutableArithmetics", "RecipesBase"]
-git-tree-sha1 = "a8d37fbaba422166e9f5354b6d8f6197e1f74fe5"
+git-tree-sha1 = "5d389e6481b9d6c81d73ee9a74d1fd74f8b25abe"
 uuid = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
-version = "3.1.3"
+version = "3.1.4"
 
 [[deps.PositiveFactorizations]]
 deps = ["LinearAlgebra"]
@@ -593,9 +593,9 @@ uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [[deps.SpecialFunctions]]
 deps = ["ChainRulesCore", "IrrationalConstants", "LogExpFunctions", "OpenLibm_jll", "OpenSpecFun_jll"]
-git-tree-sha1 = "a9e798cae4867e3a41cae2dd9eb60c047f1212db"
+git-tree-sha1 = "d75bda01f8c31ebb72df80a46c88b25d1c79c56d"
 uuid = "276daf66-3868-5448-9aa4-cd146d93841b"
-version = "2.1.6"
+version = "2.1.7"
 
 [[deps.Spglib]]
 deps = ["StaticArrays", "StructHelpers", "UnPack", "spglib_jll"]
