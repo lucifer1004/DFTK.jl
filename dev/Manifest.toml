@@ -26,15 +26,15 @@ version = "6.0.21"
 
 [[deps.ArrayInterfaceCore]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "8d9e48436c5589fbd51ae8c8165a299a219188c0"
+git-tree-sha1 = "12bebdb8491042f36c8700705f11c28fef284515"
 uuid = "30b0a656-2188-435a-8636-2ec0e6a096e2"
-version = "0.1.15"
+version = "0.1.16"
 
 [[deps.ArrayLayouts]]
 deps = ["FillArrays", "LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "ebe4bbfc4de38ef88323f67d60a4e848fb550f0e"
+git-tree-sha1 = "eedb031c457f95f13cb843d8dab01bbc3ac48176"
 uuid = "4c555306-a7a7-4459-81d9-ec55ddd5c99a"
-version = "0.8.9"
+version = "0.8.10"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -125,8 +125,8 @@ version = "1.4.0"
 
 [[deps.DFTK]]
 deps = ["AbstractFFTs", "AtomsBase", "BlockArrays", "Brillouin", "ChainRulesCore", "Conda", "Dates", "DftFunctionals", "FFTW", "ForwardDiff", "InteratomicPotentials", "Interpolations", "IterTools", "IterativeSolvers", "Libxc", "LineSearches", "LinearAlgebra", "LinearMaps", "MPI", "Markdown", "NLsolve", "Optim", "OrderedCollections", "PeriodicTable", "Polynomials", "Primes", "Printf", "ProgressMeter", "PyCall", "Requires", "Roots", "SparseArrays", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TimerOutputs", "Unitful", "UnitfulAtomic", "spglib_jll"]
-git-tree-sha1 = "5af8fd9aacad43208d5a73faeb7806bede8e5b80"
-repo-rev = "14e473373874e729b43e8bf58059cf63425f87bb"
+git-tree-sha1 = "ab1450f500857f7a79d3ae52feb4a26437d728fc"
+repo-rev = "9361cead92d2898769efd513cb42cb7deb98a2bf"
 repo-url = "https://github.com/JuliaMolSim/DFTK.jl.git"
 uuid = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
 version = "0.5.5"
@@ -257,10 +257,10 @@ uuid = "a9efe35a-c65d-452d-b8a8-82646cd5cb04"
 version = "0.2.0"
 
 [[deps.Interpolations]]
-deps = ["AxisAlgorithms", "ChainRulesCore", "LinearAlgebra", "OffsetArrays", "Random", "Ratios", "Requires", "SharedArrays", "SparseArrays", "StaticArrays", "WoodburyMatrices"]
-git-tree-sha1 = "00a19d6ab0cbdea2978fc23c5a6482e02c192501"
+deps = ["Adapt", "AxisAlgorithms", "ChainRulesCore", "LinearAlgebra", "OffsetArrays", "Random", "Ratios", "Requires", "SharedArrays", "SparseArrays", "StaticArrays", "WoodburyMatrices"]
+git-tree-sha1 = "23e651bbb8d00e9971015d0dd306b780edbdb6b9"
 uuid = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
-version = "0.14.0"
+version = "0.14.3"
 
 [[deps.InverseFunctions]]
 deps = ["Test"]
@@ -355,9 +355,9 @@ version = "3.8.0"
 
 [[deps.LogExpFunctions]]
 deps = ["ChainRulesCore", "ChangesOfVariables", "DocStringExtensions", "InverseFunctions", "IrrationalConstants", "LinearAlgebra"]
-git-tree-sha1 = "7c88f63f9f0eb5929f15695af9a4d7d3ed278a91"
+git-tree-sha1 = "361c2b088575b07946508f135ac556751240091c"
 uuid = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
-version = "0.3.16"
+version = "0.3.17"
 
 [[deps.Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
@@ -511,9 +511,9 @@ uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 
 [[deps.Polynomials]]
 deps = ["LinearAlgebra", "MutableArithmetics", "RecipesBase"]
-git-tree-sha1 = "d6de04fd2559ecab7e9a683c59dcbc7dbd20581a"
+git-tree-sha1 = "8cc4b1a1d81b1db45dea3512040be7f0e84bfef9"
 uuid = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
-version = "3.1.5"
+version = "3.1.6"
 
 [[deps.PositiveFactorizations]]
 deps = ["LinearAlgebra"]
