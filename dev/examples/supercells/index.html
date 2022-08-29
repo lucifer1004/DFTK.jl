@@ -27,56 +27,69 @@ end</code></pre><pre class="documenter-example-output"><code class="nohighlight 
 ase_atoms(setup.model).write(&quot;al_supercell.png&quot;)</code></pre><img src="../al_supercell.png" width=500 height=500 /><p>As we will see in this notebook the modelling of a system generally becomes harder if the system becomes larger.</p><ul><li>This sounds like a trival statement as <em>per se</em> the cost per SCF step increases as the system (and thus <span>$N$</span>) gets larger.</li><li>But there is more to it: If one is not careful also the <em>number of SCF iterations</em> increases as the system gets larger.</li><li>The aim of a proper computational treatment of such supercells is therefore to ensure that the <strong>number of SCF iterations remains constant</strong> when the system size increases.</li></ul><p>For achieving the latter DFTK by default employs the <code>LdosMixing</code> preconditioner <sup class="footnote-reference"><a id="citeref-HL2021" href="#footnote-HL2021">[HL2021]</a></sup> during the SCF iterations. This mixing approach is completely parameter free, but still automatically adapts to the treated system in order to efficiently prevent charge sloshing. As a result, modelling aluminium slabs indeed takes roughly the same number of SCF iterations irrespective of the supercell size:</p><p>M. F. Herbst and A. Levitt.    <em>Black-box inhomogeneous preconditioning for self-consistent field iterations in density functional theory.</em>    J. Phys. Cond. Matt <em>33</em> 085503 (2021). <a href="https://arxiv.org/abs/2009.01665">ArXiv:2009.01665</a></p><pre><code class="language-julia hljs">is_converged = DFTK.ScfConvergenceDensity(1e-4)  # Flag convergence based on density
 self_consistent_field(aluminium_setup(1); is_converged);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -8.298555325822                   -0.85    4.0
-  2   -8.300225756520       -2.78       -1.25    1.0
-  3   -8.300449592816       -3.65       -1.89    3.1
-  4   -8.300462832235       -4.88       -2.78    3.1
-  5   -8.300464431605       -5.80       -3.13    3.8
-  6   -8.300464533958       -6.99       -3.28    7.4
-  7   -8.300464587286       -7.27       -3.42    1.9
-  8   -8.300464617593       -7.52       -3.56    1.8
-  9   -8.300464636382       -7.73       -3.74    1.1
- 10   -8.300464640927       -8.34       -3.89    2.6
- 11   -8.300464643726       -8.55       -4.23    1.0</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(2); is_converged);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
+  1   -8.298458829875                   -0.85    4.5
+  2   -8.300194008878       -2.76       -1.25    1.0
+  3   -8.300445837201       -3.60       -1.87    3.8
+  4   -8.300462138512       -4.79       -2.73    2.1
+  5   -8.300464155743       -5.70       -3.06    3.9
+  6   -8.300464385411       -6.64       -3.21    8.6
+  7   -8.300464516500       -6.88       -3.35    2.0
+  8   -8.300464578248       -7.21       -3.47    1.4
+  9   -8.300464630922       -7.28       -3.70    1.1
+ 10   -8.300464629915   +   -9.00       -3.72    2.8
+ 11   -8.300464640601       -7.97       -3.95    1.8
+ 12   -8.300464643924       -8.48       -4.46    1.1</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(2); is_converged);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -16.67460952475                   -0.70    6.6
-  2   -16.67874941012       -2.38       -1.14    1.5
-  3   -16.67923971033       -3.31       -1.86    3.6
-  4   -16.67928117861       -4.38       -2.75    3.1
-  5   -16.67928592654       -5.32       -3.20    4.4
-  6   -16.67928620984       -6.55       -3.50    4.0
-  7   -16.67928622077       -7.96       -3.95    1.1
-  8   -16.67928622387       -8.51       -4.59    1.0</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); is_converged, n_bands=30);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
+  1   -16.67449683468                   -0.70    6.9
+  2   -16.67872211188       -2.37       -1.14    1.0
+  3   -16.67924028460       -3.29       -1.86    3.1
+  4   -16.67928147896       -4.39       -2.77    3.1
+  5   -16.67928612841       -5.33       -3.20    4.1
+  6   -16.67928621768       -7.05       -3.49    4.1
+  7   -16.67928622288       -8.28       -3.97    1.0
+  8   -16.67928622428       -8.85       -4.61    1.0</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); is_converged, n_bands=30);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -33.32551997137                   -0.56    6.5
-  2   -33.33266058713       -2.15       -1.00    1.0
-  3   -33.33589121327       -2.49       -1.68    3.2
-  4   -33.33685283619       -3.02       -2.32    4.1
-  5   -33.33693334934       -4.09       -2.77   10.9
-  6   -33.33694381075       -4.98       -3.70    2.6
-  7   -33.33694390716       -7.02       -4.05   11.5</code></pre><p>When switching off explicitly the <code>LdosMixing</code>, by selecting <code>mixing=SimpleMixing()</code>, the performance of number of required SCF steps starts to increase as we increase the size of the modelled problem:</p><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(1); is_converged, mixing=SimpleMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
+  1   -33.32360675139                   -0.56    6.1
+  2   -33.33261352752       -2.05       -0.99    1.0
+  3   -33.33601532659       -2.47       -1.70    3.5
+  4   -33.33618703622       -3.77       -2.62    4.0
+  5   -33.33693991743       -3.12       -2.99   12.5
+  6   -33.33694327594       -5.47       -3.44    6.2
+  7   -33.33694392428       -6.19       -4.35    3.1</code></pre><p>When switching off explicitly the <code>LdosMixing</code>, by selecting <code>mixing=SimpleMixing()</code>, the performance of number of required SCF steps starts to increase as we increase the size of the modelled problem:</p><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(1); is_converged, mixing=SimpleMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -8.298623716885                   -0.85    3.9
-  2   -8.300289246080       -2.78       -1.59    1.0
-  3   -8.300454275041       -3.78       -2.59    7.5
-  4   -8.300395045847   +   -4.23       -2.34    7.8
-  5   -8.300464557858       -4.16       -3.77    2.6
-  6   -8.300464611461       -7.27       -4.06    4.8</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); is_converged, mixing=SimpleMixing(), n_bands=30);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
+  1   -8.298586340328                   -0.85    4.2
+  2   -8.300289040293       -2.77       -1.59    1.0
+  3   -8.300461114967       -3.76       -2.67    6.5
+┌ Warning: Eigensolver not converged
+│   iterations =
+│    8-element Vector{Int64}:
+│      35
+│       3
+│       3
+│       2
+│       3
+│       3
+│       3
+│     100
+└ @ DFTK ~/work/DFTK.jl/DFTK.jl/src/scf/self_consistent_field.jl:36
+  4   -8.300444008682   +   -4.77       -2.60   19.0
+  5   -8.300464197387       -4.69       -3.45    2.5
+  6   -8.300464583419       -6.41       -3.92    4.1
+  7   -8.300464643688       -7.22       -4.97    3.2</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); is_converged, mixing=SimpleMixing(), n_bands=30);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -33.32553140191                   -0.56    6.6
-  2   -33.32838111129       -2.55       -1.27    1.0
-  3   -24.63041318470   +    0.94       -0.60    7.5
-  4   -33.21717971330        0.93       -1.50    9.1
-  5   -33.26240221144       -1.34       -1.47    4.4
-  6   -32.54367515319   +   -0.14       -1.11    4.6
-  7   -33.25150078154       -0.15       -1.51    6.8
-  8   -33.33423280028       -1.08       -2.29    3.2
-  9   -33.33426494043       -4.49       -2.30    3.5
- 10   -33.33565220283       -2.86       -2.45    1.6
- 11   -33.33612368141       -3.33       -2.57    1.6
- 12   -33.33689390853       -3.11       -3.12    3.0
- 13   -33.33693446498       -4.39       -3.42    3.9
- 14   -33.33693761076       -5.50       -3.53    2.6
- 15   -33.33693489769   +   -5.57       -3.57    3.5
- 16   -33.33694204775       -5.15       -3.91    3.0
- 17   -33.33694388673       -5.74       -4.60    2.9</code></pre><p>For completion let us note that the more traditional <code>mixing=KerkerMixing()</code> approach would also help in this particular setting to obtain a constant number of SCF iterations for an increasing system size (try it!). In contrast to <code>LdosMixing</code>, however, <code>KerkerMixing</code> is only suitable to model bulk metallic system (like the case we are considering here). When modelling metallic surfaces or mixtures of metals and insulators, <code>KerkerMixing</code> fails, while <code>LdosMixing</code> still works well. See the <a href="../gaas_surface/#Modelling-a-gallium-arsenide-surface">Modelling a gallium arsenide surface</a> example or <sup class="footnote-reference"><a id="citeref-HL2021" href="#footnote-HL2021">[HL2021]</a></sup> for details. Due to the general applicability of <code>LdosMixing</code> this method is the default mixing approach in DFTK.</p><section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-HL2021"><a class="tag is-link" href="#citeref-HL2021">HL2021</a></li></ul></section></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../convergence_study/">« Performing a convergence study</a><a class="docs-footer-nextpage" href="../gaas_surface/">Modelling a gallium arsenide surface »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Saturday 27 August 2022 11:11">Saturday 27 August 2022</span>. Using Julia version 1.8.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  1   -33.32470622977                   -0.56    6.1
+  2   -33.32988322225       -2.29       -1.28    1.0
+  3   -28.20584828618   +    0.71       -0.71    6.4
+  4   -33.07154995021        0.69       -1.34    8.5
+  5   -33.28137934283       -0.68       -1.37    5.4
+  6   -33.30858578927       -1.57       -1.77    3.4
+  7   -32.70008986043   +   -0.22       -1.16    4.9
+  8   -33.33503471828       -0.20       -2.26    4.0
+  9   -33.33382517419   +   -2.92       -2.22    2.2
+ 10   -33.33514092543       -2.88       -2.35    2.1
+ 11   -33.33631815187       -2.93       -2.62    1.6
+ 12   -33.33676809415       -3.35       -2.88    2.6
+ 13   -33.33691450115       -3.83       -3.17    3.5
+ 14   -33.33693452757       -4.70       -3.41    3.0
+ 15   -33.33693798352       -5.46       -3.66    3.9
+ 16   -33.33694386052       -5.23       -4.40    3.0</code></pre><p>For completion let us note that the more traditional <code>mixing=KerkerMixing()</code> approach would also help in this particular setting to obtain a constant number of SCF iterations for an increasing system size (try it!). In contrast to <code>LdosMixing</code>, however, <code>KerkerMixing</code> is only suitable to model bulk metallic system (like the case we are considering here). When modelling metallic surfaces or mixtures of metals and insulators, <code>KerkerMixing</code> fails, while <code>LdosMixing</code> still works well. See the <a href="../gaas_surface/#Modelling-a-gallium-arsenide-surface">Modelling a gallium arsenide surface</a> example or <sup class="footnote-reference"><a id="citeref-HL2021" href="#footnote-HL2021">[HL2021]</a></sup> for details. Due to the general applicability of <code>LdosMixing</code> this method is the default mixing approach in DFTK.</p><section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-HL2021"><a class="tag is-link" href="#citeref-HL2021">HL2021</a></li></ul></section></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../convergence_study/">« Performing a convergence study</a><a class="docs-footer-nextpage" href="../gaas_surface/">Modelling a gallium arsenide surface »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Monday 29 August 2022 10:25">Monday 29 August 2022</span>. Using Julia version 1.8.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
