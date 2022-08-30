@@ -64,9 +64,9 @@ version = "0.16.20"
 
 [[deps.Bravais]]
 deps = ["LinearAlgebra", "StaticArrays"]
-git-tree-sha1 = "b9d3a915c8381988b40ee810357cac1b14d6bb64"
+git-tree-sha1 = "29ed61793a92628240743fd12f84c4571a50e389"
 uuid = "ada6cbde-b013-4edf-aa94-f6abe8bd6e6b"
-version = "0.1.6"
+version = "0.1.7"
 
 [[deps.Brillouin]]
 deps = ["Bravais", "DocStringExtensions", "LinearAlgebra", "PyCall", "Reexport", "Requires", "StaticArrays"]
@@ -128,8 +128,8 @@ version = "1.4.1"
 
 [[deps.DFTK]]
 deps = ["AbstractFFTs", "AtomsBase", "BlockArrays", "Brillouin", "ChainRulesCore", "Conda", "Dates", "DftFunctionals", "FFTW", "ForwardDiff", "InteratomicPotentials", "Interpolations", "IterTools", "IterativeSolvers", "Libxc", "LineSearches", "LinearAlgebra", "LinearMaps", "MPI", "Markdown", "NLsolve", "Optim", "OrderedCollections", "PeriodicTable", "Polynomials", "Primes", "Printf", "ProgressMeter", "PyCall", "Requires", "Roots", "SparseArrays", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TimerOutputs", "Unitful", "UnitfulAtomic", "spglib_jll"]
-git-tree-sha1 = "0863ddc3516afa617a437ff57c90718d333c37a1"
-repo-rev = "2c04d4044e6272e0c51328254564b3baa3c759fb"
+git-tree-sha1 = "099badd46ebf7213730e91a306be3a3d23cf9ccd"
+repo-rev = "8cf0d82aac370d5426c93e7eace4944b18d93ba3"
 repo-url = "https://github.com/JuliaMolSim/DFTK.jl.git"
 uuid = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
 version = "0.5.7"
