@@ -38,17 +38,17 @@ xres = optimize(Optim.only_fg!(fg!), x0, LBFGS(),
 xmin = Optim.minimizer(xres)
 dmin = norm(lattice*xmin[1:3] - lattice*xmin[4:6])
 @printf &quot;\nOptimal bond length for Ecut=%.2f: %.3f Bohr\n&quot; Ecut dmin</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Iter     Function value   Gradient norm
-     0    -1.061651e+00     6.219532e-01
- * time: 7.891654968261719e-5
-     1    -1.064084e+00     2.912729e-01
- * time: 0.9729940891265869
-     2    -1.066008e+00     4.796031e-02
- * time: 1.5009949207305908
-     3    -1.066049e+00     4.019995e-04
- * time: 1.7964770793914795
-     4    -1.066049e+00     4.471083e-06
- * time: 2.054971933364868
-     5    -1.066049e+00     1.645617e-07
- * time: 2.3370139598846436
+     0    -1.061651e+00     6.219702e-01
+ * time: 4.601478576660156e-5
+     1    -1.064136e+00     2.880668e-01
+ * time: 0.755012035369873
+     2    -1.066010e+00     4.677802e-02
+ * time: 1.174010992050171
+     3    -1.066049e+00     3.746827e-04
+ * time: 1.3935940265655518
+     4    -1.066049e+00     4.155281e-06
+ * time: 1.5811331272125244
+     5    -1.066049e+00     1.514810e-07
+ * time: 1.8013360500335693
 
-Optimal bond length for Ecut=5.00: 1.556 Bohr</code></pre><p>We used here very rough parameters to generate the example and setting <code>Ecut</code> to 10 Ha yields a bond length of 1.523 Bohr, which <a href="https://docs.abinit.org/tutorial/base1/">agrees with ABINIT</a>.</p><div class="admonition is-info"><header class="admonition-header">Degrees of freedom</header><div class="admonition-body"><p>We used here a very general setting where we optimized on the 6 variables representing the position of the 2 atoms and it can be easily extended to molecules with more atoms (such as <span>$H_2O$</span>). In the particular case of <span>$H_2$</span>, we could use only the internal degree of freedom which, in this case, is just the bond length.</p></div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../graphene/">« Graphene band structure</a><a class="docs-footer-nextpage" href="../polarizability/">Polarizability by linear response »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Sunday 11 September 2022 12:35">Sunday 11 September 2022</span>. Using Julia version 1.8.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Optimal bond length for Ecut=5.00: 1.556 Bohr</code></pre><p>We used here very rough parameters to generate the example and setting <code>Ecut</code> to 10 Ha yields a bond length of 1.523 Bohr, which <a href="https://docs.abinit.org/tutorial/base1/">agrees with ABINIT</a>.</p><div class="admonition is-info"><header class="admonition-header">Degrees of freedom</header><div class="admonition-body"><p>We used here a very general setting where we optimized on the 6 variables representing the position of the 2 atoms and it can be easily extended to molecules with more atoms (such as <span>$H_2O$</span>). In the particular case of <span>$H_2$</span>, we could use only the internal degree of freedom which, in this case, is just the bond length.</p></div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../graphene/">« Graphene band structure</a><a class="docs-footer-nextpage" href="../polarizability/">Polarizability by linear response »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Monday 12 September 2022 12:18">Monday 12 September 2022</span>. Using Julia version 1.8.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
