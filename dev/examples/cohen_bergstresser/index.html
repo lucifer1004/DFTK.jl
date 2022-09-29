@@ -7,7 +7,7 @@ positions = [ones(3)/8, -ones(3)/8]
 lattice = Si.lattice_constant / 2 .* [[0 1 1.]; [1 0 1.]; [1 1 0.]];</code></pre><p>Next we build the rather simple model and discretize it with moderate <code>Ecut</code>:</p><pre><code class="language-julia hljs">model = Model(lattice, atoms, positions; terms=[Kinetic(), AtomicLocal()])
 basis = PlaneWaveBasis(model, Ecut=10.0, kgrid=(2, 2, 2));</code></pre><p>We diagonalise at the Gamma point to find a Fermi level …</p><pre><code class="language-julia hljs">ham = Hamiltonian(basis)
 eigres = diagonalize_all_kblocks(DFTK.lobpcg_hyper, ham, 6)
-εF = DFTK.compute_occupation(basis, eigres.λ).εF</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">0.4017310500216855</code></pre><p>… and compute and plot 8 bands:</p><pre><code class="language-julia hljs">using Plots
+εF = DFTK.compute_occupation(basis, eigres.λ).εF</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">0.40173105002156584</code></pre><p>… and compute and plot 8 bands:</p><pre><code class="language-julia hljs">using Plots
 using Unitful
 
 p = plot_bandstructure(basis; n_bands=8, εF, kline_density=10, unit=u&quot;eV&quot;)
@@ -133,9 +133,9 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="646.364" cy="1218.16" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="724.195" cy="1233.04" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  257.204,857.085 335.036,909.907 412.868,1009.32 490.7,1102.69 568.532,1174.05 646.364,1218.16 724.195,1233.04 
+  257.204,857.084 335.036,909.907 412.868,1009.32 490.7,1102.69 568.532,1174.05 646.364,1218.16 724.195,1233.04 
   "/>
-<circle clip-path="url(#clip652)" cx="257.204" cy="857.085" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip652)" cx="257.204" cy="857.084" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="335.036" cy="909.907" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="412.868" cy="1009.32" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="490.7" cy="1102.69" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
@@ -143,9 +143,9 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="646.364" cy="1218.16" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="724.195" cy="1233.04" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  257.204,428.748 335.036,481.709 412.868,580.816 490.7,669.691 568.532,729.845 646.364,754.186 724.195,738.424 
+  257.204,428.747 335.036,481.709 412.868,580.816 490.7,669.691 568.532,729.845 646.364,754.186 724.195,738.424 
   "/>
-<circle clip-path="url(#clip652)" cx="257.204" cy="428.748" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip652)" cx="257.204" cy="428.747" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="335.036" cy="481.709" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="412.868" cy="580.816" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="490.7" cy="669.691" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
@@ -153,9 +153,9 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="646.364" cy="754.186" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="724.195" cy="738.424" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  257.204,428.748 335.036,352.285 412.868,251.072 490.7,420.937 568.532,572.65 646.364,678.885 724.195,738.423 
+  257.204,428.747 335.036,352.285 412.868,251.072 490.7,420.937 568.532,572.65 646.364,678.885 724.195,738.423 
   "/>
-<circle clip-path="url(#clip652)" cx="257.204" cy="428.748" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip652)" cx="257.204" cy="428.747" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="335.036" cy="352.285" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="412.868" cy="251.072" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="490.7" cy="420.937" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
@@ -163,15 +163,15 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="646.364" cy="678.885" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="724.195" cy="738.423" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  257.204,428.747 335.036,352.285 412.868,183.24 490.7,-22.4564 568.532,-245.102 646.364,-475.997 724.195,-659.421 
+  257.204,428.747 335.036,352.285 412.868,183.24 490.7,-22.4564 568.532,-245.102 646.364,-475.997 724.195,-659.42 
   "/>
 <circle clip-path="url(#clip652)" cx="257.204" cy="428.747" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="335.036" cy="352.285" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="412.868" cy="183.24" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  257.204,370.57 335.036,279.778 412.868,183.24 490.7,-22.4565 568.532,-245.102 646.364,-475.997 724.195,-659.42 
+  257.204,370.569 335.036,279.778 412.868,183.24 490.7,-22.4565 568.532,-245.102 646.364,-475.997 724.195,-659.42 
   "/>
-<circle clip-path="url(#clip652)" cx="257.204" cy="370.57" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip652)" cx="257.204" cy="370.569" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="335.036" cy="279.778" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="412.868" cy="183.24" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
@@ -208,7 +208,7 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
   724.195,-659.42 806.749,-473.45 889.302,-267.63 
   "/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  724.195,-659.42 806.749,-493.689 889.302,-269.275 
+  724.195,-659.42 806.749,-493.69 889.302,-269.275 
   "/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
   889.302,1955.43 971.855,2053.03 1054.41,2172.78 1136.96,2282.05 1219.51,2365.62 1302.07,2417.35 1384.62,2434.81 
@@ -259,7 +259,7 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="1302.07" cy="409.215" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="1384.62" cy="428.747" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  889.302,-267.629 971.855,-56.7483 1054.41,117.243 1136.96,253.236 1219.51,350.66 1302.07,399.699 1384.62,428.748 
+  889.302,-267.629 971.855,-56.7482 1054.41,117.243 1136.96,253.236 1219.51,350.66 1302.07,399.699 1384.62,428.748 
   "/>
 <circle clip-path="url(#clip652)" cx="1054.41" cy="117.243" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="1136.96" cy="253.236" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
@@ -328,10 +328,10 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="1708.16" cy="345.537" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="1789.05" cy="358.946" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1384.62,370.57 1465.51,237.041 1546.39,-8.01681 1627.28,-165.885 1708.16,-164.86 1789.05,-140.5 
+  1384.62,370.57 1465.51,237.042 1546.39,-8.01684 1627.28,-165.885 1708.16,-164.86 1789.05,-140.5 
   "/>
 <circle clip-path="url(#clip652)" cx="1384.62" cy="370.57" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip652)" cx="1465.51" cy="237.041" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip652)" cx="1465.51" cy="237.042" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
   1789.05,2137.39 1871.6,2119.69 1954.15,2067.4 2036.71,1983.87 2119.26,1879.48 
   "/>
@@ -371,14 +371,14 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="2036.71" cy="306.433" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="2119.26" cy="273.933" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1789.05,358.947 1871.6,275.685 1954.15,17.9328 2036.71,74.8461 2119.26,126.249 
+  1789.05,358.947 1871.6,275.685 1954.15,17.9326 2036.71,74.846 2119.26,126.249 
   "/>
 <circle clip-path="url(#clip652)" cx="1789.05" cy="358.947" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="1871.6" cy="275.685" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip652)" cx="2036.71" cy="74.8461" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip652)" cx="2036.71" cy="74.846" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="2119.26" cy="126.249" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  1789.05,-140.5 1871.6,-256.475 1954.15,-147.416 2036.71,-26.1826 2119.26,126.249 
+  1789.05,-140.5 1871.6,-256.474 1954.15,-147.417 2036.71,-26.1826 2119.26,126.249 
   "/>
 <circle clip-path="url(#clip652)" cx="2119.26" cy="126.249" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
@@ -416,12 +416,12 @@ M257.204 1423.18 L2352.76 1423.18 L2352.76 47.2441 L257.204 47.2441  Z
 <circle clip-path="url(#clip652)" cx="2274.92" cy="657.141" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <circle clip-path="url(#clip652)" cx="2352.76" cy="738.424" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2119.26,126.249 2197.09,-106.319 2274.92,-423.856 2352.76,-659.42 
+  2119.26,126.249 2197.09,-106.319 2274.92,-423.854 2352.76,-659.42 
   "/>
 <circle clip-path="url(#clip652)" cx="2119.26" cy="126.249" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 <polyline clip-path="url(#clip652)" style="stroke:#0000ff; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
-  2119.26,126.249 2197.09,-106.32 2274.92,-423.856 2352.76,-659.422 
+  2119.26,126.249 2197.09,-106.32 2274.92,-423.856 2352.76,-659.421 
   "/>
 <circle clip-path="url(#clip652)" cx="2119.26" cy="126.249" r="7.2" fill="#0000ff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 </svg>
-<section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-CB1966"><a class="tag is-link" href="#citeref-CB1966">CB1966</a>M. L. Cohen and T. K. Bergstresser Phys. Rev. <strong>141</strong>, 789 (1966) DOI <a href="https://doi.org/10.1103/PhysRev.141.789">10.1103/PhysRev.141.789</a></li></ul></section></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../custom_potential/">« Custom potential</a><a class="docs-footer-nextpage" href="../anyons/">Anyonic models »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Thursday 29 September 2022 21:28">Thursday 29 September 2022</span>. Using Julia version 1.8.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+<section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-CB1966"><a class="tag is-link" href="#citeref-CB1966">CB1966</a>M. L. Cohen and T. K. Bergstresser Phys. Rev. <strong>141</strong>, 789 (1966) DOI <a href="https://doi.org/10.1103/PhysRev.141.789">10.1103/PhysRev.141.789</a></li></ul></section></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../custom_potential/">« Custom potential</a><a class="docs-footer-nextpage" href="../anyons/">Anyonic models »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Thursday 29 September 2022 22:55">Thursday 29 September 2022</span>. Using Julia version 1.8.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
