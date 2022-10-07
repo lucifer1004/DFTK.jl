@@ -20,84 +20,86 @@ model = model_LDA(lattice, atoms, positions, symmetries=false)
 basis = PlaneWaveBasis(model; Ecut, kgrid)
 scfres = self_consistent_field(basis, tol=1e-14);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -7.236229110395                   -0.50    8.0
-  2   -7.250228327452       -1.85       -1.38    1.0
-  3   -7.250908054843       -3.17       -1.80    3.0
-  4   -7.250969020037       -4.21       -1.88    2.0
-  5   -7.251329106758       -3.44       -2.61    2.0
-  6   -7.251338185444       -5.04       -3.13    2.0
-  7   -7.251338787470       -6.22       -4.05    1.0
-  8   -7.251338798579       -7.95       -4.53    3.0
-  9   -7.251338798694       -9.94       -5.17    2.0
- 10   -7.251338798700      -11.26       -5.70    3.0
- 11   -7.251338798704      -11.35       -6.40    2.0
- 12   -7.251338798704      -12.94       -6.69    3.0
- 13   -7.251338798705      -13.39       -7.38    3.0
- 14   -7.251338798705      -15.05       -7.75    3.0</code></pre><p>Applying <span>$ε^† ≔ (1- χ_0 K)$</span> …</p><pre><code class="language-julia hljs">function eps_fun(δρ)
+  1   -7.234521711295                   -0.50    7.0
+  2   -7.250082688794       -1.81       -1.40    1.0
+  3   -7.251285577571       -2.92       -2.05    4.0
+  4   -7.251214710988   +   -4.15       -2.10    4.0
+  5   -7.251319438850       -3.98       -2.52    3.0
+  6   -7.251337735363       -4.74       -3.08    2.0
+  7   -7.251338750633       -5.99       -3.89    1.0
+  8   -7.251338786177       -7.45       -4.00    4.0
+  9   -7.251338797305       -7.95       -4.43    3.0
+ 10   -7.251338798425       -8.95       -4.86    2.0
+ 11   -7.251338798699       -9.56       -5.62    3.0
+ 12   -7.251338798704      -11.25       -6.19    3.0
+ 13   -7.251338798704      -12.76       -6.53    3.0
+ 14   -7.251338798705      -13.15       -7.04    2.0
+ 15   -7.251338798705      -13.94       -7.65    3.0
+ 16   -7.251338798705   +  -14.45       -8.27    2.0</code></pre><p>Applying <span>$ε^† ≔ (1- χ_0 K)$</span> …</p><pre><code class="language-julia hljs">function eps_fun(δρ)
     δV = apply_kernel(basis, δρ; ρ=scfres.ρ)
     χ0δV = apply_χ0(scfres, δV)
     δρ - χ0δV
-end;</code></pre><p>… eagerly diagonalizes the subspace matrix at each iteration</p><pre><code class="language-julia hljs">eigsolve(eps_fun, randn(size(scfres.ρ)), 5, :LM; eager=true, verbosity=3);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">[ Info: Arnoldi iteration step 1: normres = 0.05291784653169596
-[ Info: Arnoldi iteration step 2: normres = 0.6620322076887305
-[ Info: Arnoldi iteration step 3: normres = 0.7531966845489513
-[ Info: Arnoldi iteration step 4: normres = 0.25620753888502057
-[ Info: Arnoldi iteration step 5: normres = 0.49652590593433543
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 5: 0 values converged, normres = (2.11e-02, 8.04e-02, 3.98e-01, 2.85e-01, 1.17e-02)
-[ Info: Arnoldi iteration step 6: normres = 0.3363603437638647
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 6: 0 values converged, normres = (6.00e-03, 1.52e-01, 2.59e-01, 1.02e-01, 1.09e-01)
-[ Info: Arnoldi iteration step 7: normres = 0.05739708912699746
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 7: 0 values converged, normres = (1.72e-04, 1.03e-02, 1.07e-02, 2.72e-02, 4.19e-02)
-[ Info: Arnoldi iteration step 8: normres = 0.09105952453023546
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 8: 0 values converged, normres = (6.68e-06, 6.54e-04, 7.59e-04, 7.31e-03, 2.46e-02)
-[ Info: Arnoldi iteration step 9: normres = 0.054227302061263555
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 9: 0 values converged, normres = (1.54e-07, 2.46e-05, 3.16e-05, 1.19e-03, 1.17e-02)
-[ Info: Arnoldi iteration step 10: normres = 0.0897084696653236
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 10: 0 values converged, normres = (5.95e-09, 1.56e-06, 2.22e-06, 3.29e-04, 8.86e-03)
-[ Info: Arnoldi iteration step 11: normres = 0.09269270668736768
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 11: 0 values converged, normres = (2.39e-10, 1.03e-07, 1.63e-07, 1.03e-04, 1.37e-02)
-[ Info: Arnoldi iteration step 12: normres = 0.10100882363629261
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 12: 0 values converged, normres = (1.07e-11, 7.71e-09, 1.36e-08, 4.31e-05, 6.40e-02)
-[ Info: Arnoldi iteration step 13: normres = 0.051130630928807874
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 13: 1 values converged, normres = (2.33e-13, 2.75e-10, 5.39e-10, 7.24e-06, 1.78e-02)
-[ Info: Arnoldi iteration step 14: normres = 0.7410871986587769
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 14: 1 values converged, normres = (1.02e-13, 2.59e-10, 6.17e-10, 7.35e-01, 4.03e-03)
-[ Info: Arnoldi iteration step 15: normres = 0.0816896372796976
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 15: 1 values converged, normres = (6.23e-15, 4.37e-10, 5.79e-02, 4.07e-04, 2.33e-05)
-[ Info: Arnoldi iteration step 16: normres = 0.4882338352139813
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 16: 1 values converged, normres = (2.48e-15, 1.16e-09, 8.91e-02, 2.55e-03, 4.77e-01)
-[ Info: Arnoldi iteration step 17: normres = 0.035452729052736345
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 17: 1 values converged, normres = (4.38e-17, 8.57e-09, 5.24e-03, 4.81e-06, 1.24e-02)
-[ Info: Arnoldi iteration step 18: normres = 0.022509920016825072
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 18: 1 values converged, normres = (4.09e-19, 5.08e-05, 5.97e-05, 1.44e-04, 1.45e-04)
-[ Info: Arnoldi iteration step 19: normres = 0.24959254101456085
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 19: 1 values converged, normres = (4.53e-20, 8.27e-09, 1.45e-05, 1.12e-08, 4.22e-05)
-[ Info: Arnoldi iteration step 20: normres = 0.04327605338665584
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 20: 1 values converged, normres = (9.13e-22, 2.86e-07, 4.24e-07, 2.83e-07, 1.66e-06)
-[ Info: Arnoldi iteration step 21: normres = 0.02769882453299564
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 21: 1 values converged, normres = (1.05e-23, 8.31e-09, 4.59e-09, 2.33e-08, 2.55e-08)
-[ Info: Arnoldi iteration step 22: normres = 0.019386888609227014
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 22: 1 values converged, normres = (8.39e-26, 1.15e-10, 3.43e-11, 4.62e-10, 1.38e-10)
-[ Info: Arnoldi iteration step 23: normres = 0.5045378607858247
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 23: 1 values converged, normres = (1.91e-26, 4.44e-11, 1.35e-11, 2.00e-10, 5.81e-11)
-[ Info: Arnoldi iteration step 24: normres = 0.034546265169714666
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 24: 1 values converged, normres = (5.72e-28, 9.32e-12, 2.81e-12, 6.41e-09, 8.31e-09)
-[ Info: Arnoldi iteration step 25: normres = 0.06709377387787141
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 25: 3 values converged, normres = (1.58e-29, 4.13e-13, 1.25e-13, 3.97e-08, 7.82e-08)
-[ Info: Arnoldi iteration step 26: normres = 0.05206039051992359
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 26: 3 values converged, normres = (3.71e-31, 1.64e-14, 4.94e-15, 2.35e-05, 4.17e-05)
-[ Info: Arnoldi iteration step 27: normres = 0.026967620863644726
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 27: 3 values converged, normres = (4.12e-33, 2.91e-16, 8.77e-17, 4.74e-09, 2.52e-09)
-[ Info: Arnoldi iteration step 28: normres = 0.09966090839848966
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 28: 3 values converged, normres = (1.77e-34, 2.05e-17, 6.17e-18, 4.88e-09, 5.16e-08)
-[ Info: Arnoldi iteration step 29: normres = 0.07038247245385001
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 29: 3 values converged, normres = (5.31e-36, 1.01e-18, 3.04e-19, 5.38e-09, 6.17e-10)
-[ Info: Arnoldi iteration step 30: normres = 0.0932980268402798
-[ Info: Arnoldi schursolve in iter 1, krylovdim = 30: 3 values converged, normres = (2.46e-37, 8.42e-20, 2.54e-20, 5.20e-10, 8.49e-11)
-[ Info: Arnoldi schursolve in iter 2, krylovdim = 19: 3 values converged, normres = (2.46e-37, 8.42e-20, 2.54e-20, 5.20e-10, 8.49e-11)
-[ Info: Arnoldi iteration step 20: normres = 0.07230884718010393
-[ Info: Arnoldi schursolve in iter 2, krylovdim = 20: 3 values converged, normres = (7.43e-39, 4.11e-21, 1.24e-21, 2.78e-11, 5.12e-12)
-[ Info: Arnoldi iteration step 21: normres = 0.03367228904916369
+end;</code></pre><p>… eagerly diagonalizes the subspace matrix at each iteration</p><pre><code class="language-julia hljs">eigsolve(eps_fun, randn(size(scfres.ρ)), 5, :LM; eager=true, verbosity=3);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">[ Info: Arnoldi iteration step 1: normres = 0.037195586415705036
+[ Info: Arnoldi iteration step 2: normres = 0.7644151056163245
+[ Info: Arnoldi iteration step 3: normres = 0.794833849840919
+[ Info: Arnoldi iteration step 4: normres = 0.3270517015518059
+[ Info: Arnoldi iteration step 5: normres = 0.3900081333233617
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 5: 0 values converged, normres = (3.20e-02, 7.93e-02, 3.03e-01, 2.30e-01, 1.81e-02)
+[ Info: Arnoldi iteration step 6: normres = 0.43570029922301845
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 6: 0 values converged, normres = (1.15e-02, 1.52e-01, 3.72e-01, 1.09e-01, 8.83e-02)
+[ Info: Arnoldi iteration step 7: normres = 0.07924895447130156
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 7: 0 values converged, normres = (5.02e-04, 2.09e-02, 2.20e-02, 5.27e-02, 4.39e-02)
+[ Info: Arnoldi iteration step 8: normres = 0.11328230945508948
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 8: 0 values converged, normres = (2.44e-05, 1.67e-03, 1.93e-03, 1.77e-02, 2.92e-02)
+[ Info: Arnoldi iteration step 9: normres = 0.09198222121183691
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 9: 0 values converged, normres = (9.89e-07, 1.13e-04, 1.46e-04, 6.70e-03, 4.32e-02)
+[ Info: Arnoldi iteration step 10: normres = 0.07733788871831432
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 10: 0 values converged, normres = (3.34e-08, 6.31e-06, 9.08e-06, 1.91e-03, 3.03e-02)
+[ Info: Arnoldi iteration step 11: normres = 0.0700315216354918
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 11: 0 values converged, normres = (9.98e-10, 3.09e-07, 4.92e-07, 4.11e-04, 1.26e-02)
+[ Info: Arnoldi iteration step 12: normres = 0.07372538844273734
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 12: 0 values converged, normres = (3.12e-11, 1.57e-08, 2.77e-08, 8.51e-05, 4.55e-03)
+[ Info: Arnoldi iteration step 13: normres = 0.064733094598543
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 13: 1 values converged, normres = (8.70e-13, 7.18e-10, 1.41e-09, 1.76e-05, 1.91e-03)
+[ Info: Arnoldi iteration step 14: normres = 0.6860600295055869
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 14: 1 values converged, normres = (3.96e-13, 8.24e-10, 2.11e-09, 6.83e-01, 1.94e-02)
+[ Info: Arnoldi iteration step 15: normres = 0.09665575081785638
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 15: 1 values converged, normres = (2.33e-14, 2.73e-10, 5.75e-02, 2.17e-03, 7.07e-06)
+[ Info: Arnoldi iteration step 16: normres = 0.43422205603889924
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 16: 1 values converged, normres = (9.24e-15, 7.61e-10, 2.00e-01, 2.06e-02, 3.84e-01)
+[ Info: Arnoldi iteration step 17: normres = 0.02948723398807963
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 17: 1 values converged, normres = (1.33e-16, 3.25e-03, 7.55e-03, 2.77e-03, 3.25e-03)
+[ Info: Arnoldi iteration step 18: normres = 0.015729690449678486
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 18: 1 values converged, normres = (8.63e-19, 6.25e-05, 5.78e-05, 3.77e-05, 3.10e-05)
+[ Info: Arnoldi iteration step 19: normres = 0.19034600364860507
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 19: 1 values converged, normres = (7.00e-20, 1.25e-08, 1.12e-05, 3.78e-08, 7.14e-06)
+[ Info: Arnoldi iteration step 20: normres = 0.031940548852880106
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 20: 1 values converged, normres = (1.07e-21, 4.09e-08, 3.06e-07, 2.04e-07, 9.03e-08)
+[ Info: Arnoldi iteration step 21: normres = 0.03022130037811963
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 21: 1 values converged, normres = (1.34e-23, 2.05e-09, 5.77e-09, 3.49e-09, 3.41e-09)
+[ Info: Arnoldi iteration step 22: normres = 0.06221589383146162
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 22: 1 values converged, normres = (3.46e-25, 8.17e-11, 2.41e-10, 1.62e-10, 1.54e-10)
+[ Info: Arnoldi iteration step 23: normres = 0.6118298936323538
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 23: 1 values converged, normres = (1.49e-25, 9.73e-11, 2.85e-10, 2.62e-10, 2.50e-10)
+[ Info: Arnoldi iteration step 24: normres = 0.019103770644658954
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 24: 1 values converged, normres = (1.59e-27, 4.48e-12, 1.32e-11, 4.41e-09, 3.10e-09)
+[ Info: Arnoldi iteration step 25: normres = 0.10366940396108086
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 25: 3 values converged, normres = (6.92e-29, 3.16e-13, 9.30e-13, 3.46e-04, 2.08e-04)
+[ Info: Arnoldi iteration step 26: normres = 0.02897839344215241
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 26: 3 values converged, normres = (8.92e-31, 6.84e-15, 2.01e-14, 1.21e-05, 9.46e-06)
+[ Info: Arnoldi iteration step 27: normres = 0.018159860395664106
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 27: 3 values converged, normres = (6.63e-33, 8.09e-17, 2.38e-16, 5.35e-09, 6.59e-09)
+[ Info: Arnoldi iteration step 28: normres = 0.08449384588066679
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 28: 3 values converged, normres = (2.35e-34, 4.62e-18, 1.36e-17, 6.27e-09, 7.71e-09)
+[ Info: Arnoldi iteration step 29: normres = 0.056280245457520174
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 29: 3 values converged, normres = (5.81e-36, 1.90e-19, 5.60e-19, 7.35e-11, 6.40e-10)
+[ Info: Arnoldi iteration step 30: normres = 0.15976106414380453
+[ Info: Arnoldi schursolve in iter 1, krylovdim = 30: 3 values converged, normres = (4.49e-37, 2.62e-20, 7.73e-20, 4.05e-12, 1.00e-10)
+[ Info: Arnoldi schursolve in iter 2, krylovdim = 19: 3 values converged, normres = (4.49e-37, 2.62e-20, 7.73e-20, 4.05e-12, 1.00e-10)
+[ Info: Arnoldi iteration step 20: normres = 0.032449258681348375
+[ Info: Arnoldi schursolve in iter 2, krylovdim = 20: 3 values converged, normres = (6.16e-39, 5.87e-22, 1.73e-21, 1.41e-13, 2.48e-12)
+[ Info: Arnoldi iteration step 21: normres = 0.06951542372049982
 ┌ Info: Arnoldi eigsolve finished after 2 iterations:
 │ *  6 eigenvalues converged
-│ *  norm of residuals = (1.076655685064944e-40, 9.773305353651901e-23, 4.612681183301276e-23, 7.334755836122467e-13, 1.2519081752164513e-13, 2.0314696552537828e-14)
-└ *  number of operations = 32</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../forwarddiff/">« Polarizability using automatic differentiation</a><a class="docs-footer-nextpage" href="../atomsbase/">AtomsBase integration »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Wednesday 5 October 2022 14:30">Wednesday 5 October 2022</span>. Using Julia version 1.8.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+│ *  norm of residuals = (1.830165673774055e-40, 2.843196920932368e-23, 8.717411393950112e-23, 7.646091021123639e-14, 7.646091021123639e-14, 1.563158296856283e-14)
+└ *  number of operations = 32</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../forwarddiff/">« Polarizability using automatic differentiation</a><a class="docs-footer-nextpage" href="../atomsbase/">AtomsBase integration »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Friday 7 October 2022 13:44">Friday 7 October 2022</span>. Using Julia version 1.8.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
