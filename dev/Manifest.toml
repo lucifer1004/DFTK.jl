@@ -75,9 +75,9 @@ uuid = "9e997f8a-9a97-42d5-a9f1-ce6bfc15e2c0"
 version = "0.1.4"
 
 [[deps.CommonSolve]]
-git-tree-sha1 = "332a332c97c7071600984b3c31d9067e1a4e6e25"
+git-tree-sha1 = "9441451ee712d1aec22edad62db1a9af3dc8d852"
 uuid = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
-version = "0.2.1"
+version = "0.2.3"
 
 [[deps.CommonSubexpressions]]
 deps = ["MacroTools", "Test"]
@@ -116,8 +116,8 @@ version = "1.4.1"
 
 [[deps.DFTK]]
 deps = ["AbstractFFTs", "AtomsBase", "Brillouin", "ChainRulesCore", "Conda", "Dates", "DftFunctionals", "Downloads", "FFTW", "ForwardDiff", "GPUArraysCore", "InteratomicPotentials", "Interpolations", "IterTools", "IterativeSolvers", "Libxc", "LineSearches", "LinearAlgebra", "LinearMaps", "MPI", "Markdown", "NLsolve", "Optim", "OrderedCollections", "PeriodicTable", "Polynomials", "Primes", "Printf", "ProgressMeter", "PseudoPotentialIO", "PyCall", "Requires", "Roots", "SparseArrays", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TimerOutputs", "Unitful", "UnitfulAtomic", "spglib_jll"]
-git-tree-sha1 = "e93a4738e8d46e6c780ba79c7609af1fb271b227"
-repo-rev = "622c862e294b20a41083510e5ba4b830c93a7d54"
+git-tree-sha1 = "9f1aa9efe3aac9b85d61f842e3a61e810ab7de0b"
+repo-rev = "5f24d3dbde5aa71f4c3367f0ba5558fefd22dada"
 repo-url = "https://github.com/JuliaMolSim/DFTK.jl.git"
 uuid = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
 version = "0.5.12"
