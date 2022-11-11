@@ -116,16 +116,16 @@ version = "1.4.1"
 
 [[deps.DFTK]]
 deps = ["AbstractFFTs", "AtomsBase", "Brillouin", "ChainRulesCore", "Conda", "Dates", "DftFunctionals", "Downloads", "FFTW", "ForwardDiff", "GPUArraysCore", "InteratomicPotentials", "Interpolations", "IterTools", "IterativeSolvers", "Libxc", "LineSearches", "LinearAlgebra", "LinearMaps", "MPI", "Markdown", "NLsolve", "Optim", "OrderedCollections", "PeriodicTable", "Polynomials", "Primes", "Printf", "ProgressMeter", "PseudoPotentialIO", "PyCall", "Requires", "Roots", "SparseArrays", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TimerOutputs", "Unitful", "UnitfulAtomic", "spglib_jll"]
-git-tree-sha1 = "16be6cd529683d393fdfd045ba8f445bf7676bca"
-repo-rev = "d770b7ac77e05e954a62b5782c6a955a86ca9f8b"
+git-tree-sha1 = "213b4394d8ad6530e3744f46c3307d04da879f29"
+repo-rev = "d59776ba9218a9283bca4a2a171a7e08f3fe5bf1"
 repo-url = "https://github.com/JuliaMolSim/DFTK.jl.git"
 uuid = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
 version = "0.5.14"
 
 [[deps.DataAPI]]
-git-tree-sha1 = "46d2680e618f8abd007bce0c3026cb0c4a8f2032"
+git-tree-sha1 = "e08915633fcb3ea83bf9d6126292e5bc5c739922"
 uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
-version = "1.12.0"
+version = "1.13.0"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
@@ -151,9 +151,9 @@ version = "1.1.0"
 
 [[deps.DiffRules]]
 deps = ["IrrationalConstants", "LogExpFunctions", "NaNMath", "Random", "SpecialFunctions"]
-git-tree-sha1 = "8b7a4d23e22f5d44883671da70865ca98f2ebf9d"
+git-tree-sha1 = "9a95659c283c9018ea99e017aa9e13b7e89fadd2"
 uuid = "b552c78f-8df3-52c6-915a-8e097449b14b"
-version = "1.12.0"
+version = "1.12.1"
 
 [[deps.Distances]]
 deps = ["LinearAlgebra", "SparseArrays", "Statistics", "StatsAPI"]
@@ -216,9 +216,9 @@ version = "2.16.0"
 
 [[deps.ForwardDiff]]
 deps = ["CommonSubexpressions", "DiffResults", "DiffRules", "LinearAlgebra", "LogExpFunctions", "NaNMath", "Preferences", "Printf", "Random", "SpecialFunctions", "StaticArrays"]
-git-tree-sha1 = "187198a4ed8ccd7b5d99c41b69c679269ea2b2d4"
+git-tree-sha1 = "10fa12fe96e4d76acfa738f4df2126589a67374f"
 uuid = "f6369f11-7733-5829-9624-2563aa707210"
-version = "0.10.32"
+version = "0.10.33"
 
 [[deps.Future]]
 deps = ["Random"]
@@ -379,9 +379,9 @@ version = "2022.2.0+0"
 
 [[deps.MPI]]
 deps = ["Distributed", "DocStringExtensions", "Libdl", "MPICH_jll", "MPIPreferences", "MPItrampoline_jll", "MicrosoftMPI_jll", "OpenMPI_jll", "Requires", "Serialization", "Sockets"]
-git-tree-sha1 = "067fd6ff731c8b414b5c1f3de723d8aed3b4198f"
+git-tree-sha1 = "649b1c447a6c737d3bec80d0b72ccb7aba82310d"
 uuid = "da04e1cc-30fd-572f-bb4f-1f8673147195"
-version = "0.20.3"
+version = "0.20.4"
 
 [[deps.MPICH_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "MPIPreferences", "Pkg", "TOML"]
@@ -651,9 +651,9 @@ version = "2.1.7"
 
 [[deps.Spglib]]
 deps = ["StaticArrays", "StructHelpers", "spglib_jll"]
-git-tree-sha1 = "590f4019b6e83f81a92e1de974c6558c6ec045f4"
+git-tree-sha1 = "87703eb94ec7789bf26a746650fde28515ee920d"
 uuid = "f761d5c5-86db-4880-b97f-9680a7cccfb5"
-version = "0.6.0"
+version = "0.6.1"
 
 [[deps.Static]]
 deps = ["IfElse"]
@@ -690,9 +690,9 @@ version = "0.33.21"
 
 [[deps.StructHelpers]]
 deps = ["ConstructionBase"]
-git-tree-sha1 = "273c1f491dd971f43715ae9c6a5a780b8435dbaf"
+git-tree-sha1 = "ed6f808cf6c794d39af147bfec20ca8b052bdf8b"
 uuid = "4093c41a-2008-41fd-82b8-e3f9d02b504f"
-version = "0.1.4"
+version = "0.1.5"
 
 [[deps.SuiteSparse]]
 deps = ["Libdl", "LinearAlgebra", "Serialization", "SparseArrays"]
@@ -714,9 +714,9 @@ uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.TimerOutputs]]
 deps = ["ExprTools", "Printf"]
-git-tree-sha1 = "9dfcb767e17b0849d6aaf85997c98a5aea292513"
+git-tree-sha1 = "f2fd3f288dfc6f507b0c3a2eb3bac009251e548b"
 uuid = "a759f4b9-e2f1-59dc-863e-4aeb61b1ea8f"
-version = "0.5.21"
+version = "0.5.22"
 
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
