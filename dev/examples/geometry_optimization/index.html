@@ -35,17 +35,17 @@ xres = optimize(Optim.only_fg!(fg!), x0, LBFGS(),
 xmin = Optim.minimizer(xres)
 dmin = norm(lattice*xmin[1:3] - lattice*xmin[4:6])
 @printf &quot;\nOptimal bond length for Ecut=%.2f: %.3f Bohr\n&quot; Ecut dmin</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Iter     Function value   Gradient norm
-     0    -1.061651e+00     6.219502e-01
- * time: 8.20159912109375e-5
-     1    -1.064078e+00     2.916291e-01
- * time: 0.959758996963501
-     2    -1.066008e+00     4.809011e-02
- * time: 1.6810400485992432
-     3    -1.066049e+00     4.050390e-04
- * time: 2.015054941177368
-     4    -1.066049e+00     4.506505e-06
- * time: 2.2554190158843994
-     5    -1.066049e+00     1.660709e-07
- * time: 2.7101879119873047
+     0    -1.061651e+00     6.219292e-01
+ * time: 9.799003601074219e-5
+     1    -1.064044e+00     2.937276e-01
+ * time: 0.8072190284729004
+     2    -1.066007e+00     4.887536e-02
+ * time: 1.4370200634002686
+     3    -1.066049e+00     4.239710e-04
+ * time: 1.7298500537872314
+     4    -1.066049e+00     4.728245e-06
+ * time: 1.9564640522003174
+     5    -1.066049e+00     1.756778e-07
+ * time: 2.3332161903381348
 
-Optimal bond length for Ecut=5.00: 1.556 Bohr</code></pre><p>We used here very rough parameters to generate the example and setting <code>Ecut</code> to 10 Ha yields a bond length of 1.523 Bohr, which <a href="https://docs.abinit.org/tutorial/base1/">agrees with ABINIT</a>.</p><div class="admonition is-info"><header class="admonition-header">Degrees of freedom</header><div class="admonition-body"><p>We used here a very general setting where we optimized on the 6 variables representing the position of the 2 atoms and it can be easily extended to molecules with more atoms (such as <span>$H_2O$</span>). In the particular case of <span>$H_2$</span>, we could use only the internal degree of freedom which, in this case, is just the bond length.</p></div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../graphene/">« Graphene band structure</a><a class="docs-footer-nextpage" href="../energy_cutoff_smearing/">Energy cutoff smearing »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Tuesday 15 November 2022 16:28">Tuesday 15 November 2022</span>. Using Julia version 1.8.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Optimal bond length for Ecut=5.00: 1.556 Bohr</code></pre><p>We used here very rough parameters to generate the example and setting <code>Ecut</code> to 10 Ha yields a bond length of 1.523 Bohr, which <a href="https://docs.abinit.org/tutorial/base1/">agrees with ABINIT</a>.</p><div class="admonition is-info"><header class="admonition-header">Degrees of freedom</header><div class="admonition-body"><p>We used here a very general setting where we optimized on the 6 variables representing the position of the 2 atoms and it can be easily extended to molecules with more atoms (such as <span>$H_2O$</span>). In the particular case of <span>$H_2$</span>, we could use only the internal degree of freedom which, in this case, is just the bond length.</p></div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../graphene/">« Graphene band structure</a><a class="docs-footer-nextpage" href="../energy_cutoff_smearing/">Energy cutoff smearing »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Monday 21 November 2022 18:41">Monday 21 November 2022</span>. Using Julia version 1.8.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
