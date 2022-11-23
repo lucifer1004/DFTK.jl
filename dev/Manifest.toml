@@ -116,11 +116,11 @@ version = "1.4.1"
 
 [[deps.DFTK]]
 deps = ["AbstractFFTs", "AtomsBase", "Brillouin", "ChainRulesCore", "Conda", "Dates", "DftFunctionals", "Downloads", "FFTW", "ForwardDiff", "GPUArraysCore", "InteratomicPotentials", "Interpolations", "IterTools", "IterativeSolvers", "Libxc", "LineSearches", "LinearAlgebra", "LinearMaps", "MPI", "Markdown", "NLsolve", "Optim", "OrderedCollections", "PeriodicTable", "Polynomials", "Primes", "Printf", "ProgressMeter", "PseudoPotentialIO", "PyCall", "Random", "Requires", "Roots", "SparseArrays", "SpecialFunctions", "Spglib", "StaticArrays", "Statistics", "TimerOutputs", "Unitful", "UnitfulAtomic", "spglib_jll"]
-git-tree-sha1 = "9003f75ecba0a9427a5d2295f9811c4395a73b60"
-repo-rev = "480afcffbde0e56b90920f0a807c6732d29aba12"
+git-tree-sha1 = "9870bd0e02066843568fa1125bf4c74ca22785a5"
+repo-rev = "991b72071e06301ee0fce67f6e0a0a9ebd64750e"
 repo-url = "https://github.com/JuliaMolSim/DFTK.jl.git"
 uuid = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
-version = "0.5.14"
+version = "0.5.15"
 
 [[deps.DataAPI]]
 git-tree-sha1 = "e08915633fcb3ea83bf9d6126292e5bc5c739922"
@@ -336,9 +336,9 @@ version = "1.16.1+1"
 
 [[deps.Libxc]]
 deps = ["Libxc_jll"]
-git-tree-sha1 = "d59a33e9caaf0d6716dd5ca38834f54402cb306e"
+git-tree-sha1 = "84e27ac329c82e30d45718d579a0a6a78b4ec647"
 uuid = "66e17ffc-8502-11e9-23b5-c9248d0eb96d"
-version = "0.3.11"
+version = "0.3.12"
 
 [[deps.Libxc_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Pkg"]
