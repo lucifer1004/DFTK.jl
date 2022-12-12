@@ -49,15 +49,15 @@ end</code></pre><p>That&#39;s it! Now we just run the SCF with these solvers</p>
                                eigensolver=my_eig_solver,
                                mixing=MyMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag
 ---   ---------------   ---------   ---------   ----
-  1   -7.232782002284                   -0.49    0.0
-  2   -7.249111689545       -1.79       -0.91    0.0
-  3   -7.251144907752       -2.69       -1.33    0.0
-  4   -7.251289311323       -3.84       -1.64    0.0
-  5   -7.251325836067       -4.44       -1.95    0.0
-  6   -7.251335255745       -5.03       -2.24    0.0
-  7   -7.251337780770       -5.60       -2.53    0.0
-  8   -7.251338491247       -6.15       -2.82    0.0
-  9   -7.251338701588       -6.68       -3.09    0.0
- 10   -7.251338766877       -7.19       -3.35    0.0
- 11   -7.251338787973       -7.68       -3.61    0.0
- 12   -7.251338795010       -8.15       -3.86    0.0</code></pre><p>Note that the default convergence criterion is on the difference of energy from one step to the other; when this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Tuesday 6 December 2022 10:48">Tuesday 6 December 2022</span>. Using Julia version 1.8.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  1   -7.236308057028                   -0.50    0.0
+  2   -7.249669433386       -1.87       -0.92    0.0
+  3   -7.251178305851       -2.82       -1.34    0.0
+  4   -7.251296705669       -3.93       -1.65    0.0
+  5   -7.251327480894       -4.51       -1.95    0.0
+  6   -7.251335631771       -5.09       -2.25    0.0
+  7   -7.251337870333       -5.65       -2.54    0.0
+  8   -7.251338513665       -6.19       -2.83    0.0
+  9   -7.251338707510       -6.71       -3.10    0.0
+ 10   -7.251338768529       -7.21       -3.36    0.0
+ 11   -7.251338788458       -7.70       -3.62    0.0
+ 12   -7.251338795158       -8.17       -3.87    0.0</code></pre><p>Note that the default convergence criterion is on the difference of energy from one step to the other; when this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Monday 12 December 2022 14:16">Monday 12 December 2022</span>. Using Julia version 1.8.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
