@@ -15,19 +15,20 @@ model  = model_LDA(system; temperature=1e-3)
 basis  = PlaneWaveBasis(model; Ecut=15, kgrid=[4, 4, 4])
 scfres = self_consistent_field(basis, tol=1e-8);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.921677052310                   -0.69    5.9
-  2   -7.926159463854       -2.35       -1.22    1.0    234ms
-  3   -7.926837966154       -3.17       -2.37    1.8    257ms
-  4   -7.926861484503       -4.63       -3.06    2.6    292ms
-  5   -7.926861649162       -6.78       -3.46    1.9    241ms
-  6   -7.926861672917       -7.62       -3.89    1.9    240ms
-  7   -7.926861679972       -8.15       -4.24    1.1    219ms
-  8   -7.926861681605       -8.79       -4.66    1.9    258ms
-  9   -7.926861681854       -9.60       -5.28    2.0    243ms
- 10   -7.926861681870      -10.80       -5.71    2.2    255ms
- 11   -7.926861681873      -11.66       -6.70    1.5    230ms
- 12   -7.926861681873      -13.16       -7.43    2.6    288ms
- 13   -7.926861681873      -14.57       -8.00    2.5    259ms</code></pre><p>If we did not want to use ASE we could of course use any other package which yields an AbstractSystem object. This includes:</p><h3 id="Reading-a-system-using-AtomsIO"><a class="docs-heading-anchor" href="#Reading-a-system-using-AtomsIO">Reading a system using AtomsIO</a><a id="Reading-a-system-using-AtomsIO-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-a-system-using-AtomsIO" title="Permalink"></a></h3><pre><code class="language-julia hljs">using AtomsIO
+  1   -7.921646274092                   -0.69    6.0
+  2   -7.926160565045       -2.35       -1.22    1.0    360ms
+  3   -7.926837249544       -3.17       -2.37    1.9    457ms
+  4   -7.926861497653       -4.62       -3.03    2.4    385ms
+  5   -7.926861634105       -6.87       -3.36    1.9    339ms
+  6   -7.926861665512       -7.50       -3.71    1.6    334ms
+  7   -7.926861680363       -7.83       -4.34    1.2    315ms
+  8   -7.926861681751       -8.86       -4.79    2.2    368ms
+  9   -7.926861681857       -9.97       -5.23    1.2    411ms
+ 10   -7.926861681872      -10.85       -5.93    2.0    355ms
+ 11   -7.926861681873      -11.99       -6.47    2.0    368ms
+ 12   -7.926861681873      -13.14       -7.23    2.0    368ms
+ 13   -7.926861681873      -14.45       -7.90    2.4    379ms
+ 14   -7.926861681873   +  -15.05       -8.23    2.6    390ms</code></pre><p>If we did not want to use ASE we could of course use any other package which yields an AbstractSystem object. This includes:</p><h3 id="Reading-a-system-using-AtomsIO"><a class="docs-heading-anchor" href="#Reading-a-system-using-AtomsIO">Reading a system using AtomsIO</a><a id="Reading-a-system-using-AtomsIO-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-a-system-using-AtomsIO" title="Permalink"></a></h3><pre><code class="language-julia hljs">using AtomsIO
 
 # Read a file using [AtomsIO](https://github.com/mfherbst/AtomsIO.jl),
 # which directly yields an AbstractSystem.
@@ -39,20 +40,20 @@ model  = model_LDA(system; temperature=1e-3)
 basis  = PlaneWaveBasis(model; Ecut=15, kgrid=[4, 4, 4])
 scfres = self_consistent_field(basis, tol=1e-8);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.921708229689                   -0.69    5.8
-  2   -7.926162180442       -2.35       -1.22    1.0    232ms
-  3   -7.926836682757       -3.17       -2.37    1.8    256ms
-  4   -7.926861510269       -4.61       -3.01    2.6    272ms
-  5   -7.926861631795       -6.92       -3.34    1.8    257ms
-  6   -7.926861666989       -7.45       -3.73    1.6    230ms
-  7   -7.926861680681       -7.86       -4.42    1.2    221ms
-  8   -7.926861681819       -8.94       -5.01    2.1    249ms
-  9   -7.926861681854      -10.47       -5.16    1.9    259ms
- 10   -7.926861681871      -10.75       -5.87    1.2    221ms
- 11   -7.926861681873      -11.87       -7.06    2.2    256ms
- 12   -7.926861681873      -13.51       -7.14    3.5    298ms
- 13   -7.926861681873      -14.45       -7.93    1.0    232ms
- 14   -7.926861681873   +  -14.57       -8.18    3.2    272ms</code></pre><p>The same could be achieved using <a href="https://github.com/libAtoms/ExtXYZ.jl">ExtXYZ</a> by <code>system = Atoms(read_frame(&quot;Si.extxyz&quot;))</code>, since the <code>ExtXYZ.Atoms</code> object is directly AtomsBase-compatible.</p><h3 id="Directly-setting-up-a-system-in-AtomsBase"><a class="docs-heading-anchor" href="#Directly-setting-up-a-system-in-AtomsBase">Directly setting up a system in AtomsBase</a><a id="Directly-setting-up-a-system-in-AtomsBase-1"></a><a class="docs-heading-anchor-permalink" href="#Directly-setting-up-a-system-in-AtomsBase" title="Permalink"></a></h3><pre><code class="language-julia hljs">using AtomsBase
+  1   -7.921697546678                   -0.69    5.9
+  2   -7.926160766383       -2.35       -1.22    1.0    339ms
+  3   -7.926836299530       -3.17       -2.37    1.9    368ms
+  4   -7.926861481247       -4.60       -3.02    2.8    393ms
+  5   -7.926861639400       -6.80       -3.37    2.0    346ms
+  6   -7.926861668101       -7.54       -3.75    1.6    391ms
+  7   -7.926861680482       -7.91       -4.35    1.2    367ms
+  8   -7.926861681798       -8.88       -4.93    2.0    393ms
+  9   -7.926861681859      -10.21       -5.23    1.9    347ms
+ 10   -7.926861681871      -10.92       -5.85    1.6    340ms
+ 11   -7.926861681873      -11.87       -6.77    2.0    359ms
+ 12   -7.926861681873      -13.23       -7.61    3.1    466ms
+ 13   -7.926861681873      -14.75       -7.94    2.8    375ms
+ 14   -7.926861681873   +  -14.75       -8.62    2.0    363ms</code></pre><p>The same could be achieved using <a href="https://github.com/libAtoms/ExtXYZ.jl">ExtXYZ</a> by <code>system = Atoms(read_frame(&quot;Si.extxyz&quot;))</code>, since the <code>ExtXYZ.Atoms</code> object is directly AtomsBase-compatible.</p><h3 id="Directly-setting-up-a-system-in-AtomsBase"><a class="docs-heading-anchor" href="#Directly-setting-up-a-system-in-AtomsBase">Directly setting up a system in AtomsBase</a><a id="Directly-setting-up-a-system-in-AtomsBase-1"></a><a class="docs-heading-anchor-permalink" href="#Directly-setting-up-a-system-in-AtomsBase" title="Permalink"></a></h3><pre><code class="language-julia hljs">using AtomsBase
 using Unitful
 using UnitfulAtomic
 
@@ -70,13 +71,13 @@ model  = model_LDA(system; temperature=1e-3)
 basis  = PlaneWaveBasis(model; Ecut=15, kgrid=[4, 4, 4])
 scfres = self_consistent_field(basis, tol=1e-4);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.921698807215                   -0.69    5.9
-  2   -7.926165189029       -2.35       -1.22    1.0    267ms
-  3   -7.926840473537       -3.17       -2.37    1.8    276ms
-  4   -7.926864894588       -4.61       -3.03    2.5    289ms
-  5   -7.926865048268       -6.81       -3.38    2.0    253ms
-  6   -7.926865079280       -7.51       -3.75    1.9    251ms
-  7   -7.926865091553       -7.91       -4.33    1.0    238ms</code></pre><h2 id="Obtaining-an-AbstractSystem-from-DFTK-data"><a class="docs-heading-anchor" href="#Obtaining-an-AbstractSystem-from-DFTK-data">Obtaining an AbstractSystem from DFTK data</a><a id="Obtaining-an-AbstractSystem-from-DFTK-data-1"></a><a class="docs-heading-anchor-permalink" href="#Obtaining-an-AbstractSystem-from-DFTK-data" title="Permalink"></a></h2><p>At any point we can also get back the DFTK model as an AtomsBase-compatible <code>AbstractSystem</code>:</p><pre><code class="language-julia hljs">second_system = atomic_system(model)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">FlexibleSystem(Si₂, periodic = TTT):
+  1   -7.921698744473                   -0.69    5.9
+  2   -7.926164277089       -2.35       -1.22    1.0    315ms
+  3   -7.926840680595       -3.17       -2.37    1.8    417ms
+  4   -7.926864908306       -4.62       -3.04    2.6    396ms
+  5   -7.926865059329       -6.82       -3.42    2.0    384ms
+  6   -7.926865082225       -7.64       -3.82    1.8    339ms
+  7   -7.926865091379       -8.04       -4.28    1.1    286ms</code></pre><h2 id="Obtaining-an-AbstractSystem-from-DFTK-data"><a class="docs-heading-anchor" href="#Obtaining-an-AbstractSystem-from-DFTK-data">Obtaining an AbstractSystem from DFTK data</a><a id="Obtaining-an-AbstractSystem-from-DFTK-data-1"></a><a class="docs-heading-anchor-permalink" href="#Obtaining-an-AbstractSystem-from-DFTK-data" title="Permalink"></a></h2><p>At any point we can also get back the DFTK model as an AtomsBase-compatible <code>AbstractSystem</code>:</p><pre><code class="language-julia hljs">second_system = atomic_system(model)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">FlexibleSystem(Si₂, periodic = TTT):
     bounding_box      : [       0     5.13     5.13;
                              5.13        0     5.13;
                              5.13     5.13        0]u&quot;a₀&quot;
@@ -97,4 +98,4 @@ third_system = atomic_system(lattice, atoms, positions)</code></pre><pre class="
 
     Atom(Si, [ 1.28289,  1.28289,  1.28289]u&quot;a₀&quot;)
     Atom(Si, [-1.28289, -1.28289, -1.28289]u&quot;a₀&quot;)
-</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../dielectric/">« Eigenvalues of the dielectric matrix</a><a class="docs-footer-nextpage" href="../input_output/">Input and output formats »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Sunday 15 January 2023 21:13">Sunday 15 January 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../dielectric/">« Eigenvalues of the dielectric matrix</a><a class="docs-footer-nextpage" href="../input_output/">Input and output formats »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Sunday 15 January 2023 21:48">Sunday 15 January 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
