@@ -32,22 +32,20 @@ function compute_dipole(ε; tol=1e-8, kwargs...)
 end;</code></pre><p>With this in place we can compute the polarizability from finite differences (just like in the previous example):</p><pre><code class="language-julia hljs">polarizability_fd = let
     ε = 0.01
     (compute_dipole(ε) - compute_dipole(0.0)) / ε
-end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1.7735579402821908</code></pre><p>We do the same thing using automatic differentiation. Under the hood this uses custom rules to implicitly differentiate through the self-consistent field fixed-point problem.</p><pre><code class="language-julia hljs">polarizability = ForwardDiff.derivative(compute_dipole, 0.0)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1.7735580030665345</code></pre><p>We do the same thing using automatic differentiation. Under the hood this uses custom rules to implicitly differentiate through the self-consistent field fixed-point problem.</p><pre><code class="language-julia hljs">polarizability = ForwardDiff.derivative(compute_dipole, 0.0)
 println()
 println(&quot;Polarizability via ForwardDiff:       $polarizability&quot;)
 println(&quot;Polarizability via finite difference: $polarizability_fd&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -2.770868416892                   -0.52    9.0
-  2   -2.772063434402       -2.92       -1.32    1.0    197ms
-  3   -2.772083135488       -4.71       -2.48    1.0    217ms
-  4   -2.772083351895       -6.66       -3.18    1.0    231ms
-  5   -2.772083416864       -7.19       -4.00    2.0    204ms
-  6   -2.772083417751       -9.05       -4.87    1.0    196ms
-  7   -2.772083417811      -10.22       -5.66    2.0    239ms
-  8   -2.772083417811      -13.60       -6.39    1.0    184ms
-  9   -2.772083417811      -13.65       -7.16    2.0    239ms
- 10   -2.772083417811   +  -14.12       -7.24    1.0    192ms
- 11   -2.772083417811      -13.83       -8.03    1.0    187ms
+  1   -2.770776254238                   -0.53    8.0
+  2   -2.772051855391       -2.89       -1.30    1.0    165ms
+  3   -2.772082686906       -4.51       -2.65    1.0    167ms
+  4   -2.772083415508       -6.14       -3.98    2.0    267ms
+  5   -2.772083417728       -8.65       -4.58    2.0    194ms
+  6   -2.772083417808      -10.10       -5.58    1.0    173ms
+  7   -2.772083417811      -11.53       -6.69    2.0    200ms
+  8   -2.772083417811      -14.01       -7.36    2.0    293ms
+  9   -2.772083417811      -13.91       -8.03    1.0    192ms
 
-Polarizability via ForwardDiff:       1.7725349949966591
-Polarizability via finite difference: 1.7735579402821908</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../polarizability/">« Polarizability by linear response</a><a class="docs-footer-nextpage" href="../dielectric/">Eigenvalues of the dielectric matrix »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Monday 30 January 2023 19:22">Monday 30 January 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Polarizability via ForwardDiff:       1.7725349855928494
+Polarizability via finite difference: 1.7735580030665345</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../polarizability/">« Polarizability by linear response</a><a class="docs-footer-nextpage" href="../dielectric/">Eigenvalues of the dielectric matrix »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Monday 6 February 2023 19:30">Monday 6 February 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
