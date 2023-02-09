@@ -49,64 +49,99 @@ end</code></pre><p>That&#39;s it! Now we just run the SCF with these solvers</p>
                                eigensolver=my_eig_solver,
                                mixing=MyMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.227962789379                   -0.49    0.0
-  2   -7.248329768185       -1.69       -0.89    0.0    600ms
-  3   -7.251097702986       -2.56       -1.33    0.0    214ms
-  4   -7.251278849945       -3.74       -1.64    0.0   86.5ms
-  5   -7.251323513582       -4.35       -1.94    0.0   86.8ms
-  6   -7.251334726739       -4.95       -2.24    0.0   84.9ms
-  7   -7.251337655349       -5.53       -2.53    0.0   84.6ms
-  8   -7.251338460008       -6.09       -2.81    0.0   84.7ms
-  9   -7.251338693373       -6.63       -3.08    0.0   84.6ms
- 10   -7.251338764595       -7.15       -3.34    0.0   83.9ms
- 11   -7.251338787306       -7.64       -3.60    0.0   90.5ms
- 12   -7.251338794805       -8.12       -3.85    0.0    235ms
- 13   -7.251338797348       -8.59       -4.09    0.0   86.5ms
- 14   -7.251338798227       -9.06       -4.33    0.0   84.4ms
- 15   -7.251338798535       -9.51       -4.56    0.0   84.3ms
- 16   -7.251338798644       -9.96       -4.79    0.0   84.5ms
- 17   -7.251338798683      -10.41       -5.02    0.0   85.1ms
- 18   -7.251338798697      -10.86       -5.25    0.0   83.3ms
- 19   -7.251338798702      -11.30       -5.48    0.0   89.0ms
- 20   -7.251338798704      -11.75       -5.70    0.0    235ms
- 21   -7.251338798704      -12.19       -5.93    0.0   87.0ms
- 22   -7.251338798704      -12.63       -6.15    0.0   87.1ms
- 23   -7.251338798704      -13.10       -6.38    0.0   87.0ms
- 24   -7.251338798705      -13.55       -6.60    0.0   85.5ms
- 25   -7.251338798705      -13.91       -6.82    0.0   86.0ms
- 26   -7.251338798705      -14.45       -7.00    0.0   85.6ms
- 27   -7.251338798705      -14.75       -7.22    0.0   87.1ms
- 28   -7.251338798705   +  -14.75       -7.27    0.0    207ms
- 29   -7.251338798705   +    -Inf       -7.48    0.0   87.1ms
- 30   -7.251338798705      -14.45       -7.76    0.0   86.5ms
- 31   -7.251338798705   +  -14.75       -7.63    0.0   87.0ms
- 32   -7.251338798705   +  -14.75       -7.50    0.0   87.0ms
- 33   -7.251338798705      -14.75       -7.66    0.0   87.9ms
- 34   -7.251338798705   +    -Inf       -7.81    0.0   84.8ms
- 35   -7.251338798705      -14.75       -7.62    0.0   85.1ms
- 36   -7.251338798705   +    -Inf       -7.87    0.0    209ms
- 37   -7.251338798705   +  -14.75       -7.47    0.0   89.6ms
- 38   -7.251338798705   +    -Inf       -7.72    0.0   85.7ms
- 39   -7.251338798705      -14.45       -7.85    0.0   85.2ms
- 40   -7.251338798705   +  -14.27       -7.77    0.0   85.9ms
- 41   -7.251338798705   +  -14.27       -7.16    0.0   86.9ms
- 42   -7.251338798705      -14.05       -7.41    0.0   85.1ms
- 43   -7.251338798705   +    -Inf       -7.66    0.0   85.8ms
- 44   -7.251338798705   +  -13.59       -6.94    0.0   88.5ms
- 45   -7.251338798705      -13.62       -7.19    0.0    206ms
- 46   -7.251338798705   +    -Inf       -7.46    0.0   87.2ms
- 47   -7.251338798705      -14.45       -7.75    0.0   91.3ms
- 48   -7.251338798705   +  -14.35       -7.60    0.0   85.0ms
- 49   -7.251338798705      -14.15       -7.84    0.0   84.5ms
- 50   -7.251338798705   +  -14.27       -7.67    0.0   84.7ms
- 51   -7.251338798705   +    -Inf       -7.49    0.0   83.5ms
- 52   -7.251338798705      -14.57       -7.74    0.0   89.5ms
- 53   -7.251338798705   +  -14.75       -7.81    0.0    209ms
- 54   -7.251338798705   +  -13.69       -7.05    0.0   85.6ms
- 55   -7.251338798705      -13.73       -7.29    0.0   86.6ms
- 56   -7.251338798705      -14.75       -7.64    0.0   84.6ms
- 57   -7.251338798705      -15.05       -7.83    0.0   84.2ms
- 58   -7.251338798705   +  -14.35       -7.45    0.0   85.0ms
- 59   -7.251338798705      -14.27       -7.56    0.0   83.7ms
- 60   -7.251338798705   +    -Inf       -7.81    0.0   86.1ms
- 61   -7.251338798705   +  -15.05       -8.00    0.0    208ms</code></pre><p>Note that the default convergence criterion is the difference in density. When this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Monday 6 February 2023 19:30">Monday 6 February 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  1   -7.203357313699                   -0.47    0.0
+  2   -7.244503530521       -1.39       -0.82    0.0    533ms
+  3   -7.250862725879       -2.20       -1.28    0.0    203ms
+  4   -7.251226460911       -3.44       -1.59    0.0   72.7ms
+  5   -7.251311825264       -4.07       -1.89    0.0   75.3ms
+  6   -7.251332052251       -4.69       -2.19    0.0   74.5ms
+  7   -7.251337018549       -5.30       -2.47    0.0   72.4ms
+  8   -7.251338300809       -5.89       -2.75    0.0   70.8ms
+  9   -7.251338651393       -6.46       -3.02    0.0   75.3ms
+ 10   -7.251338752915       -6.99       -3.28    0.0   76.0ms
+ 11   -7.251338783888       -7.51       -3.54    0.0   75.9ms
+ 12   -7.251338793760       -8.01       -3.79    0.0    218ms
+ 13   -7.251338797016       -8.49       -4.03    0.0   65.0ms
+ 14   -7.251338798119       -8.96       -4.27    0.0   64.9ms
+ 15   -7.251338798499       -9.42       -4.51    0.0   69.9ms
+ 16   -7.251338798632       -9.88       -4.74    0.0   76.4ms
+ 17   -7.251338798679      -10.33       -4.97    0.0   74.2ms
+ 18   -7.251338798695      -10.78       -5.20    0.0   77.8ms
+ 19   -7.251338798701      -11.23       -5.43    0.0   76.4ms
+ 20   -7.251338798703      -11.67       -5.65    0.0   76.7ms
+ 21   -7.251338798704      -12.12       -5.88    0.0    214ms
+ 22   -7.251338798704      -12.57       -6.10    0.0   58.3ms
+ 23   -7.251338798704      -13.00       -6.33    0.0   67.4ms
+ 24   -7.251338798705      -13.50       -6.55    0.0   73.4ms
+ 25   -7.251338798705      -13.67       -6.77    0.0   74.8ms
+ 26   -7.251338798705   +    -Inf       -7.00    0.0   74.2ms
+ 27   -7.251338798705   +  -14.45       -7.16    0.0   79.3ms
+ 28   -7.251338798705      -14.35       -7.35    0.0   77.9ms
+ 29   -7.251338798705      -15.05       -7.56    0.0   77.5ms
+ 30   -7.251338798705   +  -14.21       -7.19    0.0    172ms
+ 31   -7.251338798705      -14.35       -7.44    0.0   55.7ms
+ 32   -7.251338798705      -14.75       -7.80    0.0   73.0ms
+ 33   -7.251338798705   +  -14.45       -7.34    0.0   74.3ms
+ 34   -7.251338798705   +    -Inf       -7.62    0.0   73.7ms
+ 35   -7.251338798705      -14.35       -7.69    0.0   74.7ms
+ 36   -7.251338798705   +  -14.21       -7.38    0.0   79.1ms
+ 37   -7.251338798705      -14.45       -7.61    0.0   77.9ms
+ 38   -7.251338798705   +    -Inf       -7.79    0.0   78.0ms
+ 39   -7.251338798705      -14.45       -7.96    0.0    167ms
+ 40   -7.251338798705   +  -15.05       -7.71    0.0   60.8ms
+ 41   -7.251338798705   +  -14.35       -7.47    0.0   76.2ms
+ 42   -7.251338798705      -14.35       -7.67    0.0   74.0ms
+ 43   -7.251338798705   +  -14.75       -7.65    0.0   73.0ms
+ 44   -7.251338798705   +  -14.75       -7.60    0.0   74.2ms
+ 45   -7.251338798705      -14.57       -7.84    0.0   79.9ms
+ 46   -7.251338798704   +  -12.47       -6.39    0.0   76.9ms
+ 47   -7.251338798705      -12.51       -6.64    0.0    184ms
+ 48   -7.251338798705      -13.57       -6.99    0.0   55.9ms
+ 49   -7.251338798705      -14.75       -7.33    0.0   60.9ms
+ 50   -7.251338798705      -14.45       -7.57    0.0   73.5ms
+ 51   -7.251338798705   +    -Inf       -7.81    0.0   74.4ms
+ 52   -7.251338798705      -14.75       -7.71    0.0   76.1ms
+ 53   -7.251338798705   +  -14.27       -7.64    0.0   75.2ms
+ 54   -7.251338798705      -14.45       -7.52    0.0   78.3ms
+ 55   -7.251338798705   +  -14.75       -7.73    0.0   76.5ms
+ 56   -7.251338798705   +  -14.35       -7.44    0.0    179ms
+ 57   -7.251338798705      -14.21       -7.70    0.0   57.2ms
+ 58   -7.251338798705   +  -14.75       -7.39    0.0   66.6ms
+ 59   -7.251338798705   +  -14.75       -7.59    0.0   71.3ms
+ 60   -7.251338798705      -14.45       -7.82    0.0   73.6ms
+ 61   -7.251338798704   +  -13.37       -6.83    0.0   75.0ms
+ 62   -7.251338798705      -13.45       -7.09    0.0   78.9ms
+ 63   -7.251338798705      -14.27       -7.44    0.0   80.6ms
+ 64   -7.251338798705   +    -Inf       -7.70    0.0   78.8ms
+ 65   -7.251338798705   +  -14.45       -7.97    0.0    177ms
+ 66   -7.251338798705      -14.75       -7.47    0.0   56.5ms
+ 67   -7.251338798705      -15.05       -7.50    0.0   69.4ms
+ 68   -7.251338798705      -15.05       -7.60    0.0   75.0ms
+ 69   -7.251338798705   +  -15.05       -7.53    0.0   74.0ms
+ 70   -7.251338798705   +  -15.05       -7.36    0.0   74.6ms
+ 71   -7.251338798705   +  -14.75       -7.55    0.0   78.6ms
+ 72   -7.251338798705      -14.27       -7.70    0.0   77.6ms
+ 73   -7.251338798705   +  -14.45       -7.78    0.0   77.4ms
+ 74   -7.251338798705      -14.45       -7.76    0.0    170ms
+ 75   -7.251338798705   +  -14.45       -7.45    0.0   56.6ms
+ 76   -7.251338798705      -14.75       -7.63    0.0   74.4ms
+ 77   -7.251338798705   +  -14.75       -7.88    0.0   76.3ms
+ 78   -7.251338798705   +  -14.15       -7.22    0.0   73.6ms
+ 79   -7.251338798705      -14.05       -7.45    0.0   74.7ms
+ 80   -7.251338798705      -14.75       -7.63    0.0   80.0ms
+ 81   -7.251338798705   +  -14.45       -7.78    0.0   76.7ms
+ 82   -7.251338798705   +    -Inf       -7.69    0.0   76.7ms
+ 83   -7.251338798705      -14.45       -7.88    0.0    163ms
+ 84   -7.251338798705      -15.05       -7.90    0.0   60.0ms
+ 85   -7.251338798705   +  -14.57       -7.66    0.0   72.6ms
+ 86   -7.251338798705   +    -Inf       -7.83    0.0   75.2ms
+ 87   -7.251338798705   +  -14.27       -7.23    0.0   73.5ms
+ 88   -7.251338798705      -14.45       -7.45    0.0   76.4ms
+ 89   -7.251338798705      -14.57       -7.78    0.0   79.7ms
+ 90   -7.251338798705   +  -15.05       -7.52    0.0   79.0ms
+ 91   -7.251338798705   +  -14.75       -7.81    0.0    182ms
+ 92   -7.251338798705      -14.45       -7.60    0.0   55.8ms
+ 93   -7.251338798705   +  -14.05       -7.33    0.0   62.9ms
+ 94   -7.251338798705      -14.15       -7.53    0.0   75.7ms
+ 95   -7.251338798705      -15.05       -7.75    0.0   75.1ms
+ 96   -7.251338798705   +  -14.57       -8.03    0.0   75.8ms</code></pre><p>Note that the default convergence criterion is the difference in density. When this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Thursday 9 February 2023 07:27">Thursday 9 February 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
