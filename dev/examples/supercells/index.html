@@ -32,74 +32,66 @@ convert_ase(periodic_system(setup.model)).write(&quot;al_supercell.png&quot;)</c
 └ @ ASEconvert ~/.julia/packages/ASEconvert/neSFl/src/ASEconvert.jl:123
 n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -8.298607406703                   -0.85    5.2
-  2   -8.300224910933       -2.79       -1.25    1.0    105ms
-  3   -8.300442891202       -3.66       -1.89    1.9    120ms
-  4   -8.300462369648       -4.71       -2.79    2.6    222ms
-  5   -8.300464470941       -5.68       -3.12    3.5    152ms
-  6   -8.300464557336       -7.06       -3.26    4.2    170ms
-  7   -8.300464599803       -7.37       -3.41    2.0    133ms
-  8   -8.300464623003       -7.63       -3.55    1.0    107ms
-  9   -8.300464636990       -7.85       -3.72    1.5    125ms
- 10   -8.300464639927       -8.53       -3.82    1.0    107ms
- 11   -8.300464643361       -8.46       -4.10    2.0    140ms</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(2); tol=1e-4);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
+  1   -8.298490812656                   -0.85    5.0
+  2   -8.300190531872       -2.77       -1.26    1.0   97.4ms
+  3   -8.300429671802       -3.62       -1.89    3.2    139ms
+  4   -8.300460299617       -4.51       -2.75    1.9    119ms
+  5   -8.300463714080       -5.47       -3.02    2.6    142ms
+  6   -8.300464186613       -6.33       -3.23   10.9    261ms
+  7   -8.300464412045       -6.65       -3.37    2.6    152ms
+  8   -8.300464537982       -6.90       -3.52    1.6    132ms
+  9   -8.300464613914       -7.12       -3.72    1.4    163ms
+ 10   -8.300464632832       -7.72       -3.89    6.9    204ms
+ 11   -8.300464643459       -7.97       -4.25    4.5    189ms</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(2); tol=1e-4);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
 └ @ ASEconvert ~/.julia/packages/ASEconvert/neSFl/src/ASEconvert.jl:123
 n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -16.64182689649                   -0.70    6.2
-  2   -16.64599872225       -2.38       -1.14    1.0    255ms
-  3   -16.67907088453       -1.48       -1.87    2.1    283ms
-  4   -16.67927801375       -3.68       -2.66    5.0    379ms
-  5   -16.67928579475       -5.11       -3.00    5.4    444ms
-  6   -16.67928617775       -6.42       -3.31    2.0    327ms
-  7   -16.67928621674       -7.41       -3.79    1.5    262ms
-  8   -16.67928622130       -8.34       -4.52    2.6    305ms</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); tol=1e-4);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
+  1   -16.64177327691                   -0.70    5.8
+  2   -16.67704984292       -1.45       -1.14    1.4    288ms
+  3   -16.67920178955       -2.67       -1.88    3.8    392ms
+  4   -16.67926796341       -4.18       -2.71    2.5    310ms
+  5   -16.67928484865       -4.77       -3.10    5.6    432ms
+  6   -16.67928619718       -5.87       -3.51    2.2    315ms
+  7   -16.67928621397       -7.77       -3.99    2.4    308ms
+  8   -16.67928622154       -8.12       -4.58    3.0    333ms</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); tol=1e-4);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
 └ @ ASEconvert ~/.julia/packages/ASEconvert/neSFl/src/ASEconvert.jl:123
 n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -33.32553487026                   -0.56    6.4
-  2   -33.33268730478       -2.15       -1.00    1.1    944ms
-  3   -33.33411311088       -2.85       -1.74    4.9    1.23s
-  4   -33.33427607267       -3.79       -2.64    2.8    1.03s
-  5   -33.33509363740       -3.09       -2.48    7.0    1.61s
-  6   -33.33694260794       -2.73       -2.53    6.5    1.25s
-  7   -33.33694269231       -7.07       -2.54    1.0    882ms
-  8   -33.33686972179   +   -4.14       -2.46    2.2    956ms
-  9   -33.33681852747   +   -4.29       -2.36    1.6    975ms
- 10   -33.33684506840       -4.58       -2.41    1.0    897ms
- 11   -33.33689078472       -4.34       -2.55    1.0    919ms
- 12   -33.33689756893       -5.17       -2.58    1.0    888ms
- 13   -33.33691154676       -4.85       -2.66    1.0    880ms
- 14   -33.33691672679       -5.29       -2.70    1.0    878ms
- 15   -33.33692569969       -5.05       -2.79    1.0    851ms
- 16   -33.33694303891       -4.76       -3.56    2.2    1.06s
- 17   -33.33694363539       -6.22       -3.88    4.0    1.44s
- 18   -33.33694365716       -7.66       -3.95    1.9    944ms
- 19   -33.33694371980       -7.20       -4.14    1.4    914ms</code></pre><p>When switching off explicitly the <code>LdosMixing</code>, by selecting <code>mixing=SimpleMixing()</code>, the performance of number of required SCF steps starts to increase as we increase the size of the modelled problem:</p><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(1); tol=1e-4, mixing=SimpleMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
+  1   -33.32558231174                   -0.56    6.6
+  2   -33.33268147754       -2.15       -1.00    1.1    961ms
+  3   -33.33409602498       -2.85       -1.74    4.8    1.22s
+  4   -33.33428110935       -3.73       -2.65    2.9    1.05s
+  5   -33.33694128563       -2.58       -2.50    8.6    1.65s
+  6   -33.33694170184       -6.38       -2.54    4.2    1.08s
+  7   -33.33694360073       -5.72       -3.03    1.0    830ms
+  8   -33.33694367181       -7.15       -3.57    5.0    1.10s
+  9   -33.33694377763       -6.98       -3.85    3.2    1.05s
+ 10   -33.33694378213       -8.35       -4.46    2.1    1.00s</code></pre><p>When switching off explicitly the <code>LdosMixing</code>, by selecting <code>mixing=SimpleMixing()</code>, the performance of number of required SCF steps starts to increase as we increase the size of the modelled problem:</p><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(1); tol=1e-4, mixing=SimpleMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
 └ @ ASEconvert ~/.julia/packages/ASEconvert/neSFl/src/ASEconvert.jl:123
 n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -8.298255028881                   -0.85    5.0
-  2   -8.300231428624       -2.70       -1.59    1.0   81.5ms
-  3   -8.300407078503       -3.76       -2.41    3.2    123ms
-  4   -8.300337479663   +   -4.16       -2.20    3.6    137ms
-  5   -8.300463413481       -3.90       -3.31    1.0   87.8ms
-  6   -8.300464536466       -5.95       -3.69    3.9    153ms
-  7   -8.300464632056       -7.02       -4.11    1.1   97.9ms</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); tol=1e-4, mixing=SimpleMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
+  1   -8.298537405450                   -0.85    4.8
+  2   -8.300271340456       -2.76       -1.59    1.2   82.5ms
+  3   -8.300413573581       -3.85       -2.44    2.6    105ms
+  4   -8.300336822061   +   -4.11       -2.20    5.6    168ms
+  5   -8.300464045122       -3.90       -3.49    1.0   90.8ms
+  6   -8.300464503346       -6.34       -3.69    3.6    171ms
+  7   -8.300464634017       -6.88       -4.12    1.0    104ms</code></pre><pre><code class="language-julia hljs">self_consistent_field(aluminium_setup(4); tol=1e-4, mixing=SimpleMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Skipping atomic property pseudopotential, which is not supported in ASE.
 └ @ ASEconvert ~/.julia/packages/ASEconvert/neSFl/src/ASEconvert.jl:123
 n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -33.31197185935                   -0.56    7.1
-  2   -33.26275956596   +   -1.31       -1.24    2.4    955ms
-  3   +23.78437249275   +    1.76       -0.19    7.9    2.27s
-  4   -33.29891248959        1.76       -1.59    5.9    1.98s
-  5   -32.50275863946   +   -0.10       -1.06    4.1    1.39s
-  6   -31.83023239065   +   -0.17       -0.96    4.9    1.41s
-  7   -33.31931387844        0.17       -1.85    3.4    1.24s
-  8   -33.33532492815       -1.80       -2.17    2.4    1.04s
-  9   -33.33406735163   +   -2.90       -2.01    2.8    1.21s
- 10   -33.33685912498       -2.55       -2.80    2.1    1.04s
- 11   -33.33692275841       -4.20       -3.08    3.5    1.16s
- 12   -33.33693866577       -4.80       -3.22    2.8    1.06s
- 13   -33.33693727193   +   -5.86       -3.47    2.2    990ms
- 14   -33.33694352813       -5.20       -4.05    2.6    989ms</code></pre><p>For completion let us note that the more traditional <code>mixing=KerkerMixing()</code> approach would also help in this particular setting to obtain a constant number of SCF iterations for an increasing system size (try it!). In contrast to <code>LdosMixing</code>, however, <code>KerkerMixing</code> is only suitable to model bulk metallic system (like the case we are considering here). When modelling metallic surfaces or mixtures of metals and insulators, <code>KerkerMixing</code> fails, while <code>LdosMixing</code> still works well. See the <a href="../gaas_surface/#Modelling-a-gallium-arsenide-surface">Modelling a gallium arsenide surface</a> example or <sup class="footnote-reference"><a id="citeref-HL2021" href="#footnote-HL2021">[HL2021]</a></sup> for details. Due to the general applicability of <code>LdosMixing</code> this method is the default mixing approach in DFTK.</p><section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-HL2021"><a class="tag is-link" href="#citeref-HL2021">HL2021</a></li></ul></section></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../pseudopotentials/">« Pseudopotentials</a><a class="docs-footer-nextpage" href="../gaas_surface/">Modelling a gallium arsenide surface »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Wednesday 22 March 2023 07:11">Wednesday 22 March 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  1   -33.32463111945                   -0.56    6.6
+  2   -33.25489759524   +   -1.16       -1.24    1.0    765ms
+  3   +27.08481245551   +    1.78       -0.17    8.6    2.17s
+  4   -33.28007456728        1.78       -1.49    6.8    1.97s
+  5   -32.49078540104   +   -0.10       -1.06    4.0    1.38s
+  6   -31.55113213893   +   -0.03       -0.92    4.9    1.36s
+  7   -33.32130544113        0.25       -1.90    3.6    1.19s
+  8   -33.33246928452       -1.95       -1.94    3.0    1.21s
+  9   -33.33491821612       -2.61       -2.07    2.1    1.03s
+ 10   -33.33672073658       -2.74       -2.72    2.1    975ms
+ 11   -33.33692386410       -3.69       -3.09    2.9    1.15s
+ 12   -33.33693465980       -4.97       -3.22    2.6    1.06s
+ 13   -33.33693284328   +   -5.74       -3.34    3.4    1.13s
+ 14   -33.33694242489       -5.02       -3.92    2.1    912ms
+ 15   -33.33694271475       -6.54       -4.03    3.2    1.17s</code></pre><p>For completion let us note that the more traditional <code>mixing=KerkerMixing()</code> approach would also help in this particular setting to obtain a constant number of SCF iterations for an increasing system size (try it!). In contrast to <code>LdosMixing</code>, however, <code>KerkerMixing</code> is only suitable to model bulk metallic system (like the case we are considering here). When modelling metallic surfaces or mixtures of metals and insulators, <code>KerkerMixing</code> fails, while <code>LdosMixing</code> still works well. See the <a href="../gaas_surface/#Modelling-a-gallium-arsenide-surface">Modelling a gallium arsenide surface</a> example or <sup class="footnote-reference"><a id="citeref-HL2021" href="#footnote-HL2021">[HL2021]</a></sup> for details. Due to the general applicability of <code>LdosMixing</code> this method is the default mixing approach in DFTK.</p><section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-HL2021"><a class="tag is-link" href="#citeref-HL2021">HL2021</a></li></ul></section></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../pseudopotentials/">« Pseudopotentials</a><a class="docs-footer-nextpage" href="../gaas_surface/">Modelling a gallium arsenide surface »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Thursday 30 March 2023 07:03">Thursday 30 March 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
