@@ -8,6 +8,14 @@ system = load_system(&quot;Fe_afm.pwi&quot;)</code></pre><pre class="documenter-
 
     Atom(Fe, [       0,        0,        0]u&quot;Å&quot;)
     Atom(Fe, [ 1.43407,  1.43407,        0]u&quot;Å&quot;)
+
+      .------.  
+     /|      |  
+    * |      |  
+    | |      |  
+    | .------.  
+    |/  Fe  /   
+    Fe-----*    
 </code></pre><p>Next we attach pseudopotential information, since currently the parser is not yet capable to read this information from the file.</p><pre><code class="language-julia hljs">using DFTK
 system = attach_psp(system, Fe=&quot;hgh/pbe/fe-q16.hgh&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">FlexibleSystem(Fe₂, periodic = TTT):
     bounding_box      : [ 2.86814        0        0;
@@ -16,27 +24,35 @@ system = attach_psp(system, Fe=&quot;hgh/pbe/fe-q16.hgh&quot;)</code></pre><pre 
 
     Atom(Fe, [       0,        0,        0]u&quot;Å&quot;)
     Atom(Fe, [ 1.43407,  1.43407,        0]u&quot;Å&quot;)
+
+      .------.  
+     /|      |  
+    * |      |  
+    | |      |  
+    | .------.  
+    |/  Fe  /   
+    Fe-----*    
 </code></pre><p>Finally we make use of DFTK&#39;s <a href="../atomsbase/#AtomsBase-integration">AtomsBase integration</a> to run the calculation.</p><pre><code class="language-julia hljs">model = model_LDA(system; temperature=0.01)
 basis = PlaneWaveBasis(model; Ecut=10, kgrid=(2, 2, 2))
 ρ0 = guess_density(basis, system)
 scfres = self_consistent_field(basis, ρ=ρ0);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Magnet   Diag   Δtime
 ---   ---------------   ---------   ---------   ------   ----   ------
-  1   -223.7491800911                    0.22   -6.319    5.2
-  2   -224.1609851727       -0.39       -0.21   -3.325    1.7    217ms
-  3   -224.2176143039       -1.25       -1.06   -1.615    3.0    322ms
-  4   -224.2198729712       -2.65       -1.46   -1.194    1.1    201ms
-  5   -224.2207951064       -3.04       -1.73   -0.823    1.0    199ms
-  6   -224.2212112164       -3.38       -2.00   -0.487    1.4    205ms
-  7   -224.2213734865       -3.79       -2.35   -0.229    1.2    202ms
-  8   -224.2214151855       -4.38       -2.87   -0.079    2.0    213ms
-  9   -224.2214205453       -5.27       -3.53   -0.008    2.6    244ms
- 10   -224.2214206874       -6.85       -3.79    0.001    3.2    272ms
- 11   -224.2214207110       -7.63       -4.05   -0.001    2.1    221ms
- 12   -224.2214207180       -8.15       -4.46    0.000    1.4    233ms
- 13   -224.2214207187       -9.19       -5.06    0.000    2.9    237ms
- 14   -224.2214207187      -10.16       -5.43   -0.000    1.8    212ms
- 15   -224.2214207187      -11.05       -5.85   -0.000    2.3    231ms
- 16   -224.2214207187   +  -13.55       -6.22    0.000    2.2    241ms</code></pre><h2 id="Writing-VTK-files-for-visualization"><a class="docs-heading-anchor" href="#Writing-VTK-files-for-visualization">Writing VTK files for visualization</a><a id="Writing-VTK-files-for-visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-VTK-files-for-visualization" title="Permalink"></a></h2><p>For visualizing the density or the Kohn-Sham orbitals DFTK supports storing the result of an SCF calculations in the form of VTK files. These can afterwards be visualized using tools such as <a href="https://www.paraview.org/">paraview</a>. Using this feature requires the <a href="https://github.com/jipolanco/WriteVTK.jl/">WriteVTK.jl</a> Julia package.</p><pre><code class="language-julia hljs">using WriteVTK
+  1   -223.7488101560                    0.22   -6.321    5.5
+  2   -224.1604392807       -0.39       -0.21   -3.326    1.8    258ms
+  3   -224.2175967452       -1.24       -1.06   -1.614    3.3    283ms
+  4   -224.2198708653       -2.64       -1.46   -1.193    1.1    198ms
+  5   -224.2207927846       -3.04       -1.72   -0.824    1.0    194ms
+  6   -224.2212093523       -3.38       -2.00   -0.489    1.0    196ms
+  7   -224.2213732508       -3.79       -2.35   -0.229    1.5    206ms
+  8   -224.2214153460       -4.38       -2.87   -0.077    2.2    215ms
+  9   -224.2214205563       -5.28       -3.55   -0.007    2.7    237ms
+ 10   -224.2214206903       -6.87       -3.81    0.001    3.2    272ms
+ 11   -224.2214207097       -7.71       -4.03   -0.001    2.1    244ms
+ 12   -224.2214207178       -8.09       -4.41   -0.000    1.5    207ms
+ 13   -224.2214207187       -9.06       -4.93    0.000    2.8    225ms
+ 14   -224.2214207187      -10.39       -5.35    0.000    2.0    220ms
+ 15   -224.2214207187      -10.93       -5.79   -0.000    2.2    229ms
+ 16   -224.2214207187      -12.10       -6.18   -0.000    2.5    250ms</code></pre><h2 id="Writing-VTK-files-for-visualization"><a class="docs-heading-anchor" href="#Writing-VTK-files-for-visualization">Writing VTK files for visualization</a><a id="Writing-VTK-files-for-visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-VTK-files-for-visualization" title="Permalink"></a></h2><p>For visualizing the density or the Kohn-Sham orbitals DFTK supports storing the result of an SCF calculations in the form of VTK files. These can afterwards be visualized using tools such as <a href="https://www.paraview.org/">paraview</a>. Using this feature requires the <a href="https://github.com/jipolanco/WriteVTK.jl/">WriteVTK.jl</a> Julia package.</p><pre><code class="language-julia hljs">using WriteVTK
 save_scfres(&quot;iron_afm.vts&quot;, scfres; save_ψ=true);</code></pre><p>This will save the iron calculation above into the file <code>iron_afm.vts</code>, using <code>save_ψ=true</code> to also include the KS orbitals.</p><h2 id="Writing-and-reading-JLD2-files"><a class="docs-heading-anchor" href="#Writing-and-reading-JLD2-files">Writing and reading JLD2 files</a><a id="Writing-and-reading-JLD2-files-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-and-reading-JLD2-files" title="Permalink"></a></h2><p>The full state of a DFTK self-consistent field calculation can be stored on disk in form of an <a href="https://github.com/JuliaIO/JLD2.jl">JLD2.jl</a> file. This file can be read from other Julia scripts as well as other external codes supporting the HDF5 file format (since the JLD2 format is based on HDF5).</p><pre><code class="language-julia hljs">using JLD2
 save_scfres(&quot;iron_afm.jld2&quot;, scfres);</code></pre><p>Since such JLD2 can also be read by DFTK to start or continue a calculation, these can also be used for checkpointing or for transferring results to a different computer. See <a href="../../tricks/scf_checkpoints/#Saving-SCF-results-on-disk-and-SCF-checkpoints">Saving SCF results on disk and SCF checkpoints</a> for details.</p><p>(Cleanup files generated by this notebook.)</p><pre><code class="language-julia hljs">rm(&quot;iron_afm.vts&quot;)
-rm(&quot;iron_afm.jld2&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../atomsbase/">« AtomsBase integration</a><a class="docs-footer-nextpage" href="../wannier90/">Wannierization using Wannier90 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Thursday 6 April 2023 15:57">Thursday 6 April 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+rm(&quot;iron_afm.jld2&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../atomsbase/">« AtomsBase integration</a><a class="docs-footer-nextpage" href="../wannier90/">Wannierization using Wannier90 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Friday 14 April 2023 11:52">Friday 14 April 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
