@@ -19,34 +19,35 @@ basis = PlaneWaveBasis(model; Ecut, kgrid=[1, 1, 1])
 scfres = self_consistent_field(basis, tol=1e-2, ρ=guess_density(basis, magnetic_moments))
 save_scfres(&quot;scfres.jld2&quot;, scfres);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Magnet   Diag   Δtime
 ---   ---------------   ---------   ---------   ------   ----   ------
-  1   -27.64508385624                   -0.13    0.001    6.0
-  2   -28.92266940747        0.11       -0.82    0.660    2.0    170ms
-  3   -28.93082860332       -2.09       -1.14    1.158    2.5    123ms
-  4   -28.93756323660       -2.17       -1.18    1.758    1.0    136ms
-  5   -28.93957417829       -2.70       -2.08    1.985    1.5    103ms</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             16.7580054
-    AtomicLocal         -58.4664616
-    AtomicNonlocal      4.7066656 
+  1   -27.64753995877                   -0.13    0.001    6.5
+  2   -28.92222263262        0.11       -0.82    0.665    2.0    113ms
+  3   -28.93091345164       -2.06       -1.15    1.165    2.0    114ms
+  4   -28.93753971119       -2.18       -1.18    1.757    1.0   93.8ms
+  5   -28.93950363803       -2.71       -1.63    1.964    1.0    103ms
+  6   -28.93960022214       -4.02       -2.27    1.988    1.5    153ms</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
+    Kinetic             16.7671148
+    AtomicLocal         -58.4900739
+    AtomicNonlocal      4.7128359 
     Ewald               -4.8994689
     PspCorrection       0.0044178 
-    Hartree             19.3468265
-    Xc                  -6.3886342
-    Entropy             -0.0009247
+    Hartree             19.3568956
+    Xc                  -6.3905706
+    Entropy             -0.0007509
 
-    total               -28.939574178287</code></pre><p>The <code>scfres.jld2</code> file could now be transfered to a different computer, Where one could fire up a REPL to inspect the results of the above calculation:</p><pre><code class="language-julia hljs">using DFTK
+    total               -28.939600222142</code></pre><p>The <code>scfres.jld2</code> file could now be transfered to a different computer, Where one could fire up a REPL to inspect the results of the above calculation:</p><pre><code class="language-julia hljs">using DFTK
 using JLD2
 loaded = load_scfres(&quot;scfres.jld2&quot;)
 propertynames(loaded)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(:ham, :basis, :energies, :converged, :occupation_threshold, :ρ, :α, :eigenvalues, :occupation, :εF, :n_bands_converge, :n_iter, :ψ, :diagonalization, :stage, :algorithm, :norm_Δρ)</code></pre><pre><code class="language-julia hljs">loaded.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             16.7580054
-    AtomicLocal         -58.4664616
-    AtomicNonlocal      4.7066656 
+    Kinetic             16.7671148
+    AtomicLocal         -58.4900739
+    AtomicNonlocal      4.7128359 
     Ewald               -4.8994689
     PspCorrection       0.0044178 
-    Hartree             19.3468265
-    Xc                  -6.3886342
-    Entropy             -0.0009247
+    Hartree             19.3568956
+    Xc                  -6.3905706
+    Entropy             -0.0007509
 
-    total               -28.939574178287</code></pre><p>Since the loaded data contains exactly the same data as the <code>scfres</code> returned by the SCF calculation one could use it to plot a band structure, e.g. <code>plot_bandstructure(load_scfres(&quot;scfres.jld2&quot;))</code> directly from the stored data.</p><h2 id="Checkpointing-of-SCF-calculations"><a class="docs-heading-anchor" href="#Checkpointing-of-SCF-calculations">Checkpointing of SCF calculations</a><a id="Checkpointing-of-SCF-calculations-1"></a><a class="docs-heading-anchor-permalink" href="#Checkpointing-of-SCF-calculations" title="Permalink"></a></h2><p>A related feature, which is very useful especially for longer calculations with DFTK is automatic checkpointing, where the state of the SCF is periodically written to disk. The advantage is that in case the calculation errors or gets aborted due to overrunning the walltime limit one does not need to start from scratch, but can continue the calculation from the last checkpoint.</p><p>To enable automatic checkpointing in DFTK one needs to pass the <code>ScfSaveCheckpoints</code> callback to <a href="../../api/#DFTK.self_consistent_field-Union{Tuple{PlaneWaveBasis{T, VT} where VT&lt;:Real}, Tuple{T}} where T"><code>self_consistent_field</code></a>, for example:</p><pre><code class="language-julia hljs">callback = DFTK.ScfSaveCheckpoints()
+    total               -28.939600222142</code></pre><p>Since the loaded data contains exactly the same data as the <code>scfres</code> returned by the SCF calculation one could use it to plot a band structure, e.g. <code>plot_bandstructure(load_scfres(&quot;scfres.jld2&quot;))</code> directly from the stored data.</p><h2 id="Checkpointing-of-SCF-calculations"><a class="docs-heading-anchor" href="#Checkpointing-of-SCF-calculations">Checkpointing of SCF calculations</a><a id="Checkpointing-of-SCF-calculations-1"></a><a class="docs-heading-anchor-permalink" href="#Checkpointing-of-SCF-calculations" title="Permalink"></a></h2><p>A related feature, which is very useful especially for longer calculations with DFTK is automatic checkpointing, where the state of the SCF is periodically written to disk. The advantage is that in case the calculation errors or gets aborted due to overrunning the walltime limit one does not need to start from scratch, but can continue the calculation from the last checkpoint.</p><p>To enable automatic checkpointing in DFTK one needs to pass the <code>ScfSaveCheckpoints</code> callback to <a href="../../api/#DFTK.self_consistent_field-Union{Tuple{PlaneWaveBasis{T, VT} where VT&lt;:Real}, Tuple{T}} where T"><code>self_consistent_field</code></a>, for example:</p><pre><code class="language-julia hljs">callback = DFTK.ScfSaveCheckpoints()
 scfres = self_consistent_field(basis;
                                ρ=guess_density(basis, magnetic_moments),
                                tol=1e-2, callback);</code></pre><p>Notice that using this callback makes the SCF go silent since the passed callback parameter overwrites the default value (namely <code>DefaultScfCallback()</code>) which exactly gives the familiar printing of the SCF convergence. If you want to have both (printing and checkpointing) you need to chain both callbacks:</p><pre><code class="language-julia hljs">callback = DFTK.ScfDefaultCallback() ∘ DFTK.ScfSaveCheckpoints(keep=true)
@@ -54,15 +55,14 @@ scfres = self_consistent_field(basis;
                                ρ=guess_density(basis, magnetic_moments),
                                tol=1e-2, callback);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Magnet   α      Diag   Δtime
 ---   ---------------   ---------   ---------   ------   ----   ----   ------
-  1   -27.64591084551                   -0.13    0.001   0.80    6.5
-  2   -28.92233731166        0.11       -0.82    0.668   0.80    2.0    152ms
-  3   -28.93096108299       -2.06       -1.14    1.170   0.80    2.0    123ms
-  4   -28.93758735807       -2.18       -1.18    1.761   0.80    1.0    109ms
-  5   -28.93956229264       -2.70       -1.94    1.979   0.80    1.5    146ms
-  6   -28.93960674085       -4.35       -2.64    1.985   0.80    2.0    121ms</code></pre><p>For more details on using callbacks with DFTK&#39;s <code>self_consistent_field</code> function see <a href="../../examples/scf_callbacks/#Monitoring-self-consistent-field-calculations">Monitoring self-consistent field calculations</a>.</p><p>By default checkpoint is saved in the file <code>dftk_scf_checkpoint.jld2</code>, which is deleted automatically once the SCF completes successfully. If one wants to keep the file one needs to specify <code>keep=true</code> as has been done in the ultimate SCF for demonstration purposes: now we can continue the previous calculation from the last checkpoint as if the SCF had been aborted. For this one just loads the checkpoint with <a href="../../api/#DFTK.load_scfres"><code>load_scfres</code></a>:</p><pre><code class="language-julia hljs">oldstate = load_scfres(&quot;dftk_scf_checkpoint.jld2&quot;)
+  1   -27.64703128884                   -0.13    0.001   0.80    6.5
+  2   -28.92283670483        0.11       -0.82    0.662   0.80    2.0    117ms
+  3   -28.93080533744       -2.10       -1.14    1.157   0.80    2.0    116ms
+  4   -28.93753172664       -2.17       -1.18    1.756   0.80    1.0   99.4ms
+  5   -28.93956927895       -2.69       -2.08    1.985   0.80    1.5    140ms</code></pre><p>For more details on using callbacks with DFTK&#39;s <code>self_consistent_field</code> function see <a href="../../examples/scf_callbacks/#Monitoring-self-consistent-field-calculations">Monitoring self-consistent field calculations</a>.</p><p>By default checkpoint is saved in the file <code>dftk_scf_checkpoint.jld2</code>, which is deleted automatically once the SCF completes successfully. If one wants to keep the file one needs to specify <code>keep=true</code> as has been done in the ultimate SCF for demonstration purposes: now we can continue the previous calculation from the last checkpoint as if the SCF had been aborted. For this one just loads the checkpoint with <a href="../../api/#DFTK.load_scfres"><code>load_scfres</code></a>:</p><pre><code class="language-julia hljs">oldstate = load_scfres(&quot;dftk_scf_checkpoint.jld2&quot;)
 scfres   = self_consistent_field(oldstate.basis, ρ=oldstate.ρ,
                                  ψ=oldstate.ψ, tol=1e-3);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Magnet   Diag   Δtime
 ---   ---------------   ---------   ---------   ------   ----   ------
-  1   -28.93961122447                   -2.98    1.985    1.0
-  2   -28.93961262205       -5.85       -3.33    1.985    1.0    110ms</code></pre><div class="admonition is-info"><header class="admonition-header">Availability of `load_scfres`, `save_scfres` and `ScfSaveCheckpoints`</header><div class="admonition-body"><p>As JLD2 is an optional dependency of DFTK these three functions are only available once one has <em>both</em> imported DFTK and JLD2 (<code>using DFTK</code> and <code>using JLD2</code>).</p></div></div><p>(Cleanup files generated by this notebook)</p><pre><code class="language-julia hljs">rm(&quot;dftk_scf_checkpoint.jld2&quot;)
-rm(&quot;scfres.jld2&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../parallelization/">« Timings and parallelization</a><a class="docs-footer-nextpage" href="../../examples/custom_solvers/">Custom solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Thursday 18 May 2023 07:16">Thursday 18 May 2023</span>. Using Julia version 1.9.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  1   -28.93960410060                   -2.80    1.985    1.0
+  2   -28.93961062596       -5.19       -3.05    1.985    1.0    107ms</code></pre><div class="admonition is-info"><header class="admonition-header">Availability of `load_scfres`, `save_scfres` and `ScfSaveCheckpoints`</header><div class="admonition-body"><p>As JLD2 is an optional dependency of DFTK these three functions are only available once one has <em>both</em> imported DFTK and JLD2 (<code>using DFTK</code> and <code>using JLD2</code>).</p></div></div><p>(Cleanup files generated by this notebook)</p><pre><code class="language-julia hljs">rm(&quot;dftk_scf_checkpoint.jld2&quot;)
+rm(&quot;scfres.jld2&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../parallelization/">« Timings and parallelization</a><a class="docs-footer-nextpage" href="../../examples/custom_solvers/">Custom solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Saturday 20 May 2023 21:06">Saturday 20 May 2023</span>. Using Julia version 1.9.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
