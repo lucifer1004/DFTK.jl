@@ -15,43 +15,43 @@ S &amp;= W^{T}\\
 basis_nosym = PlaneWaveBasis(model_nosym; Ecut, kgrid)
 scfres_nosym = @time self_consistent_field(basis_nosym, tol=1e-6)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.864622954767                   -0.72    3.5
-  2   -7.868966259359       -2.36       -1.54    1.0    228ms
-  3   -7.869174298387       -3.68       -2.60    1.1    237ms
-  4   -7.869209099167       -4.46       -2.89    2.5    374ms
-  5   -7.869209565342       -6.33       -3.10    1.0    284ms
-  6   -7.869209810007       -6.61       -4.51    1.0    230ms
-  7   -7.869209817420       -8.13       -4.86    2.1    345ms
-  8   -7.869209817523       -9.99       -5.46    1.1    236ms
-  9   -7.869209817530      -11.13       -6.46    1.6    321ms
-  2.806307 seconds (1.49 M allocations: 652.466 MiB, 6.99% gc time)</code></pre><p>and then redo it using symmetry (the default):</p><pre><code class="language-julia hljs">model_sym = model_LDA(lattice, atoms, positions)
+  1   -7.864631742392                   -0.72    3.5
+  2   -7.868969383624       -2.36       -1.54    1.0    403ms
+  3   -7.869176376436       -3.68       -2.60    1.1    368ms
+  4   -7.869209129585       -4.48       -2.89    2.4    423ms
+  5   -7.869209598620       -6.33       -3.14    1.0    508ms
+  6   -7.869209809312       -6.68       -4.30    1.0    326ms
+  7   -7.869209817402       -8.09       -4.99    2.0    459ms
+  8   -7.869209817523       -9.92       -5.44    1.7    405ms
+  9   -7.869209817530      -11.13       -6.39    1.3    297ms
+  3.737983 seconds (1.49 M allocations: 653.387 MiB, 4.05% gc time)</code></pre><p>and then redo it using symmetry (the default):</p><pre><code class="language-julia hljs">model_sym = model_LDA(lattice, atoms, positions)
 basis_sym = PlaneWaveBasis(model_sym; Ecut, kgrid)
 scfres_sym = @time self_consistent_field(basis_sym, tol=1e-6)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.864422668583                   -0.72    4.2
-  2   -7.868980645549       -2.34       -1.54    1.0   39.3ms
-  3   -7.869174678517       -3.71       -2.61    1.1   40.0ms
-  4   -7.869209261126       -4.46       -2.87    2.4   57.8ms
-  5   -7.869209465483       -6.69       -2.95    1.0   38.5ms
-  6   -7.869209810324       -6.46       -4.07    1.0   39.2ms
-  7   -7.869209817254       -8.16       -5.08    1.8   47.6ms
-  8   -7.869209817523       -9.57       -5.35    2.1   53.8ms
-  9   -7.869209817530      -11.12       -5.92    1.0   39.9ms
- 10   -7.869209817529   +  -11.89       -5.68    1.4   43.0ms
- 11   -7.869209817531      -11.82       -6.64    1.0   40.3ms
-  0.524205 seconds (268.07 k allocations: 138.853 MiB)</code></pre><p>Clearly both yield the same energy but the version employing symmetry is faster, since less <span>$k$</span>-points are explicitly treated:</p><pre><code class="language-julia hljs">(length(basis_sym.kpoints), length(basis_nosym.kpoints))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(8, 64)</code></pre><p>Both SCFs would even agree in the convergence history if exact diagonalization was used for the eigensolver in each step of both SCFs. But since DFTK adjusts this <code>diagtol</code> value adaptively during the SCF to increase performance, a slightly different history is obtained. Try adding the keyword argument <code>determine_diagtol=(args...; kwargs...) -&gt; 1e-8</code> in each SCF call to fix the diagonalization tolerance to be <code>1e-8</code> for all SCF steps, which will result in an almost identical convergence history.</p><p>We can also explicitly verify both methods to yield the same density:</p><pre><code class="language-julia hljs">(norm(scfres_sym.ρ - scfres_nosym.ρ),
- norm(values(scfres_sym.energies) .- values(scfres_nosym.energies)))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(4.4093644021725975e-7, 1.7386561182819218e-7)</code></pre><p>The symmetries can be used to map reducible to irreducible points:</p><pre><code class="language-julia hljs">ikpt_red = rand(1:length(basis_nosym.kpoints))
+  1   -7.864396735018                   -0.72    4.1
+  2   -7.868979329610       -2.34       -1.54    1.0   47.1ms
+  3   -7.869177594851       -3.70       -2.60    1.1   49.9ms
+  4   -7.869209252652       -4.50       -2.89    2.5   66.7ms
+  5   -7.869209545676       -6.53       -3.02    1.0   46.6ms
+  6   -7.869209810682       -6.58       -4.12    1.0   47.5ms
+  7   -7.869209817316       -8.18       -5.00    2.0    262ms
+  8   -7.869209817522       -9.69       -5.34    1.8    115ms
+  9   -7.869209817478   +  -10.36       -4.93    1.6   57.2ms
+ 10   -7.869209817528      -10.30       -5.77    1.0   46.4ms
+ 11   -7.869209817530      -11.71       -6.43    1.2   50.0ms
+  0.889588 seconds (270.67 k allocations: 139.997 MiB, 5.82% gc time)</code></pre><p>Clearly both yield the same energy but the version employing symmetry is faster, since less <span>$k$</span>-points are explicitly treated:</p><pre><code class="language-julia hljs">(length(basis_sym.kpoints), length(basis_nosym.kpoints))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(8, 64)</code></pre><p>Both SCFs would even agree in the convergence history if exact diagonalization was used for the eigensolver in each step of both SCFs. But since DFTK adjusts this <code>diagtol</code> value adaptively during the SCF to increase performance, a slightly different history is obtained. Try adding the keyword argument <code>determine_diagtol=(args...; kwargs...) -&gt; 1e-8</code> in each SCF call to fix the diagonalization tolerance to be <code>1e-8</code> for all SCF steps, which will result in an almost identical convergence history.</p><p>We can also explicitly verify both methods to yield the same density:</p><pre><code class="language-julia hljs">(norm(scfres_sym.ρ - scfres_nosym.ρ),
+ norm(values(scfres_sym.energies) .- values(scfres_nosym.energies)))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(4.6635639795605054e-7, 3.696692984928421e-7)</code></pre><p>The symmetries can be used to map reducible to irreducible points:</p><pre><code class="language-julia hljs">ikpt_red = rand(1:length(basis_nosym.kpoints))
 # find a (non-unique) corresponding irreducible point in basis_nosym,
 # and the symmetry that relates them
 ikpt_irred, symop = DFTK.unfold_mapping(basis_sym, basis_nosym.kpoints[ikpt_red])
 [basis_sym.kpoints[ikpt_irred].coordinate symop.S * basis_nosym.kpoints[ikpt_red].coordinate]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">3×2 StaticArraysCore.SMatrix{3, 2, Float64, 6} with indices SOneTo(3)×SOneTo(2):
- -0.25  -0.25
-  0.25   0.25
+ -0.5   -0.5
+  0.25  -0.75
   0.0    0.0</code></pre><p>The eigenvalues match also:</p><pre><code class="language-julia hljs">[scfres_sym.eigenvalues[ikpt_irred] scfres_nosym.eigenvalues[ikpt_red]]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">7×2 Matrix{Float64}:
- -0.0935298  -0.0935298
-  0.0674044   0.0674044
-  0.122319    0.122319
-  0.212029    0.212029
-  0.355694    0.355694
-  0.438698    0.438697
-  0.454813    0.454725</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../useful_formulas/">« Useful formulas</a><a class="docs-footer-nextpage" href="../gpu_computations/">GPU computations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Sunday 21 May 2023 07:17">Sunday 21 May 2023</span>. Using Julia version 1.9.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ -0.0678642  -0.0678642
+  0.0340214   0.0340214
+  0.131311    0.131311
+  0.179372    0.179372
+  0.319769    0.319769
+  0.428179    0.428169
+  0.481988    0.476539</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../useful_formulas/">« Useful formulas</a><a class="docs-footer-nextpage" href="../gpu_computations/">GPU computations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Wednesday 21 June 2023 05:44">Wednesday 21 June 2023</span>. Using Julia version 1.9.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
