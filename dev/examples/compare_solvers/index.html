@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Comparison of DFT solvers · DFTK.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://docs.dftk.org/stable/examples/compare_solvers/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="DFTK.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">DFTK.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../features/">DFTK features</a></li><li><span class="tocitem">Getting started</span><ul><li><a class="tocitem" href="../../guide/installation/">Installation</a></li><li><a class="tocitem" href="../../guide/tutorial/">Tutorial</a></li><li><a class="tocitem" href="../../guide/periodic_problems/">Problems and plane-wave discretisations</a></li><li><a class="tocitem" href="../../guide/introductory_resources/">Introductory resources</a></li><li><a class="tocitem" href="../../school2022/">DFTK School 2022</a></li></ul></li><li><span class="tocitem">Basic DFT calculations</span><ul><li><a class="tocitem" href="../metallic_systems/">Temperature and metallic systems</a></li><li><a class="tocitem" href="../collinear_magnetism/">Collinear spin and magnetic systems</a></li><li><a class="tocitem" href="../convergence_study/">Performing a convergence study</a></li><li><a class="tocitem" href="../pseudopotentials/">Pseudopotentials</a></li><li><a class="tocitem" href="../supercells/">Creating and modelling metallic supercells</a></li><li><a class="tocitem" href="../gaas_surface/">Modelling a gallium arsenide surface</a></li><li><a class="tocitem" href="../graphene/">Graphene band structure</a></li><li><a class="tocitem" href="../geometry_optimization/">Geometry optimization</a></li><li><a class="tocitem" href="../energy_cutoff_smearing/">Energy cutoff smearing</a></li></ul></li><li><span class="tocitem">Response and properties</span><ul><li><a class="tocitem" href="../polarizability/">Polarizability by linear response</a></li><li><a class="tocitem" href="../forwarddiff/">Polarizability using automatic differentiation</a></li><li><a class="tocitem" href="../dielectric/">Eigenvalues of the dielectric matrix</a></li></ul></li><li><span class="tocitem">Ecosystem integration</span><ul><li><a class="tocitem" href="../atomsbase/">AtomsBase integration</a></li><li><a class="tocitem" href="../input_output/">Input and output formats</a></li><li><a class="tocitem" href="../wannier90/">Wannierization using Wannier90</a></li></ul></li><li><span class="tocitem">Tipps and tricks</span><ul><li><a class="tocitem" href="../../tricks/parallelization/">Timings and parallelization</a></li><li><a class="tocitem" href="../../tricks/scf_checkpoints/">Saving SCF results on disk and SCF checkpoints</a></li></ul></li><li><span class="tocitem">Solvers</span><ul><li><a class="tocitem" href="../custom_solvers/">Custom solvers</a></li><li><a class="tocitem" href="../scf_callbacks/">Monitoring self-consistent field calculations</a></li><li class="is-active"><a class="tocitem" href>Comparison of DFT solvers</a><ul class="internal"><li><a class="tocitem" href="#Density-based-self-consistent-field"><span>Density-based self-consistent field</span></a></li><li><a class="tocitem" href="#Potential-based-SCF"><span>Potential-based SCF</span></a></li><li><a class="tocitem" href="#Direct-minimization"><span>Direct minimization</span></a></li><li><a class="tocitem" href="#Newton-algorithm"><span>Newton algorithm</span></a></li><li><a class="tocitem" href="#Comparison-of-results"><span>Comparison of results</span></a></li></ul></li></ul></li><li><span class="tocitem">Nonstandard models</span><ul><li><a class="tocitem" href="../gross_pitaevskii/">Gross-Pitaevskii equation in one dimension</a></li><li><a class="tocitem" href="../gross_pitaevskii_2D/">Gross-Pitaevskii equation with external magnetic field</a></li><li><a class="tocitem" href="../custom_potential/">Custom potential</a></li><li><a class="tocitem" href="../cohen_bergstresser/">Cohen-Bergstresser model</a></li><li><a class="tocitem" href="../anyons/">Anyonic models</a></li></ul></li><li><span class="tocitem">Error control</span><ul><li><a class="tocitem" href="../arbitrary_floattype/">Arbitrary floating-point types</a></li><li><a class="tocitem" href="../error_estimates_forces/">Practical error bounds for the forces</a></li></ul></li><li><span class="tocitem">Developer resources</span><ul><li><a class="tocitem" href="../../developer/conventions/">Notation and conventions</a></li><li><a class="tocitem" href="../../developer/data_structures/">Data structures</a></li><li><a class="tocitem" href="../../developer/useful_formulas/">Useful formulas</a></li><li><a class="tocitem" href="../../developer/symmetries/">Crystal symmetries</a></li><li><a class="tocitem" href="../../developer/gpu_computations/">GPU computations</a></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li><li><a class="tocitem" href="../../publications/">Publications</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Solvers</a></li><li class="is-active"><a href>Comparison of DFT solvers</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Comparison of DFT solvers</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaMolSim/DFTK.jl/blob/master/examples/compare_solvers.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Comparison-of-DFT-solvers"><a class="docs-heading-anchor" href="#Comparison-of-DFT-solvers">Comparison of DFT solvers</a><a id="Comparison-of-DFT-solvers-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-of-DFT-solvers" title="Permalink"></a></h1><p><a href="https://mybinder.org/v2/gh/JuliaMolSim/DFTK.jl/gh-pages?filepath=dev/examples/compare_solvers.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt/></a> <a href="https://nbviewer.jupyter.org/github/JuliaMolSim/DFTK.jl/blob/gh-pages/dev/examples/compare_solvers.ipynb"><img src="https://img.shields.io/badge/show-nbviewer-579ACA.svg" alt/></a></p><p>We compare four different approaches for solving the DFT minimisation problem, namely a density-based SCF, a potential-based SCF, direct minimisation and Newton.</p><p>First we setup our problem</p><pre><code class="language-julia hljs">using DFTK
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Comparison of DFT solvers · DFTK.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://docs.dftk.org/stable/examples/compare_solvers/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="DFTK.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">DFTK.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../features/">DFTK features</a></li><li><span class="tocitem">Getting started</span><ul><li><a class="tocitem" href="../../guide/installation/">Installation</a></li><li><a class="tocitem" href="../../guide/tutorial/">Tutorial</a></li><li><a class="tocitem" href="../../guide/periodic_problems/">Problems and plane-wave discretisations</a></li><li><a class="tocitem" href="../../guide/introductory_resources/">Introductory resources</a></li><li><a class="tocitem" href="../../school2022/">DFTK School 2022</a></li></ul></li><li><span class="tocitem">Basic DFT calculations</span><ul><li><a class="tocitem" href="../metallic_systems/">Temperature and metallic systems</a></li><li><a class="tocitem" href="../collinear_magnetism/">Collinear spin and magnetic systems</a></li><li><a class="tocitem" href="../convergence_study/">Performing a convergence study</a></li><li><a class="tocitem" href="../pseudopotentials/">Pseudopotentials</a></li><li><a class="tocitem" href="../supercells/">Creating and modelling metallic supercells</a></li><li><a class="tocitem" href="../gaas_surface/">Modelling a gallium arsenide surface</a></li><li><a class="tocitem" href="../graphene/">Graphene band structure</a></li><li><a class="tocitem" href="../geometry_optimization/">Geometry optimization</a></li><li><a class="tocitem" href="../energy_cutoff_smearing/">Energy cutoff smearing</a></li></ul></li><li><span class="tocitem">Response and properties</span><ul><li><a class="tocitem" href="../polarizability/">Polarizability by linear response</a></li><li><a class="tocitem" href="../forwarddiff/">Polarizability using automatic differentiation</a></li><li><a class="tocitem" href="../dielectric/">Eigenvalues of the dielectric matrix</a></li></ul></li><li><span class="tocitem">Ecosystem integration</span><ul><li><a class="tocitem" href="../atomsbase/">AtomsBase integration</a></li><li><a class="tocitem" href="../input_output/">Input and output formats</a></li><li><a class="tocitem" href="../wannier90/">Wannierization using Wannier90</a></li></ul></li><li><span class="tocitem">Tipps and tricks</span><ul><li><a class="tocitem" href="../../tricks/parallelization/">Timings and parallelization</a></li><li><a class="tocitem" href="../../tricks/scf_checkpoints/">Saving SCF results on disk and SCF checkpoints</a></li></ul></li><li><span class="tocitem">Solvers</span><ul><li><a class="tocitem" href="../custom_solvers/">Custom solvers</a></li><li><a class="tocitem" href="../scf_callbacks/">Monitoring self-consistent field calculations</a></li><li class="is-active"><a class="tocitem" href>Comparison of DFT solvers</a><ul class="internal"><li><a class="tocitem" href="#Density-based-self-consistent-field"><span>Density-based self-consistent field</span></a></li><li><a class="tocitem" href="#Potential-based-SCF"><span>Potential-based SCF</span></a></li><li><a class="tocitem" href="#Direct-minimization"><span>Direct minimization</span></a></li><li><a class="tocitem" href="#Newton-algorithm"><span>Newton algorithm</span></a></li><li><a class="tocitem" href="#Comparison-of-results"><span>Comparison of results</span></a></li></ul></li></ul></li><li><span class="tocitem">Nonstandard models</span><ul><li><a class="tocitem" href="../gross_pitaevskii/">Gross-Pitaevskii equation in one dimension</a></li><li><a class="tocitem" href="../gross_pitaevskii_2D/">Gross-Pitaevskii equation with external magnetic field</a></li><li><a class="tocitem" href="../custom_potential/">Custom potential</a></li><li><a class="tocitem" href="../cohen_bergstresser/">Cohen-Bergstresser model</a></li><li><a class="tocitem" href="../anyons/">Anyonic models</a></li></ul></li><li><span class="tocitem">Error control</span><ul><li><a class="tocitem" href="../arbitrary_floattype/">Arbitrary floating-point types</a></li><li><a class="tocitem" href="../error_estimates_forces/">Practical error bounds for the forces</a></li></ul></li><li><span class="tocitem">Developer resources</span><ul><li><a class="tocitem" href="../../developer/setup/">Developer setup</a></li><li><a class="tocitem" href="../../developer/conventions/">Notation and conventions</a></li><li><a class="tocitem" href="../../developer/data_structures/">Data structures</a></li><li><a class="tocitem" href="../../developer/useful_formulas/">Useful formulas</a></li><li><a class="tocitem" href="../../developer/symmetries/">Crystal symmetries</a></li><li><a class="tocitem" href="../../developer/gpu_computations/">GPU computations</a></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li><li><a class="tocitem" href="../../publications/">Publications</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Solvers</a></li><li class="is-active"><a href>Comparison of DFT solvers</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Comparison of DFT solvers</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaMolSim/DFTK.jl/blob/master/examples/compare_solvers.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Comparison-of-DFT-solvers"><a class="docs-heading-anchor" href="#Comparison-of-DFT-solvers">Comparison of DFT solvers</a><a id="Comparison-of-DFT-solvers-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-of-DFT-solvers" title="Permalink"></a></h1><p><a href="https://mybinder.org/v2/gh/JuliaMolSim/DFTK.jl/gh-pages?filepath=dev/examples/compare_solvers.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt/></a> <a href="https://nbviewer.jupyter.org/github/JuliaMolSim/DFTK.jl/blob/gh-pages/dev/examples/compare_solvers.ipynb"><img src="https://img.shields.io/badge/show-nbviewer-579ACA.svg" alt/></a></p><p>We compare four different approaches for solving the DFT minimisation problem, namely a density-based SCF, a potential-based SCF, direct minimisation and Newton.</p><p>First we setup our problem</p><pre><code class="language-julia hljs">using DFTK
 using LinearAlgebra
 
 a = 10.26  # Silicon lattice constant in Bohr
@@ -16,123 +16,119 @@ basis = PlaneWaveBasis(model; Ecut=5, kgrid=[3, 3, 3])
 # Convergence we desire in the density
 tol = 1e-6</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1.0e-6</code></pre><h2 id="Density-based-self-consistent-field"><a class="docs-heading-anchor" href="#Density-based-self-consistent-field">Density-based self-consistent field</a><a id="Density-based-self-consistent-field-1"></a><a class="docs-heading-anchor-permalink" href="#Density-based-self-consistent-field" title="Permalink"></a></h2><pre><code class="language-julia hljs">scfres_scf = self_consistent_field(basis; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.846851468202                   -0.70    4.8
-  2   -7.852320142346       -2.26       -1.53    1.0   30.8ms
-  3   -7.852616138324       -3.53       -2.56    1.5   34.1ms
-  4   -7.852646025792       -4.52       -2.90    2.5   40.3ms
-  5   -7.852646520743       -6.31       -3.20    1.0   29.8ms
-  6   -7.852646680364       -6.80       -4.17    1.0   29.8ms
-  7   -7.852646686651       -8.20       -5.27    2.0   38.3ms
-  8   -7.852646686726      -10.13       -5.55    1.8   35.8ms
-  9   -7.852646686727      -11.85       -5.63    1.5   34.1ms
- 10   -7.852646686730      -11.60       -7.19    1.0   30.3ms</code></pre><h2 id="Potential-based-SCF"><a class="docs-heading-anchor" href="#Potential-based-SCF">Potential-based SCF</a><a id="Potential-based-SCF-1"></a><a class="docs-heading-anchor-permalink" href="#Potential-based-SCF" title="Permalink"></a></h2><pre><code class="language-julia hljs">scfres_scfv = DFTK.scf_potential_mixing(basis; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   α      Diag   Δtime
+  1   -7.846820617522                   -0.70    4.5
+  2   -7.852298591929       -2.26       -1.53    1.0   26.1ms
+  3   -7.852613118686       -3.50       -2.56    1.8   30.7ms
+  4   -7.852645953839       -4.48       -2.88    2.5   36.4ms
+  5   -7.852646494933       -6.27       -3.18    1.0   25.9ms
+  6   -7.852646677993       -6.74       -4.08    1.0   26.6ms
+  7   -7.852646686676       -8.06       -4.99    2.2   36.3ms
+  8   -7.852646686726      -10.30       -5.54    1.2   29.1ms
+  9   -7.852646686727      -12.23       -5.49    1.2   29.9ms
+ 10   -7.852646686730      -11.50       -6.68    1.0   27.7ms</code></pre><h2 id="Potential-based-SCF"><a class="docs-heading-anchor" href="#Potential-based-SCF">Potential-based SCF</a><a id="Potential-based-SCF-1"></a><a class="docs-heading-anchor-permalink" href="#Potential-based-SCF" title="Permalink"></a></h2><pre><code class="language-julia hljs">scfres_scfv = DFTK.scf_potential_mixing(basis; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   α      Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ----   ------
-  1   -7.846908293995                   -0.70           4.8
-  2   -7.852527174559       -2.25       -1.64   0.80    2.0   36.1ms
-  3   -7.852636075405       -3.96       -2.73   0.80    1.0   28.1ms
-  4   -7.852646443410       -4.98       -3.27   0.80    2.2   36.8ms
-  5   -7.852646675544       -6.63       -4.07   0.80    1.2   30.2ms
-  6   -7.852646686330       -7.97       -4.71   0.80    1.8   32.4ms
-  7   -7.852646686717       -9.41       -5.56   0.80    1.8   33.0ms
-  8   -7.852646686729      -10.90       -7.07   0.80    1.8   32.8ms</code></pre><h2 id="Direct-minimization"><a class="docs-heading-anchor" href="#Direct-minimization">Direct minimization</a><a id="Direct-minimization-1"></a><a class="docs-heading-anchor-permalink" href="#Direct-minimization" title="Permalink"></a></h2><p>Note: Unlike the other algorithms, tolerance for this one is in the energy, thus we square the density tolerance value to be roughly equivalent.</p><pre><code class="language-julia hljs">scfres_dm = direct_minimization(basis; tol=tol^2);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Iter     Function value   Gradient norm
-     0     1.384146e+01     3.528244e+00
- * time: 0.016302108764648438
-     1     1.135422e+00     1.711859e+00
- * time: 0.046586036682128906
-     2    -1.715403e+00     1.988281e+00
- * time: 0.0768442153930664
-     3    -3.641192e+00     2.037491e+00
- * time: 0.12039899826049805
-     4    -4.949905e+00     1.694399e+00
- * time: 0.16447901725769043
-     5    -6.587359e+00     1.426857e+00
- * time: 0.20873618125915527
-     6    -7.400872e+00     7.316347e-01
- * time: 0.34918212890625
-     7    -7.646302e+00     4.281727e-01
- * time: 0.38042211532592773
-     8    -7.728866e+00     1.038374e-01
- * time: 0.4113290309906006
-     9    -7.785122e+00     2.597817e-01
- * time: 0.47884607315063477
-    10    -7.818002e+00     8.459804e-02
- * time: 0.5090110301971436
-    11    -7.837748e+00     5.755375e-02
- * time: 0.5392260551452637
-    12    -7.847664e+00     5.889523e-02
- * time: 0.5697660446166992
-    13    -7.851034e+00     3.110293e-02
- * time: 0.5993092060089111
-    14    -7.851943e+00     2.299465e-02
- * time: 0.6290450096130371
-    15    -7.852320e+00     1.133415e-02
- * time: 0.6593611240386963
-    16    -7.852533e+00     6.113159e-03
- * time: 0.6890580654144287
-    17    -7.852613e+00     3.401227e-03
- * time: 0.7183032035827637
-    18    -7.852636e+00     1.922767e-03
- * time: 0.7477860450744629
-    19    -7.852643e+00     1.051330e-03
- * time: 0.7776730060577393
-    20    -7.852645e+00     6.582913e-04
- * time: 0.8073651790618896
-    21    -7.852646e+00     3.755126e-04
- * time: 0.9142711162567139
-    22    -7.852646e+00     2.394953e-04
- * time: 0.9454731941223145
-    23    -7.852647e+00     1.443612e-04
- * time: 0.9761230945587158
-    24    -7.852647e+00     8.778633e-05
- * time: 1.0063810348510742
-    25    -7.852647e+00     4.858657e-05
- * time: 1.0366930961608887
-    26    -7.852647e+00     3.419837e-05
- * time: 1.06679105758667
-    27    -7.852647e+00     1.959247e-05
- * time: 1.096696138381958
-    28    -7.852647e+00     8.607833e-06
- * time: 1.1265180110931396
-    29    -7.852647e+00     5.306951e-06
- * time: 1.1572661399841309
-    30    -7.852647e+00     2.677102e-06
- * time: 1.1872282028198242
-    31    -7.852647e+00     1.584690e-06
- * time: 1.2171990871429443
-    32    -7.852647e+00     1.222112e-06
- * time: 1.247554063796997
-    33    -7.852647e+00     7.111242e-07
- * time: 1.277766227722168
-    34    -7.852647e+00     3.812312e-07
- * time: 1.307953119277954
-    35    -7.852647e+00     2.320505e-07
- * time: 1.3381872177124023
-    36    -7.852647e+00     1.406539e-07
- * time: 1.3684971332550049
-    37    -7.852647e+00     1.173701e-07
- * time: 1.3990302085876465
-    38    -7.852647e+00     7.577129e-08
- * time: 1.428849220275879
-    39    -7.852647e+00     3.675472e-08
- * time: 1.4888131618499756
-    40    -7.852647e+00     2.197920e-08
- * time: 1.5187511444091797
-    41    -7.852647e+00     1.335168e-08
- * time: 1.548673152923584
-    42    -7.852647e+00     8.695611e-09
- * time: 1.579071044921875
-    43    -7.852647e+00     5.160205e-09
- * time: 1.6093380451202393
-    44    -7.852647e+00     5.160197e-09
- * time: 1.7179372310638428</code></pre><h2 id="Newton-algorithm"><a class="docs-heading-anchor" href="#Newton-algorithm">Newton algorithm</a><a id="Newton-algorithm-1"></a><a class="docs-heading-anchor-permalink" href="#Newton-algorithm" title="Permalink"></a></h2><p>Start not too far from the solution to ensure convergence: We run first a very crude SCF to get close and then switch to Newton.</p><pre><code class="language-julia hljs">scfres_start = self_consistent_field(basis; tol=0.5);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
+  1   -7.846826984454                   -0.70           5.0
+  2   -7.852526617120       -2.24       -1.63   0.80    2.0   31.1ms
+  3   -7.852636551662       -3.96       -2.71   0.80    1.0   24.3ms
+  4   -7.852646466616       -5.00       -3.27   0.80    2.2   33.0ms
+  5   -7.852646669842       -6.69       -4.10   0.80    1.0   25.1ms
+  6   -7.852646686521       -7.78       -4.71   0.80    2.0   32.4ms
+  7   -7.852646686718       -9.70       -5.48   0.80    1.2   26.7ms
+  8   -7.852646686729      -10.95       -6.61   0.80    1.5   29.1ms</code></pre><h2 id="Direct-minimization"><a class="docs-heading-anchor" href="#Direct-minimization">Direct minimization</a><a id="Direct-minimization-1"></a><a class="docs-heading-anchor-permalink" href="#Direct-minimization" title="Permalink"></a></h2><p>Note: Unlike the other algorithms, tolerance for this one is in the energy, thus we square the density tolerance value to be roughly equivalent.</p><pre><code class="language-julia hljs">scfres_dm = direct_minimization(basis; tol=tol^2);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Iter     Function value   Gradient norm
+     0     1.417789e+01     3.266530e+00
+ * time: 0.013626813888549805
+     1     1.060126e+00     1.916547e+00
+ * time: 0.03899979591369629
+     2    -1.555811e+00     2.124834e+00
+ * time: 0.0646359920501709
+     3    -3.789736e+00     1.717079e+00
+ * time: 0.10178899765014648
+     4    -5.097204e+00     1.575984e+00
+ * time: 0.13841795921325684
+     5    -6.702975e+00     9.407095e-01
+ * time: 0.1757068634033203
+     6    -7.369505e+00     4.069365e-01
+ * time: 0.21267080307006836
+     7    -7.635109e+00     1.767165e-01
+ * time: 0.23815298080444336
+     8    -7.757509e+00     1.571158e-01
+ * time: 0.26336097717285156
+     9    -7.814693e+00     7.859224e-02
+ * time: 0.2894878387451172
+    10    -7.838628e+00     5.942981e-02
+ * time: 0.31499195098876953
+    11    -7.847337e+00     3.441840e-02
+ * time: 0.340986967086792
+    12    -7.850504e+00     2.742254e-02
+ * time: 0.36725783348083496
+    13    -7.851701e+00     2.423727e-02
+ * time: 0.39368391036987305
+    14    -7.852209e+00     9.814589e-03
+ * time: 0.41979289054870605
+    15    -7.852497e+00     5.729618e-03
+ * time: 0.4461648464202881
+    16    -7.852602e+00     3.526310e-03
+ * time: 0.4724159240722656
+    17    -7.852632e+00     2.074471e-03
+ * time: 0.4981648921966553
+    18    -7.852642e+00     1.346967e-03
+ * time: 0.5238869190216064
+    19    -7.852645e+00     9.401692e-04
+ * time: 0.5499279499053955
+    20    -7.852646e+00     5.628544e-04
+ * time: 0.5760848522186279
+    21    -7.852646e+00     3.548990e-04
+ * time: 0.6294808387756348
+    22    -7.852647e+00     2.129140e-04
+ * time: 0.6555337905883789
+    23    -7.852647e+00     1.023376e-04
+ * time: 0.6818909645080566
+    24    -7.852647e+00     5.506739e-05
+ * time: 0.7086038589477539
+    25    -7.852647e+00     3.043371e-05
+ * time: 0.7349658012390137
+    26    -7.852647e+00     1.765949e-05
+ * time: 0.7613399028778076
+    27    -7.852647e+00     9.593501e-06
+ * time: 0.7876269817352295
+    28    -7.852647e+00     5.960838e-06
+ * time: 0.8141069412231445
+    29    -7.852647e+00     4.958815e-06
+ * time: 0.8412837982177734
+    30    -7.852647e+00     2.797507e-06
+ * time: 0.8673238754272461
+    31    -7.852647e+00     8.964164e-07
+ * time: 0.8936278820037842
+    32    -7.852647e+00     7.730718e-07
+ * time: 0.9197227954864502
+    33    -7.852647e+00     5.094131e-07
+ * time: 0.9465348720550537
+    34    -7.852647e+00     2.973489e-07
+ * time: 0.9735028743743896
+    35    -7.852647e+00     1.877230e-07
+ * time: 1.0003318786621094
+    36    -7.852647e+00     1.157011e-07
+ * time: 1.026817798614502
+    37    -7.852647e+00     7.907135e-08
+ * time: 1.0535008907318115
+    38    -7.852647e+00     4.759444e-08
+ * time: 1.0797338485717773
+    39    -7.852647e+00     2.805239e-08
+ * time: 1.1057558059692383
+    40    -7.852647e+00     1.613409e-08
+ * time: 1.1317849159240723
+    41    -7.852647e+00     1.393039e-08
+ * time: 1.1581628322601318
+    42    -7.852647e+00     1.393039e-08
+ * time: 1.2860169410705566</code></pre><h2 id="Newton-algorithm"><a class="docs-heading-anchor" href="#Newton-algorithm">Newton algorithm</a><a id="Newton-algorithm-1"></a><a class="docs-heading-anchor-permalink" href="#Newton-algorithm" title="Permalink"></a></h2><p>Start not too far from the solution to ensure convergence: We run first a very crude SCF to get close and then switch to Newton.</p><pre><code class="language-julia hljs">scfres_start = self_consistent_field(basis; tol=0.5);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.846802928112                   -0.70    4.8</code></pre><p>Remove the virtual orbitals (which Newton cannot treat yet)</p><pre><code class="language-julia hljs">ψ = DFTK.select_occupied_orbitals(basis, scfres_start.ψ, scfres_start.occupation).ψ
+  1   -7.846906790190                   -0.70    4.8</code></pre><p>Remove the virtual orbitals (which Newton cannot treat yet)</p><pre><code class="language-julia hljs">ψ = DFTK.select_occupied_orbitals(basis, scfres_start.ψ, scfres_start.occupation).ψ
 scfres_newton = newton(basis, ψ; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Δtime
 ---   ---------------   ---------   ---------   ------
-  1   -7.852645912377                   -1.64
-  2   -7.852646686730       -6.11       -3.71    534ms
-  3   -7.852646686730      -13.32       -7.25    188ms</code></pre><h2 id="Comparison-of-results"><a class="docs-heading-anchor" href="#Comparison-of-results">Comparison of results</a><a id="Comparison-of-results-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-of-results" title="Permalink"></a></h2><pre><code class="language-julia hljs">println(&quot;|ρ_newton - ρ_scf|  = &quot;, norm(scfres_newton.ρ - scfres_scf.ρ))
+  1   -7.852645929510                   -1.64
+  2   -7.852646686730       -6.12       -3.71    460ms
+  3   -7.852646686730      -13.34       -7.26    161ms</code></pre><h2 id="Comparison-of-results"><a class="docs-heading-anchor" href="#Comparison-of-results">Comparison of results</a><a id="Comparison-of-results-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-of-results" title="Permalink"></a></h2><pre><code class="language-julia hljs">println(&quot;|ρ_newton - ρ_scf|  = &quot;, norm(scfres_newton.ρ - scfres_scf.ρ))
 println(&quot;|ρ_newton - ρ_scfv| = &quot;, norm(scfres_newton.ρ - scfres_scfv.ρ))
-println(&quot;|ρ_newton - ρ_dm|   = &quot;, norm(scfres_newton.ρ - scfres_dm.ρ))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">|ρ_newton - ρ_scf|  = 1.558981467855005e-7
-|ρ_newton - ρ_scfv| = 2.2821466812255092e-7
-|ρ_newton - ρ_dm|   = 7.548776453946402e-10</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../scf_callbacks/">« Monitoring self-consistent field calculations</a><a class="docs-footer-nextpage" href="../gross_pitaevskii/">Gross-Pitaevskii equation in one dimension »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Wednesday 21 June 2023 05:44">Wednesday 21 June 2023</span>. Using Julia version 1.9.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+println(&quot;|ρ_newton - ρ_dm|   = &quot;, norm(scfres_newton.ρ - scfres_dm.ρ))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">|ρ_newton - ρ_scf|  = 3.325744909170387e-7
+|ρ_newton - ρ_scfv| = 5.792645571813876e-7
+|ρ_newton - ρ_dm|   = 9.306556581964591e-10</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../scf_callbacks/">« Monitoring self-consistent field calculations</a><a class="docs-footer-nextpage" href="../gross_pitaevskii/">Gross-Pitaevskii equation in one dimension »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Friday 23 June 2023 07:02">Friday 23 June 2023</span>. Using Julia version 1.9.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
