@@ -56,25 +56,24 @@ basis = PlaneWaveBasis(model; Ecut, kgrid)
 
 scfres = self_consistent_field(basis, tol=1e-4, mixing=LdosMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -16.58818275939                   -0.58    5.2
-  2   -16.72511960147       -0.86       -1.01    1.0    440ms
-  3   -16.73057332081       -2.26       -1.57    2.2    448ms
-  4   -16.73128063851       -3.15       -2.16    2.0    493ms
-  5   -16.73133283618       -4.28       -2.61    2.1    454ms
-  6   -16.73133491540       -5.68       -2.95    1.4    384ms
-  7   -16.73098581874   +   -3.46       -2.53    2.2    474ms
-  8   -16.73133499762       -3.46       -3.25    2.4    475ms
-  9   -16.73133720227       -5.66       -3.47    2.2    473ms
- 10   -16.73133837289       -5.93       -3.67    2.4    494ms
- 11   -16.73133900894       -6.20       -3.74    2.4    484ms
- 12   -16.73134009111       -5.97       -4.27    2.6    505ms</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             5.8593585 
-    AtomicLocal         -105.6096346
-    AtomicNonlocal      2.3494612 
+  1   -16.58812142936                   -0.58    5.0
+  2   -16.72527119055       -0.86       -1.01    1.0    370ms
+  3   -16.73057908028       -2.28       -1.57    2.3    416ms
+  4   -16.73127173151       -3.16       -2.16    1.9    419ms
+  5   -16.73133303271       -4.21       -2.61    2.0    411ms
+  6   -16.73133589311       -5.54       -2.94    1.4    353ms
+  7   -16.73104086198   +   -3.53       -2.57    2.1    447ms
+  8   -16.73132936812       -3.54       -3.15    2.4    416ms
+  9   -16.73133321291       -5.42       -3.33    2.3    450ms
+ 10   -16.73133906788       -5.23       -3.77    2.3    431ms
+ 11   -16.73133987023       -6.10       -4.00    2.3    469ms</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
+    Kinetic             5.8594948 
+    AtomicLocal         -105.6113289
+    AtomicNonlocal      2.3495273 
     Ewald               35.5044300
     PspCorrection       0.2016043 
-    Hartree             49.5610865
-    Xc                  -4.5976426
-    Entropy             -0.0000035
+    Hartree             49.5626482
+    Xc                  -4.5977121
+    Entropy             -0.0000036
 
-    total               -16.731340091106</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../supercells/">« Creating and modelling metallic supercells</a><a class="docs-footer-nextpage" href="../graphene/">Graphene band structure »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Sunday 6 August 2023 10:23">Sunday 6 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    total               -16.731339870232</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../supercells/">« Creating and modelling metallic supercells</a><a class="docs-footer-nextpage" href="../graphene/">Graphene band structure »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 8 August 2023 16:12">Tuesday 8 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
