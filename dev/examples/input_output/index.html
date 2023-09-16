@@ -37,22 +37,22 @@ basis = PlaneWaveBasis(model; Ecut=10, kgrid=(2, 2, 2))
 ρ0 = guess_density(basis, system)
 scfres = self_consistent_field(basis, ρ=ρ0);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Magnet   Diag   Δtime
 ---   ---------------   ---------   ---------   ------   ----   ------
-  1   -223.7493462213                    0.22   -6.319    5.4
-  2   -224.1604748623       -0.39       -0.21   -3.325    2.0    225ms
-  3   -224.2175826467       -1.24       -1.05   -1.616    3.1    284ms
-  4   -224.2198743078       -2.64       -1.46   -1.192    1.1    227ms
-  5   -224.2207936709       -3.04       -1.72   -0.824    1.0    198ms
-  6   -224.2212127730       -3.38       -2.00   -0.485    1.0    199ms
-  7   -224.2213743239       -3.79       -2.35   -0.227    1.8    210ms
-  8   -224.2214158012       -4.38       -2.89   -0.074    1.8    209ms
-  9   -224.2214205822       -5.32       -3.56   -0.007    3.2    268ms
- 10   -224.2214206928       -6.96       -3.81    0.001    3.2    262ms
- 11   -224.2214207118       -7.72       -4.06   -0.001    2.2    220ms
- 12   -224.2214207182       -8.19       -4.50    0.000    1.9    220ms
- 13   -224.2214207186       -9.38       -5.04    0.000    3.2    261ms
- 14   -224.2214207187      -10.07       -5.43   -0.000    1.6    213ms
- 15   -224.2214207187      -11.04       -5.83   -0.000    2.5    232ms
- 16   -224.2214207187      -12.55       -6.20    0.000    2.2    240ms</code></pre><h2 id="Writing-VTK-files-for-visualization"><a class="docs-heading-anchor" href="#Writing-VTK-files-for-visualization">Writing VTK files for visualization</a><a id="Writing-VTK-files-for-visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-VTK-files-for-visualization" title="Permalink"></a></h2><p>For visualizing the density or the Kohn-Sham orbitals DFTK supports storing the result of an SCF calculations in the form of VTK files. These can afterwards be visualized using tools such as <a href="https://www.paraview.org/">paraview</a>. Using this feature requires the <a href="https://github.com/jipolanco/WriteVTK.jl/">WriteVTK.jl</a> Julia package.</p><pre><code class="language-julia hljs">using WriteVTK
+  1   -223.7489111731                    0.22   -6.320    5.4
+  2   -224.1603495186       -0.39       -0.21   -3.325    1.8    217ms
+  3   -224.2175855107       -1.24       -1.05   -1.615    3.7    286ms
+  4   -224.2198738797       -2.64       -1.46   -1.192    1.1    205ms
+  5   -224.2207936820       -3.04       -1.73   -0.823    1.0    198ms
+  6   -224.2212116209       -3.38       -2.00   -0.487    1.0    223ms
+  7   -224.2213742413       -3.79       -2.35   -0.227    1.2    205ms
+  8   -224.2214156797       -4.38       -2.89   -0.075    1.8    211ms
+  9   -224.2214205750       -5.31       -3.57   -0.006    3.2    248ms
+ 10   -224.2214206929       -6.93       -3.82    0.000    3.2    274ms
+ 11   -224.2214207118       -7.72       -4.07   -0.001    3.1    225ms
+ 12   -224.2214207178       -8.22       -4.43    0.000    1.6    236ms
+ 13   -224.2214207187       -9.07       -5.06    0.000    1.8    217ms
+ 14   -224.2214207187      -10.43       -5.41   -0.000    1.8    212ms
+ 15   -224.2214207187      -11.06       -5.84   -0.000    2.6    240ms
+ 16   -224.2214207187      -12.85       -6.24    0.000    2.5    244ms</code></pre><h2 id="Writing-VTK-files-for-visualization"><a class="docs-heading-anchor" href="#Writing-VTK-files-for-visualization">Writing VTK files for visualization</a><a id="Writing-VTK-files-for-visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-VTK-files-for-visualization" title="Permalink"></a></h2><p>For visualizing the density or the Kohn-Sham orbitals DFTK supports storing the result of an SCF calculations in the form of VTK files. These can afterwards be visualized using tools such as <a href="https://www.paraview.org/">paraview</a>. Using this feature requires the <a href="https://github.com/jipolanco/WriteVTK.jl/">WriteVTK.jl</a> Julia package.</p><pre><code class="language-julia hljs">using WriteVTK
 save_scfres(&quot;iron_afm.vts&quot;, scfres; save_ψ=true);</code></pre><p>This will save the iron calculation above into the file <code>iron_afm.vts</code>, using <code>save_ψ=true</code> to also include the KS orbitals.</p><h2 id="Parsable-data-export-using-json"><a class="docs-heading-anchor" href="#Parsable-data-export-using-json">Parsable data-export using json</a><a id="Parsable-data-export-using-json-1"></a><a class="docs-heading-anchor-permalink" href="#Parsable-data-export-using-json" title="Permalink"></a></h2><p>Many structures in DFTK support the (unexported) <code>todict</code> function, which returns a simplified dictionary representation of the data.</p><pre><code class="language-julia hljs">DFTK.todict(scfres.energies)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Dict{String, Float64} with 9 entries:
   &quot;AtomicNonlocal&quot; =&gt; -4.34593
   &quot;PspCorrection&quot;  =&gt; 7.03001
@@ -67,17 +67,17 @@ open(&quot;iron_afm_energies.json&quot;, &quot;w&quot;) do io
     JSON3.pretty(io, DFTK.todict(scfres.energies))
 end
 println(read(&quot;iron_afm_energies.json&quot;, String))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">{
-    &quot;AtomicNonlocal&quot;: -4.345930959237036,
+    &quot;AtomicNonlocal&quot;: -4.345930957544176,
     &quot;PspCorrection&quot;: 7.03000636467455,
     &quot;Ewald&quot;: -161.52650757200072,
-    &quot;total&quot;: -224.22142071873435,
-    &quot;Entropy&quot;: -0.03064781902133683,
-    &quot;Kinetic&quot;: 75.66304964435446,
-    &quot;AtomicLocal&quot;: -161.12810879141236,
-    &quot;Hartree&quot;: 41.39700690475423,
-    &quot;Xc&quot;: -21.280288490846104
+    &quot;total&quot;: -224.2214207187344,
+    &quot;Entropy&quot;: -0.030647819758962146,
+    &quot;Kinetic&quot;: 75.66304965704636,
+    &quot;AtomicLocal&quot;: -161.1281085835651,
+    &quot;Hartree&quot;: 41.39700667334964,
+    &quot;Xc&quot;: -21.280288480935972
 }</code></pre><p>Once JSON3 is loaded, additionally a convenience function for saving a parsable summary of <code>scfres</code> objects using <code>save_scfres</code> is available:</p><pre><code class="language-julia hljs">using JSON3
 save_scfres(&quot;iron_afm.json&quot;, scfres)</code></pre><h2 id="Writing-and-reading-JLD2-files"><a class="docs-heading-anchor" href="#Writing-and-reading-JLD2-files">Writing and reading JLD2 files</a><a id="Writing-and-reading-JLD2-files-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-and-reading-JLD2-files" title="Permalink"></a></h2><p>The full state of a DFTK self-consistent field calculation can be stored on disk in form of an <a href="https://github.com/JuliaIO/JLD2.jl">JLD2.jl</a> file. This file can be read from other Julia scripts as well as other external codes supporting the HDF5 file format (since the JLD2 format is based on HDF5).</p><pre><code class="language-julia hljs">using JLD2
 save_scfres(&quot;iron_afm.jld2&quot;, scfres);</code></pre><p>Since such JLD2 can also be read by DFTK to start or continue a calculation, these can also be used for checkpointing or for transferring results to a different computer. See <a href="../../tricks/scf_checkpoints/#Saving-SCF-results-on-disk-and-SCF-checkpoints">Saving SCF results on disk and SCF checkpoints</a> for details.</p><p>(Cleanup files generated by this notebook.)</p><pre><code class="language-julia hljs">rm(&quot;iron_afm.vts&quot;)
 rm(&quot;iron_afm.jld2&quot;)
-rm(&quot;iron_afm_energies.json&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../atomsbase/">« AtomsBase integration</a><a class="docs-footer-nextpage" href="../wannier90/">Wannierization using Wannier90 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 12 September 2023 07:32">Tuesday 12 September 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+rm(&quot;iron_afm_energies.json&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../atomsbase/">« AtomsBase integration</a><a class="docs-footer-nextpage" href="../wannier90/">Wannierization using Wannier90 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Saturday 16 September 2023 07:24">Saturday 16 September 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
