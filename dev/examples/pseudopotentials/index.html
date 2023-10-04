@@ -21,24 +21,24 @@ psp_upf  = load_psp(artifact&quot;pd_nc_sr_lda_standard_0.4.1_upf/Si.upf&quot;);
     (; scfres, bandplot)
 end;</code></pre><p>The SCF and bandstructure calculations can then be performed using the two PSPs, where we notice in particular the difference in total energies.</p><pre><code class="language-julia hljs">result_hgh = run_bands(psp_hgh)
 result_hgh.scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             3.1590069 
-    AtomicLocal         -2.1424744
-    AtomicNonlocal      1.6043253 
+    Kinetic             3.1590311 
+    AtomicLocal         -2.1424927
+    AtomicNonlocal      1.6043100 
     Ewald               -8.4004648
     PspCorrection       -0.2948928
-    Hartree             0.5515630 
-    Xc                  -2.4000909
-    Entropy             -0.0031623
+    Hartree             0.5515788 
+    Xc                  -2.4000975
+    Entropy             -0.0031620
 
-    total               -7.926189835750</code></pre><pre><code class="language-julia hljs">result_upf = run_bands(psp_upf)
+    total               -7.926189826344</code></pre><pre><code class="language-julia hljs">result_upf = run_bands(psp_upf)
 result_upf.scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             3.0954150 
-    AtomicLocal         -2.3650741
-    AtomicNonlocal      1.3082659 
+    Kinetic             3.0954199 
+    AtomicLocal         -2.3650824
+    AtomicNonlocal      1.3082678 
     Ewald               -8.4004648
     PspCorrection       0.3951970 
-    Hartree             0.5521853 
-    Xc                  -3.1011660
+    Hartree             0.5521882 
+    Xc                  -3.1011673
     Entropy             -0.0032193
 
-    total               -8.518860826845</code></pre><p>But while total energies are not physical and thus allowed to differ, the bands (as an example for a physical quantity) are very similar for both pseudos:</p><pre><code class="language-julia hljs">plot(result_hgh.bandplot, result_upf.bandplot, titles=[&quot;HGH&quot; &quot;UPF&quot;], size=(800, 400))</code></pre><img src="5bf944b9.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../convergence_study/">« Performing a convergence study</a><a class="docs-footer-nextpage" href="../supercells/">Creating and modelling metallic supercells »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.0 on <span class="colophon-date" title="Tuesday 3 October 2023 19:51">Tuesday 3 October 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    total               -8.518860826746</code></pre><p>But while total energies are not physical and thus allowed to differ, the bands (as an example for a physical quantity) are very similar for both pseudos:</p><pre><code class="language-julia hljs">plot(result_hgh.bandplot, result_upf.bandplot, titles=[&quot;HGH&quot; &quot;UPF&quot;], size=(800, 400))</code></pre><img src="dcb791c8.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../convergence_study/">« Performing a convergence study</a><a class="docs-footer-nextpage" href="../supercells/">Creating and modelling metallic supercells »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.0 on <span class="colophon-date" title="Wednesday 4 October 2023 08:21">Wednesday 4 October 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
