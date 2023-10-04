@@ -27,30 +27,30 @@ basis = PlaneWaveBasis(model; Ecut, kgrid)
 # 3. Run the SCF procedure to obtain the ground state
 scfres = self_consistent_field(basis, tol=1e-5);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.900336190794                   -0.70    4.8
-  2   -7.904992216277       -2.33       -1.52    1.0   36.7ms
-  3   -7.905183134320       -3.72       -2.53    1.1    232ms
-  4   -7.905210788246       -4.56       -2.90    2.9   51.5ms
-  5   -7.905211318766       -6.28       -3.17    1.0   35.8ms
-  6   -7.905211520532       -6.70       -4.51    1.0   36.6ms
-  7   -7.905211531317       -7.97       -4.89    2.5   53.7ms
-  8   -7.905211531388      -10.14       -5.10    1.1   37.9ms</code></pre><p>That&#39;s it! Now you can get various quantities from the result of the SCF. For instance, the different components of the energy:</p><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             3.1020966 
-    AtomicLocal         -2.1987845
-    AtomicNonlocal      1.7296093 
+  1   -7.900400251442                   -0.70    4.6
+  2   -7.904997087521       -2.34       -1.52    1.0   34.1ms
+  3   -7.905175154574       -3.75       -2.53    1.1   34.8ms
+  4   -7.905210590172       -4.45       -2.83    2.8   47.4ms
+  5   -7.905211074179       -6.32       -2.95    1.1   34.6ms
+  6   -7.905211520013       -6.35       -4.67    1.0   33.8ms
+  7   -7.905211531155       -7.95       -4.63    3.1   52.9ms
+  8   -7.905211531386       -9.63       -5.19    1.0   34.4ms</code></pre><p>That&#39;s it! Now you can get various quantities from the result of the SCF. For instance, the different components of the energy:</p><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
+    Kinetic             3.1020960 
+    AtomicLocal         -2.1987838
+    AtomicNonlocal      1.7296092 
     Ewald               -8.3979253
     PspCorrection       -0.2946254
-    Hartree             0.5530391 
+    Hartree             0.5530389 
     Xc                  -2.3986212
 
-    total               -7.905211531388</code></pre><p>Eigenvalues:</p><pre><code class="language-julia hljs">hcat(scfres.eigenvalues...)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">7×8 Matrix{Float64}:
- -0.176942  -0.14744   -0.091169    …  -0.101219   -0.0239769  -0.0184078
-  0.261073   0.116915   0.00482521      0.0611645  -0.0239769  -0.0184078
-  0.261073   0.23299    0.216734        0.121636    0.155532    0.117748
-  0.261073   0.23299    0.216734        0.212134    0.155532    0.117748
-  0.354532   0.33511    0.317102        0.350436    0.285692    0.417258
-  0.354532   0.389829   0.384601    …   0.436925    0.285692    0.417265
-  0.354533   0.389829   0.384601        0.449288    0.627582    0.443806</code></pre><p><code>eigenvalues</code> is an array (indexed by k-points) of arrays (indexed by eigenvalue number). The &quot;splatting&quot; operation <code>...</code> calls <code>hcat</code> with all the inner arrays as arguments, which collects them into a matrix.</p><p>The resulting matrix is 7 (number of computed eigenvalues) by 8 (number of irreducible k-points). There are 7 eigenvalues per k-point because there are 4 occupied states in the system (4 valence electrons per silicon atom, two atoms per unit cell, and paired spins), and the eigensolver gives itself some breathing room by computing some extra states (see the <code>bands</code> argument to <code>self_consistent_field</code> as well as the <a href="../../api/#DFTK.AdaptiveBands"><code>AdaptiveBands</code></a> documentation). There are only 8 k-points (instead of 4x4x4) because symmetry has been used to reduce the amount of computations to just the irreducible k-points (see <a href="../../developer/symmetries/#Crystal-symmetries">Crystal symmetries</a> for details).</p><p>We can check the occupations ...</p><pre><code class="language-julia hljs">hcat(scfres.occupation...)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">7×8 Matrix{Float64}:
+    total               -7.905211531386</code></pre><p>Eigenvalues:</p><pre><code class="language-julia hljs">hcat(scfres.eigenvalues...)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">7×8 Matrix{Float64}:
+ -0.176942  -0.14744   -0.0911691   …  -0.101219   -0.023977  -0.0184079
+  0.261073   0.116915   0.00482512      0.0611644  -0.023977  -0.0184079
+  0.261073   0.23299    0.216734        0.121636    0.155532   0.117747
+  0.261073   0.23299    0.216734        0.212134    0.155532   0.117747
+  0.354532   0.335109   0.317102        0.350436    0.285692   0.417258
+  0.354532   0.389829   0.384601    …   0.436925    0.285692   0.417406
+  0.354532   0.389829   0.384601        0.449236    0.627538   0.443806</code></pre><p><code>eigenvalues</code> is an array (indexed by k-points) of arrays (indexed by eigenvalue number). The &quot;splatting&quot; operation <code>...</code> calls <code>hcat</code> with all the inner arrays as arguments, which collects them into a matrix.</p><p>The resulting matrix is 7 (number of computed eigenvalues) by 8 (number of irreducible k-points). There are 7 eigenvalues per k-point because there are 4 occupied states in the system (4 valence electrons per silicon atom, two atoms per unit cell, and paired spins), and the eigensolver gives itself some breathing room by computing some extra states (see the <code>bands</code> argument to <code>self_consistent_field</code> as well as the <a href="../../api/#DFTK.AdaptiveBands"><code>AdaptiveBands</code></a> documentation). There are only 8 k-points (instead of 4x4x4) because symmetry has been used to reduce the amount of computations to just the irreducible k-points (see <a href="../../developer/symmetries/#Crystal-symmetries">Crystal symmetries</a> for details).</p><p>We can check the occupations ...</p><pre><code class="language-julia hljs">hcat(scfres.occupation...)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">7×8 Matrix{Float64}:
  2.0  2.0  2.0  2.0  2.0  2.0  2.0  2.0
  2.0  2.0  2.0  2.0  2.0  2.0  2.0  2.0
  2.0  2.0  2.0  2.0  2.0  2.0  2.0  2.0
@@ -59,6 +59,6 @@ scfres = self_consistent_field(basis, tol=1e-5);</code></pre><pre class="documen
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0</code></pre><p>... and density, where we use that the density objects in DFTK are indexed as ρ[iσ, ix, iy, iz], i.e. first in the spin component and then in the 3-dimensional real-space grid.</p><pre><code class="language-julia hljs">rvecs = collect(r_vectors(basis))[:, 1, 1]  # slice along the x axis
 x = [r[1] for r in rvecs]                   # only keep the x coordinate
-plot(x, scfres.ρ[1, :, 1, 1], label=&quot;&quot;, xlabel=&quot;x&quot;, ylabel=&quot;ρ&quot;, marker=2)</code></pre><img src="9cc36f0d.svg" alt="Example block output"/><p>We can also perform various postprocessing steps: for instance compute a band structure</p><pre><code class="language-julia hljs">plot_bandstructure(scfres; kline_density=10)</code></pre><img src="e1c567ca.svg" alt="Example block output"/><p>or get the cartesian forces (in Hartree / Bohr)</p><pre><code class="language-julia hljs">compute_forces_cart(scfres)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">2-element Vector{StaticArraysCore.SVector{3, Float64}}:
- [-3.7496656362001163e-16, -1.5647268902162122e-16, -4.910083979098393e-16]
- [-4.458007047978477e-16, -2.7760349576557844e-16, 4.491091509193123e-16]</code></pre><p>As expected, they are numerically zero in this highly symmetric configuration.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installation</a><a class="docs-footer-nextpage" href="../periodic_problems/">Problems and plane-wave discretisations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.0 on <span class="colophon-date" title="Wednesday 4 October 2023 08:21">Wednesday 4 October 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plot(x, scfres.ρ[1, :, 1, 1], label=&quot;&quot;, xlabel=&quot;x&quot;, ylabel=&quot;ρ&quot;, marker=2)</code></pre><img src="a2b63120.svg" alt="Example block output"/><p>We can also perform various postprocessing steps: for instance compute a band structure</p><pre><code class="language-julia hljs">plot_bandstructure(scfres; kline_density=10)</code></pre><img src="8d5995f3.svg" alt="Example block output"/><p>or get the cartesian forces (in Hartree / Bohr)</p><pre><code class="language-julia hljs">compute_forces_cart(scfres)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">2-element Vector{StaticArraysCore.SVector{3, Float64}}:
+ [-8.293237405612073e-16, -5.008759405782225e-18, 9.312555883590233e-17]
+ [-2.294502872468714e-16, -4.0741298550930995e-16, -5.028429569275157e-16]</code></pre><p>As expected, they are numerically zero in this highly symmetric configuration.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installation</a><a class="docs-footer-nextpage" href="../periodic_problems/">Problems and plane-wave discretisations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.0 on <span class="colophon-date" title="Wednesday 4 October 2023 21:02">Wednesday 4 October 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
