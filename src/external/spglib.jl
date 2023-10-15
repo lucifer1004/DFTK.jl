@@ -5,6 +5,8 @@
 import Spglib
 
 function spglib_cell(lattice, atom_groups, positions, magnetic_moments)
+    magnetic_moments = normalize_magnetic_moment.(magnetic_moments)
+
     offset  = 0
     atoms   = zeros(Int, length(positions))
     magmoms = zeros(length(positions))
