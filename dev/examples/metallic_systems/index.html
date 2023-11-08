@@ -24,23 +24,23 @@ model = model_DFT(lattice, atoms, positions, [:gga_x_pbe, :gga_c_pbe];
 kgrid = kgrid_from_minimal_spacing(lattice, kspacing)
 basis = PlaneWaveBasis(model; Ecut, kgrid);</code></pre><p>Finally we run the SCF. Two magnesium atoms in our pseudopotential model result in four valence electrons being explicitly treated. Nevertheless this SCF will solve for eight bands by default in order to capture partial occupations beyond the Fermi level due to the employed smearing scheme. In this example we use a damping of <code>0.8</code>. The default <code>LdosMixing</code> should be suitable to converge metallic systems like the one we model here. For the sake of demonstration we still switch to Kerker mixing here.</p><pre><code class="language-julia hljs">scfres = self_consistent_field(basis, damping=0.8, mixing=KerkerMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -1.743106799642                   -1.28    4.7
-  2   -1.743503360857       -3.40       -1.70    1.8   25.2ms
-  3   -1.743614055037       -3.96       -2.84    4.3   36.7ms
-  4   -1.743616724879       -5.57       -3.60    3.8   36.3ms
-  5   -1.743616748809       -7.62       -4.42    3.2   32.1ms
-  6   -1.743616749879       -8.97       -5.51    3.3   36.1ms
-  7   -1.743616749884      -11.25       -6.46    4.0   37.8ms</code></pre><pre><code class="language-julia hljs">scfres.occupation[1]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">9-element Vector{Float64}:
+  1   -1.743024887838                   -1.28    4.3
+  2   -1.743499969447       -3.32       -1.70    1.8   33.5ms
+  3   -1.743614086632       -3.94       -2.84    4.3   46.7ms
+  4   -1.743616726474       -5.58       -3.53    4.3   48.6ms
+  5   -1.743616748877       -7.65       -4.47    2.8   41.4ms
+  6   -1.743616749876       -9.00       -5.61    3.7   49.5ms
+  7   -1.743616749884      -11.06       -6.20    4.2   48.9ms</code></pre><pre><code class="language-julia hljs">scfres.occupation[1]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">9-element Vector{Float64}:
  1.9999999999941416
- 1.998551837779358
- 1.990551435544724
- 1.2449686501933973e-17
- 1.244883425439686e-17
- 1.0289493715550566e-17
- 1.0288617828172508e-17
- 2.9884191079132644e-19
- 1.6623674644737816e-21</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             0.7450614 
+ 1.9985518378265572
+ 1.9905514376417484
+ 1.2449714894341277e-17
+ 1.2448862644923177e-17
+ 1.0289496958625466e-17
+ 1.028862107103407e-17
+ 2.9884212024162496e-19
+ 1.662372109936525e-21</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
+    Kinetic             0.7450615 
     AtomicLocal         0.3193179 
     AtomicNonlocal      0.3192777 
     Ewald               -2.1544222
@@ -49,4 +49,4 @@ basis = PlaneWaveBasis(model; Ecut, kgrid);</code></pre><p>Finally we run the SC
     Xc                  -0.8615676
     Entropy             -0.0148387
 
-    total               -1.743616749884</code></pre><p>The fact that magnesium is a metal is confirmed by plotting the density of states around the Fermi level.</p><pre><code class="language-julia hljs">plot_dos(scfres)</code></pre><img src="4ccb4ec5.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../school2022/">« DFTK School 2022</a><a class="docs-footer-nextpage" href="../collinear_magnetism/">Collinear spin and magnetic systems »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 08:10">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    total               -1.743616749884</code></pre><p>The fact that magnesium is a metal is confirmed by plotting the density of states around the Fermi level.</p><pre><code class="language-julia hljs">plot_dos(scfres)</code></pre><img src="69213982.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../school2022/">« DFTK School 2022</a><a class="docs-footer-nextpage" href="../collinear_magnetism/">Collinear spin and magnetic systems »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 13:58">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -13,7 +13,7 @@ system = attach_psp(pyconvert(AbstractSystem, surface);
                     Ga=&quot;hgh/pbe/ga-q3.hgh&quot;,
                     As=&quot;hgh/pbe/as-q5.hgh&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">FlexibleSystem(As₂Ga₂, periodic = TTT):
     bounding_box      : [ 3.99777        0        0;
-                                0  3.99777        0;
+                         3.70813e-18  3.99777        0;
                                 0        0  21.2014]u&quot;Å&quot;
 
     Atom(Ga, [       0,        0,  8.48055]u&quot;Å&quot;)
@@ -21,60 +21,59 @@ system = attach_psp(pyconvert(AbstractSystem, surface);
     Atom(Ga, [ 1.99888,  1.99888,  11.3074]u&quot;Å&quot;)
     Atom(As, [ 1.99888, 6.96512e-16,  12.7208]u&quot;Å&quot;)
 
-      .---------.  
-     /|         |  
-    * |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |  As     |  
-    | |   Ga    |  
-    | |         |  
-    | |        As  
-    | |         |  
-    | |         |  
-    Ga|         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | |         |  
-    | .---------.  
-    |/         /   
-    *---------*    
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+         As        
+           Ga      
+      As           
+                   
+                   
+     Ga            
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
 </code></pre><p>We model this surface with (quite large a) temperature of 0.01 Hartree to ease convergence. Try lowering the SCF convergence tolerance (<code>tol</code>) or the <code>temperature</code> or try <code>mixing=KerkerMixing()</code> to see the full challenge of this system.</p><pre><code class="language-julia hljs">model = model_DFT(system, [:gga_x_pbe, :gga_c_pbe],
                   temperature=0.001, smearing=DFTK.Smearing.Gaussian())
 basis = PlaneWaveBasis(model; Ecut, kgrid)
 
 scfres = self_consistent_field(basis, tol=1e-4, mixing=LdosMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -16.58764150399                   -0.58    5.3
-  2   -16.72514912184       -0.86       -1.01    1.0    306ms
-  3   -16.73058211250       -2.26       -1.57    2.4    297ms
-  4   -16.73127725089       -3.16       -2.16    1.9    307ms
-  5   -16.73133225375       -4.26       -2.60    2.0    277ms
-  6   -16.73133488268       -5.58       -2.94    1.6    296ms
-  7   -16.73098814999   +   -3.46       -2.54    2.3    307ms
-  8   -16.73133000561       -3.47       -3.15    2.6    322ms
-  9   -16.73133059167       -6.23       -3.27    2.4    312ms
- 10   -16.73133756052       -5.16       -3.58    2.4    332ms
- 11   -16.73133922349       -5.78       -3.78    2.6    314ms
- 12   -16.73134006415       -6.08       -4.23    2.7    327ms</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
-    Kinetic             5.8593551 
-    AtomicLocal         -105.6095707
-    AtomicNonlocal      2.3494596 
+  1   -16.58819424864                   -0.58    5.3
+  2   -16.72515991429       -0.86       -1.01    1.0    338ms
+  3   -16.73060019594       -2.26       -1.57    2.2    453ms
+  4   -16.73127186328       -3.17       -2.16    1.9    391ms
+  5   -16.73133311427       -4.21       -2.61    2.0    433ms
+  6   -16.73133687105       -5.43       -2.95    1.6    340ms
+  7   -16.73111813675   +   -3.66       -2.64    2.1    447ms
+  8   -16.73129515694       -3.75       -2.92    2.6    427ms
+  9   -16.73131572612       -4.69       -3.08    2.4    445ms
+ 10   -16.73133997739       -4.62       -3.97    1.9    398ms
+ 11   -16.73133985253   +   -6.90       -4.02    2.6    467ms</code></pre><pre><code class="language-julia hljs">scfres.energies</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Energy breakdown (in Ha):
+    Kinetic             5.8592794 
+    AtomicLocal         -105.6087664
+    AtomicNonlocal      2.3494216 
     Ewald               35.5044300
     PspCorrection       0.2016043 
-    Hartree             49.5610255
-    Xc                  -4.5976404
-    Entropy             -0.0000035
+    Hartree             49.5603027
+    Xc                  -4.5976080
+    Entropy             -0.0000034
 
-    total               -16.731340064149</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../supercells/">« Creating and modelling metallic supercells</a><a class="docs-footer-nextpage" href="../graphene/">Graphene band structure »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 08:10">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    total               -16.731339852528</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../supercells/">« Creating and modelling metallic supercells</a><a class="docs-footer-nextpage" href="../graphene/">Graphene band structure »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 13:58">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

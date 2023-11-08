@@ -37,29 +37,29 @@ basis = PlaneWaveBasis(model; Ecut=10, kgrid=(2, 2, 2))
 ρ0 = guess_density(basis, system)
 scfres = self_consistent_field(basis, ρ=ρ0);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Magnet   Diag   Δtime
 ---   ---------------   ---------   ---------   ------   ----   ------
-  1   -223.7492422614                    0.22   -6.319    5.3
-  2   -224.1607103468       -0.39       -0.21   -3.325    1.8    155ms
-  3   -224.2176127808       -1.24       -1.06   -1.615    3.2    207ms
-  4   -224.2198755607       -2.65       -1.46   -1.192    1.1    149ms
-  5   -224.2207947788       -3.04       -1.72   -0.823    1.0    151ms
-  6   -224.2212110490       -3.38       -2.00   -0.488    1.0    167ms
-  7   -224.2213736330       -3.79       -2.35   -0.229    1.4    146ms
-  8   -224.2214154364       -4.38       -2.88   -0.077    2.2    152ms
-  9   -224.2214205592       -5.29       -3.54   -0.007    2.9    176ms
- 10   -224.2214206887       -6.89       -3.80    0.001    3.1    193ms
- 11   -224.2214207098       -7.68       -4.03   -0.001    2.8    194ms
- 12   -224.2214207180       -8.09       -4.44   -0.000    1.6    174ms
- 13   -224.2214207186       -9.16       -4.93    0.000    2.1    157ms
- 14   -224.2214207187      -10.07       -5.39   -0.000    1.8    152ms
- 15   -224.2214207187      -11.03       -5.82   -0.000    2.8    183ms
- 16   -224.2214207187      -12.27       -6.20    0.000    2.8    180ms</code></pre><h2 id="Writing-VTK-files-for-visualization"><a class="docs-heading-anchor" href="#Writing-VTK-files-for-visualization">Writing VTK files for visualization</a><a id="Writing-VTK-files-for-visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-VTK-files-for-visualization" title="Permalink"></a></h2><p>For visualizing the density or the Kohn-Sham orbitals DFTK supports storing the result of an SCF calculations in the form of VTK files. These can afterwards be visualized using tools such as <a href="https://www.paraview.org/">paraview</a>. Using this feature requires the <a href="https://github.com/jipolanco/WriteVTK.jl/">WriteVTK.jl</a> Julia package.</p><pre><code class="language-julia hljs">using WriteVTK
+  1   -223.7487818204                    0.22   -6.320    5.5
+  2   -224.1604208311       -0.39       -0.21   -3.325    1.8    221ms
+  3   -224.2175768578       -1.24       -1.05   -1.615    3.2    290ms
+  4   -224.2198716859       -2.64       -1.46   -1.193    1.1    231ms
+  5   -224.2207931458       -3.04       -1.72   -0.824    1.0    199ms
+  6   -224.2212126779       -3.38       -2.00   -0.485    1.0    199ms
+  7   -224.2213741292       -3.79       -2.35   -0.227    1.5    207ms
+  8   -224.2214157490       -4.38       -2.89   -0.075    2.2    218ms
+  9   -224.2214205701       -5.32       -3.57   -0.007    3.1    245ms
+ 10   -224.2214206918       -6.91       -3.82    0.001    3.2    301ms
+ 11   -224.2214207109       -7.72       -4.06   -0.001    2.3    223ms
+ 12   -224.2214207179       -8.15       -4.43    0.000    1.6    218ms
+ 13   -224.2214207187       -9.10       -5.03    0.000    2.1    217ms
+ 14   -224.2214207187      -10.50       -5.36    0.000    2.1    254ms
+ 15   -224.2214207187      -10.94       -5.81   -0.000    2.8    236ms
+ 16   -224.2214207187      -12.34       -6.23    0.000    2.2    243ms</code></pre><h2 id="Writing-VTK-files-for-visualization"><a class="docs-heading-anchor" href="#Writing-VTK-files-for-visualization">Writing VTK files for visualization</a><a id="Writing-VTK-files-for-visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-VTK-files-for-visualization" title="Permalink"></a></h2><p>For visualizing the density or the Kohn-Sham orbitals DFTK supports storing the result of an SCF calculations in the form of VTK files. These can afterwards be visualized using tools such as <a href="https://www.paraview.org/">paraview</a>. Using this feature requires the <a href="https://github.com/jipolanco/WriteVTK.jl/">WriteVTK.jl</a> Julia package.</p><pre><code class="language-julia hljs">using WriteVTK
 save_scfres(&quot;iron_afm.vts&quot;, scfres; save_ψ=true);</code></pre><p>This will save the iron calculation above into the file <code>iron_afm.vts</code>, using <code>save_ψ=true</code> to also include the KS orbitals.</p><h2 id="Parsable-data-export-using-json"><a class="docs-heading-anchor" href="#Parsable-data-export-using-json">Parsable data-export using json</a><a id="Parsable-data-export-using-json-1"></a><a class="docs-heading-anchor-permalink" href="#Parsable-data-export-using-json" title="Permalink"></a></h2><p>Many structures in DFTK support the (unexported) <code>todict</code> function, which returns a simplified dictionary representation of the data.</p><pre><code class="language-julia hljs">DFTK.todict(scfres.energies)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Dict{String, Float64} with 9 entries:
   &quot;AtomicNonlocal&quot; =&gt; -4.34593
   &quot;PspCorrection&quot;  =&gt; 7.03001
   &quot;Ewald&quot;          =&gt; -161.527
   &quot;total&quot;          =&gt; -224.221
   &quot;Entropy&quot;        =&gt; -0.0306478
-  &quot;Kinetic&quot;        =&gt; 75.6631
+  &quot;Kinetic&quot;        =&gt; 75.663
   &quot;AtomicLocal&quot;    =&gt; -161.128
   &quot;Hartree&quot;        =&gt; 41.397
   &quot;Xc&quot;             =&gt; -21.2803</code></pre><p>This in turn can be easily written to disk using a JSON library. Currently we integrate most closely with <code>JSON3</code>, which is thus recommended.</p><pre><code class="language-julia hljs">using JSON3
@@ -67,17 +67,17 @@ open(&quot;iron_afm_energies.json&quot;, &quot;w&quot;) do io
     JSON3.pretty(io, DFTK.todict(scfres.energies))
 end
 println(read(&quot;iron_afm_energies.json&quot;, String))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">{
-    &quot;AtomicNonlocal&quot;: -4.345930963557198,
+    &quot;AtomicNonlocal&quot;: -4.345930954405802,
     &quot;PspCorrection&quot;: 7.03000636467455,
     &quot;Ewald&quot;: -161.52650757200072,
-    &quot;total&quot;: -224.22142071873438,
-    &quot;Entropy&quot;: -0.030647818897022314,
-    &quot;Kinetic&quot;: 75.66305032607963,
-    &quot;AtomicLocal&quot;: -161.12811003318183,
-    &quot;Hartree&quot;: 41.39700755412471,
-    &quot;Xc&quot;: -21.280288575976538
+    &quot;total&quot;: -224.22142071873435,
+    &quot;Entropy&quot;: -0.030647819131566823,
+    &quot;Kinetic&quot;: 75.66304985913455,
+    &quot;AtomicLocal&quot;: -161.12810909368267,
+    &quot;Hartree&quot;: 41.39700700987066,
+    &quot;Xc&quot;: -21.280288513193362
 }</code></pre><p>Once JSON3 is loaded, additionally a convenience function for saving a parsable summary of <code>scfres</code> objects using <code>save_scfres</code> is available:</p><pre><code class="language-julia hljs">using JSON3
 save_scfres(&quot;iron_afm.json&quot;, scfres)</code></pre><h2 id="Writing-and-reading-JLD2-files"><a class="docs-heading-anchor" href="#Writing-and-reading-JLD2-files">Writing and reading JLD2 files</a><a id="Writing-and-reading-JLD2-files-1"></a><a class="docs-heading-anchor-permalink" href="#Writing-and-reading-JLD2-files" title="Permalink"></a></h2><p>The full state of a DFTK self-consistent field calculation can be stored on disk in form of an <a href="https://github.com/JuliaIO/JLD2.jl">JLD2.jl</a> file. This file can be read from other Julia scripts as well as other external codes supporting the HDF5 file format (since the JLD2 format is based on HDF5).</p><pre><code class="language-julia hljs">using JLD2
 save_scfres(&quot;iron_afm.jld2&quot;, scfres);</code></pre><p>Since such JLD2 can also be read by DFTK to start or continue a calculation, these can also be used for checkpointing or for transferring results to a different computer. See <a href="../../tricks/scf_checkpoints/#Saving-SCF-results-on-disk-and-SCF-checkpoints">Saving SCF results on disk and SCF checkpoints</a> for details.</p><p>(Cleanup files generated by this notebook.)</p><pre><code class="language-julia hljs">rm(&quot;iron_afm.vts&quot;)
 rm(&quot;iron_afm.jld2&quot;)
-rm(&quot;iron_afm_energies.json&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../atomsbase/">« AtomsBase integration</a><a class="docs-footer-nextpage" href="../wannier90/">Wannierization using Wannier90 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 08:10">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+rm(&quot;iron_afm_energies.json&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../atomsbase/">« AtomsBase integration</a><a class="docs-footer-nextpage" href="../wannier90/">Wannierization using Wannier90 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 13:58">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
