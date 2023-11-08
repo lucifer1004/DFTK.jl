@@ -50,15 +50,15 @@ end</code></pre><p>That&#39;s it! Now we just run the SCF with these solvers</p>
                                mixing=MyMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
   1   -7.215597085486                   -0.48    0.0
-  2   -7.246310533608       -1.51       -0.85    0.0    358ms
-  3   -7.250986455303       -2.33       -1.30    0.0   71.2ms
-  4   -7.251254252892       -3.57       -1.61    0.0    162ms
-  5   -7.251318021808       -4.20       -1.92    0.0   67.0ms
-  6   -7.251333463617       -4.81       -2.21    0.0   67.5ms
-  7   -7.251337352252       -5.41       -2.50    0.0   71.0ms
-  8   -7.251338383513       -5.99       -2.78    0.0   70.1ms
-  9   -7.251338672989       -6.54       -3.05    0.0    170ms
- 10   -7.251338758862       -7.07       -3.31    0.0   68.2ms
- 11   -7.251338785611       -7.57       -3.57    0.0   65.7ms
- 12   -7.251338794282       -8.06       -3.82    0.0   70.0ms
- 13   -7.251338797181       -8.54       -4.06    0.0   70.9ms</code></pre><p>Note that the default convergence criterion is the difference in density. When this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 13:58">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  2   -7.246310533608       -1.51       -0.85    0.0    439ms
+  3   -7.250986455303       -2.33       -1.30    0.0   65.4ms
+  4   -7.251254252892       -3.57       -1.61    0.0   65.5ms
+  5   -7.251318021808       -4.20       -1.92    0.0   70.8ms
+  6   -7.251333463617       -4.81       -2.21    0.0   69.5ms
+  7   -7.251337352252       -5.41       -2.50    0.0   71.4ms
+  8   -7.251338383513       -5.99       -2.78    0.0   62.4ms
+  9   -7.251338672989       -6.54       -3.05    0.0    164ms
+ 10   -7.251338758862       -7.07       -3.31    0.0   58.7ms
+ 11   -7.251338785611       -7.57       -3.57    0.0   64.2ms
+ 12   -7.251338794282       -8.06       -3.82    0.0   67.8ms
+ 13   -7.251338797181       -8.54       -4.06    0.0   70.2ms</code></pre><p>Note that the default convergence criterion is the difference in density. When this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Wednesday 8 November 2023 19:56">Wednesday 8 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
