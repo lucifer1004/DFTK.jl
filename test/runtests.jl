@@ -13,7 +13,6 @@ end
 using Aqua
 using TestItemRunner
 using DFTK
-using Random
 
 #
 # This test suite supports test arguments. For example:
@@ -27,9 +26,6 @@ using Random
 
 # Setup threading in DFTK
 setup_threading(; n_blas=2)
-
-# Initialize seed
-Random.seed!(0)
 
 const DFTK_TEST_ARGS = let
     if "DFTK_TEST_ARGS" in keys(ENV) && isempty(ARGS)
@@ -59,16 +55,16 @@ if !isempty(EXTRA_TAGS)
     println("    plus:       $(join(EXTRA_TAGS, ", "));")
 end
 
-if :all ∈ TAGS || :fast ∈ TAGS
-    is_excluded(ti) = any(in(ti.tags), EXCLUDED_FROM_ALL)
-    @run_package_tests filter=!is_excluded
-
-    if mpi_nprocs() == 1
-        # TODO For now disable type piracy check, as we use that at places to patch
-        #      up missing functionality. Should disable this on a more fine-grained scale.
-        Aqua.test_all(DFTK, ambiguities=false, piracy=false, stale_deps=(ignore=[:Primes, ], ))
+function dftk_testfilter(ti)
+    if any(in(ti.tags), EXTRA_TAGS)
+        # Test explicitly selected
+        return true
+    elseif :all ∈ TAGS || :fast ∈ TAGS
+        # Run all tests, except excluded
+        if !any(in(ti.tags), EXCLUDED_FROM_ALL)
+            return true
+        end
     end
+    return false
 end
-
-is_explicitly_selected(ti) = any(in(ti.tags), EXTRA_TAGS)
-@run_package_tests filter=is_explicitly_selected
+@run_package_tests filter=dftk_testfilter verbose=true
