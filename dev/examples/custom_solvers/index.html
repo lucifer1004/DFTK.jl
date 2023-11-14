@@ -49,17 +49,16 @@ end</code></pre><p>That&#39;s it! Now we just run the SCF with these solvers</p>
                                eigensolver=my_eig_solver,
                                mixing=MyMixing());</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.136730769250                   -0.42    0.0
-  2   -7.234507523075       -1.01       -0.71    0.0    286ms
-  3   -7.250155356676       -1.81       -1.20    0.0    138ms
-  4   -7.251066644663       -3.04       -1.51    0.0   41.5ms
-  5   -7.251276232104       -3.68       -1.82    0.0   40.7ms
-  6   -7.251323976978       -4.32       -2.11    0.0   47.3ms
-  7   -7.251335118065       -4.95       -2.39    0.0   52.5ms
-  8   -7.251337831814       -5.57       -2.66    0.0   52.5ms
-  9   -7.251338529334       -6.16       -2.92    0.0    181ms
- 10   -7.251338719368       -6.72       -3.18    0.0   38.5ms
- 11   -7.251338774177       -7.26       -3.44    0.0   39.3ms
- 12   -7.251338790816       -7.78       -3.68    0.0   40.8ms
- 13   -7.251338796088       -8.28       -3.93    0.0   52.2ms
- 14   -7.251338797816       -8.76       -4.17    0.0   51.9ms</code></pre><p>Note that the default convergence criterion is the difference in density. When this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Friday 10 November 2023 11:48">Friday 10 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  1   -7.203866130425                   -0.46    0.0
+  2   -7.244728425150       -1.39       -0.82    0.0    401ms
+  3   -7.250861658389       -2.21       -1.27    0.0   76.7ms
+  4   -7.251226136395       -3.44       -1.58    0.0   76.2ms
+  5   -7.251311768326       -4.07       -1.89    0.0    203ms
+  6   -7.251332045501       -4.69       -2.18    0.0   71.4ms
+  7   -7.251337018698       -5.30       -2.47    0.0   75.3ms
+  8   -7.251338301332       -5.89       -2.74    0.0   75.8ms
+  9   -7.251338651671       -6.46       -3.02    0.0   75.1ms
+ 10   -7.251338753033       -6.99       -3.28    0.0    200ms
+ 11   -7.251338783935       -7.51       -3.53    0.0   64.5ms
+ 12   -7.251338793778       -8.01       -3.78    0.0   63.3ms
+ 13   -7.251338797023       -8.49       -4.03    0.0   77.9ms</code></pre><p>Note that the default convergence criterion is the difference in density. When this gets below <code>tol</code>, the &quot;driver&quot; <code>self_consistent_field</code> artificially makes the fixed-point solver think it&#39;s converged by forcing <code>f(x) = x</code>. You can customize this with the <code>is_converged</code> keyword argument to <code>self_consistent_field</code>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../tricks/scf_checkpoints/">« Saving SCF results on disk and SCF checkpoints</a><a class="docs-footer-nextpage" href="../scf_callbacks/">Monitoring self-consistent field calculations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Tuesday 14 November 2023 13:39">Tuesday 14 November 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
