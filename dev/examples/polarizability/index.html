@@ -20,19 +20,19 @@ function dipole(basis, ρ)
 end;</code></pre><h2 id="Using-finite-differences"><a class="docs-heading-anchor" href="#Using-finite-differences">Using finite differences</a><a id="Using-finite-differences-1"></a><a class="docs-heading-anchor-permalink" href="#Using-finite-differences" title="Permalink"></a></h2><p>We first compute the polarizability by finite differences. First compute the dipole moment at rest:</p><pre><code class="language-julia hljs">model = model_LDA(lattice, atoms, positions; symmetries=false)
 basis = PlaneWaveBasis(model; Ecut, kgrid)
 res   = self_consistent_field(basis; tol)
-μref  = dipole(basis, res.ρ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-0.00013457365898040686</code></pre><p>Then in a small uniform field:</p><pre><code class="language-julia hljs">ε = .01
+μref  = dipole(basis, res.ρ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-0.0001345745692469697</code></pre><p>Then in a small uniform field:</p><pre><code class="language-julia hljs">ε = .01
 model_ε = model_LDA(lattice, atoms, positions;
                     extra_terms=[ExternalFromReal(r -&gt; -ε * (r[1] - a/2))],
                     symmetries=false)
 basis_ε = PlaneWaveBasis(model_ε; Ecut, kgrid)
 res_ε   = self_consistent_field(basis_ε; tol)
-με = dipole(basis_ε, res_ε.ρ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">0.017612221212718923</code></pre><pre><code class="language-julia hljs">polarizability = (με - μref) / ε
+με = dipole(basis_ε, res_ε.ρ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">0.017612221149031753</code></pre><pre><code class="language-julia hljs">polarizability = (με - μref) / ε
 
 println(&quot;Reference dipole:  $μref&quot;)
 println(&quot;Displaced dipole:  $με&quot;)
-println(&quot;Polarizability :   $polarizability&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Reference dipole:  -0.00013457365898040686
-Displaced dipole:  0.017612221212718923
-Polarizability :   1.774679487169933</code></pre><p>The result on more converged grids is very close to published results. For example <a href="https://doi.org/10.1039/C8CP03569E">DOI 10.1039/C8CP03569E</a> quotes <strong>1.65</strong> with LSDA and <strong>1.38</strong> with CCSD(T).</p><h2 id="Using-linear-response"><a class="docs-heading-anchor" href="#Using-linear-response">Using linear response</a><a id="Using-linear-response-1"></a><a class="docs-heading-anchor-permalink" href="#Using-linear-response" title="Permalink"></a></h2><p>Now we use linear response to compute this analytically; we refer to standard textbooks for the formalism. In the following, <span>$χ_0$</span> is the independent-particle polarizability, and <span>$K$</span> the Hartree-exchange-correlation kernel. We denote with <span>$δV_{\rm ext}$</span> an external perturbing potential (like in this case the uniform electric field). Then:</p><p class="math-container">\[δρ = χ_0 δV = χ_0 (δV_{\rm ext} + K δρ),\]</p><p>which implies</p><p class="math-container">\[δρ = (1-χ_0 K)^{-1} χ_0 δV_{\rm ext}.\]</p><p>From this we identify the polarizability operator to be <span>$χ = (1-χ_0 K)^{-1} χ_0$</span>. Numerically, we apply <span>$χ$</span> to <span>$δV = -x$</span> by solving a linear equation (the Dyson equation) iteratively.</p><pre><code class="language-julia hljs">using KrylovKit
+println(&quot;Polarizability :   $polarizability&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Reference dipole:  -0.0001345745692469697
+Displaced dipole:  0.017612221149031753
+Polarizability :   1.7746795718278723</code></pre><p>The result on more converged grids is very close to published results. For example <a href="https://doi.org/10.1039/C8CP03569E">DOI 10.1039/C8CP03569E</a> quotes <strong>1.65</strong> with LSDA and <strong>1.38</strong> with CCSD(T).</p><h2 id="Using-linear-response"><a class="docs-heading-anchor" href="#Using-linear-response">Using linear response</a><a id="Using-linear-response-1"></a><a class="docs-heading-anchor-permalink" href="#Using-linear-response" title="Permalink"></a></h2><p>Now we use linear response to compute this analytically; we refer to standard textbooks for the formalism. In the following, <span>$χ_0$</span> is the independent-particle polarizability, and <span>$K$</span> the Hartree-exchange-correlation kernel. We denote with <span>$δV_{\rm ext}$</span> an external perturbing potential (like in this case the uniform electric field). Then:</p><p class="math-container">\[δρ = χ_0 δV = χ_0 (δV_{\rm ext} + K δρ),\]</p><p>which implies</p><p class="math-container">\[δρ = (1-χ_0 K)^{-1} χ_0 δV_{\rm ext}.\]</p><p>From this we identify the polarizability operator to be <span>$χ = (1-χ_0 K)^{-1} χ_0$</span>. Numerically, we apply <span>$χ$</span> to <span>$δV = -x$</span> by solving a linear equation (the Dyson equation) iteratively.</p><pre><code class="language-julia hljs">using KrylovKit
 
 # Apply ``(1- χ_0 K)``
 function dielectric_operator(δρ)
@@ -54,20 +54,21 @@ end
 
 println(&quot;Non-interacting polarizability: $(dipole(basis, δρ_nointeract))&quot;)
 println(&quot;Interacting polarizability:     $(dipole(basis, δρ))&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">WARNING: using KrylovKit.basis in module Main conflicts with an existing identifier.
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 1: normres = 2.493920817668e-01
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 2: normres = 3.766551625888e-03
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 3: normres = 2.852769528880e-04
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 4: normres = 4.694603404704e-06
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 5: normres = 1.088786195266e-08
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 6: normres = 6.273763123946e-11
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 7: normres = 6.661401673057e-13
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; finished at step 7: normres = 6.661401673057e-13
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 1: normres = 8.781110999476e-11
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 2: normres = 9.286563192470e-12
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 3: normres = 2.874187099331e-13
-<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; finished at step 3: normres = 2.874187099331e-13
-<span class="sgr36"><span class="sgr1">┌ Info: </span></span>GMRES linsolve converged at iteration 2, step 3:
-<span class="sgr36"><span class="sgr1">│ </span></span>*  norm of residual = 2.8741230699996423e-13
-<span class="sgr36"><span class="sgr1">└ </span></span>*  number of operations = 12
-Non-interacting polarizability: 1.9257125431182496
-Interacting polarizability:     1.7736548692783913</code></pre><p>As expected, the interacting polarizability matches the finite difference result. The non-interacting polarizability is higher.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../energy_cutoff_smearing/">« Energy cutoff smearing</a><a class="docs-footer-nextpage" href="../forwarddiff/">Polarizability using automatic differentiation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Monday 20 November 2023 21:38">Monday 20 November 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 1: normres = 2.493920654485e-01
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 2: normres = 3.766551389471e-03
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 3: normres = 2.852770565857e-04
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 4: normres = 4.694593914978e-06
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 5: normres = 1.088787355258e-08
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 6: normres = 6.273217539787e-11
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; step 7: normres = 6.403788671871e-13
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 1; finished at step 7: normres = 6.403788671871e-13
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 1: normres = 1.013157140446e-09
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 2: normres = 3.866544082669e-11
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 3: normres = 4.664346596667e-12
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; step 4: normres = 5.780024496984e-14
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>GMRES linsolve in iter 2; finished at step 4: normres = 5.780024496984e-14
+<span class="sgr36"><span class="sgr1">┌ Info: </span></span>GMRES linsolve converged at iteration 2, step 4:
+<span class="sgr36"><span class="sgr1">│ </span></span>*  norm of residual = 5.769967103591314e-14
+<span class="sgr36"><span class="sgr1">└ </span></span>*  number of operations = 13
+Non-interacting polarizability: 1.925712525260482
+Interacting polarizability:     1.773654848229931</code></pre><p>As expected, the interacting polarizability matches the finite difference result. The non-interacting polarizability is higher.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../energy_cutoff_smearing/">« Energy cutoff smearing</a><a class="docs-footer-nextpage" href="../forwarddiff/">Polarizability using automatic differentiation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Tuesday 21 November 2023 18:47">Tuesday 21 November 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
