@@ -16,118 +16,123 @@ basis = PlaneWaveBasis(model; Ecut=5, kgrid=[3, 3, 3])
 # Convergence we desire in the density
 tol = 1e-6</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1.0e-6</code></pre><h2 id="Density-based-self-consistent-field"><a class="docs-heading-anchor" href="#Density-based-self-consistent-field">Density-based self-consistent field</a><a id="Density-based-self-consistent-field-1"></a><a class="docs-heading-anchor-permalink" href="#Density-based-self-consistent-field" title="Permalink"></a></h2><pre><code class="language-julia hljs">scfres_scf = self_consistent_field(basis; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.846672201772                   -0.70    4.2
-  2   -7.852280317055       -2.25       -1.53    1.0   16.8ms
-  3   -7.852612928532       -3.48       -2.55    1.8   19.1ms
-  4   -7.852645951970       -4.48       -2.86    2.5   22.7ms
-  5   -7.852646458544       -6.30       -3.11    1.0   16.9ms
-  6   -7.852646678251       -6.66       -3.95    1.0   17.0ms
-  7   -7.852646686299       -8.09       -5.13    1.5   19.0ms
-  8   -7.852646686721       -9.38       -5.35    2.0   21.5ms
-  9   -7.852646686730      -11.04       -6.45    1.0   17.2ms</code></pre><h2 id="Potential-based-SCF"><a class="docs-heading-anchor" href="#Potential-based-SCF">Potential-based SCF</a><a id="Potential-based-SCF-1"></a><a class="docs-heading-anchor-permalink" href="#Potential-based-SCF" title="Permalink"></a></h2><pre><code class="language-julia hljs">scfres_scfv = DFTK.scf_potential_mixing(basis; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   α      Diag   Δtime
+  1   -7.846870230022                   -0.70    4.5
+  2   -7.852310181726       -2.26       -1.53    1.0   17.1ms
+  3   -7.852614923717       -3.52       -2.56    1.5   18.3ms
+  4   -7.852646017119       -4.51       -2.88    2.8   24.1ms
+  5   -7.852646501524       -6.31       -3.16    1.0   17.4ms
+  6   -7.852646679130       -6.75       -4.04    1.0   17.7ms
+  7   -7.852646686466       -8.13       -5.24    2.0   22.0ms
+  8   -7.852646686721       -9.59       -5.36    2.0   23.3ms
+  9   -7.852646686728      -11.15       -5.76    1.2   18.7ms
+ 10   -7.852646686730      -11.87       -6.42    1.2   19.2ms</code></pre><h2 id="Potential-based-SCF"><a class="docs-heading-anchor" href="#Potential-based-SCF">Potential-based SCF</a><a id="Potential-based-SCF-1"></a><a class="docs-heading-anchor-permalink" href="#Potential-based-SCF" title="Permalink"></a></h2><pre><code class="language-julia hljs">scfres_scfv = DFTK.scf_potential_mixing(basis; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   α      Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ----   ------
-  1   -7.846897997108                   -0.70           4.8
-  2   -7.852526494157       -2.25       -1.64   0.80    2.0   19.2ms
-  3   -7.852635643882       -3.96       -2.74   0.80    1.0   15.7ms
-  4   -7.852646505117       -4.96       -3.25   0.80    2.2   20.8ms
-  5   -7.852646672850       -6.78       -4.09   0.80    1.0   15.7ms
-  6   -7.852646686351       -7.87       -4.81   0.80    1.5   17.8ms
-  7   -7.852646686723       -9.43       -5.57   0.80    1.8   19.4ms
-  8   -7.852646686729      -11.18       -6.90   0.80    1.8   18.5ms</code></pre><h2 id="Direct-minimization"><a class="docs-heading-anchor" href="#Direct-minimization">Direct minimization</a><a id="Direct-minimization-1"></a><a class="docs-heading-anchor-permalink" href="#Direct-minimization" title="Permalink"></a></h2><p>Note: Unlike the other algorithms, tolerance for this one is in the energy, thus we square the density tolerance value to be roughly equivalent.</p><pre><code class="language-julia hljs">scfres_dm = direct_minimization(basis; tol=tol^2);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Iter     Function value   Gradient norm
-     0     1.393693e+01     3.476074e+00
- * time: 0.009469032287597656
-     1     1.201872e+00     1.892016e+00
- * time: 0.02718806266784668
-     2    -1.461383e+00     1.994862e+00
- * time: 0.04493999481201172
-     3    -3.778330e+00     1.747870e+00
- * time: 0.07053804397583008
-     4    -4.958706e+00     1.798358e+00
- * time: 0.0962369441986084
-     5    -6.644031e+00     1.448402e+00
- * time: 0.12200093269348145
-     6    -7.330819e+00     7.673509e-01
- * time: 0.14786791801452637
-     7    -7.599476e+00     4.523140e-01
- * time: 0.16565895080566406
-     8    -7.700554e+00     1.152819e-01
- * time: 0.18387389183044434
-     9    -7.746306e+00     2.357374e-01
- * time: 0.20178604125976562
-    10    -7.781504e+00     8.932974e-02
- * time: 0.21982097625732422
-    11    -7.813958e+00     8.155446e-02
- * time: 0.2377479076385498
-    12    -7.834530e+00     8.164777e-02
- * time: 0.25554800033569336
-    13    -7.844181e+00     3.811020e-02
- * time: 0.2732889652252197
-    14    -7.849707e+00     2.660011e-02
- * time: 0.29113101959228516
-    15    -7.851387e+00     2.183182e-02
- * time: 0.30890393257141113
-    16    -7.852252e+00     8.551934e-03
- * time: 0.32660889625549316
-    17    -7.852518e+00     6.920334e-03
- * time: 0.344390869140625
-    18    -7.852606e+00     3.243249e-03
- * time: 0.38311004638671875
-    19    -7.852634e+00     1.669446e-03
- * time: 0.40106701850891113
-    20    -7.852642e+00     9.653534e-04
- * time: 0.41880106925964355
-    21    -7.852645e+00     4.432615e-04
- * time: 0.4364309310913086
-    22    -7.852646e+00     2.395822e-04
- * time: 0.4541299343109131
-    23    -7.852647e+00     1.689885e-04
- * time: 0.47185587882995605
-    24    -7.852647e+00     9.493656e-05
- * time: 0.48952388763427734
-    25    -7.852647e+00     5.331526e-05
- * time: 0.5072040557861328
-    26    -7.852647e+00     2.776403e-05
- * time: 0.5249350070953369
-    27    -7.852647e+00     1.946537e-05
- * time: 0.5427579879760742
-    28    -7.852647e+00     9.578830e-06
- * time: 0.5604598522186279
-    29    -7.852647e+00     5.188544e-06
- * time: 0.5780630111694336
-    30    -7.852647e+00     4.269596e-06
- * time: 0.5957870483398438
-    31    -7.852647e+00     2.231137e-06
- * time: 0.6134378910064697
-    32    -7.852647e+00     1.266357e-06
- * time: 0.631195068359375
-    33    -7.852647e+00     7.040431e-07
- * time: 0.6489379405975342
-    34    -7.852647e+00     3.842002e-07
- * time: 0.6666309833526611
-    35    -7.852647e+00     2.053453e-07
- * time: 0.6843490600585938
-    36    -7.852647e+00     9.770424e-08
- * time: 0.7021398544311523
-    37    -7.852647e+00     6.423282e-08
- * time: 0.7200930118560791
-    38    -7.852647e+00     2.984697e-08
- * time: 0.7378208637237549
-    39    -7.852647e+00     1.894495e-08
- * time: 0.7555909156799316
-    40    -7.852647e+00     1.243305e-08
- * time: 0.7733440399169922
-    41    -7.852647e+00     1.240495e-08
- * time: 0.8152010440826416
-    42    -7.852647e+00     8.949125e-09
- * time: 0.8409519195556641</code></pre><h2 id="Newton-algorithm"><a class="docs-heading-anchor" href="#Newton-algorithm">Newton algorithm</a><a id="Newton-algorithm-1"></a><a class="docs-heading-anchor-permalink" href="#Newton-algorithm" title="Permalink"></a></h2><p>Start not too far from the solution to ensure convergence: We run first a very crude SCF to get close and then switch to Newton.</p><pre><code class="language-julia hljs">scfres_start = self_consistent_field(basis; tol=0.5);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
+  1   -7.846951356340                   -0.70           4.8
+  2   -7.852528984068       -2.25       -1.64   0.80    2.0   20.0ms
+  3   -7.852636555240       -3.97       -2.74   0.80    1.0   16.0ms
+  4   -7.852646596427       -5.00       -3.25   0.80    2.2   21.7ms
+  5   -7.852646681998       -7.07       -4.11   0.80    1.0   16.1ms
+  6   -7.852646686312       -8.37       -4.91   0.80    1.2   16.8ms
+  7   -7.852646686721       -9.39       -5.71   0.80    2.2   21.3ms
+  8   -7.852646686730      -11.09       -7.07   0.80    1.8   19.4ms</code></pre><h2 id="Direct-minimization"><a class="docs-heading-anchor" href="#Direct-minimization">Direct minimization</a><a id="Direct-minimization-1"></a><a class="docs-heading-anchor-permalink" href="#Direct-minimization" title="Permalink"></a></h2><p>Note: Unlike the other algorithms, tolerance for this one is in the energy, thus we square the density tolerance value to be roughly equivalent.</p><pre><code class="language-julia hljs">scfres_dm = direct_minimization(basis; tol=tol^2);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Iter     Function value   Gradient norm
+     0     1.355388e+01     3.553668e+00
+ * time: 0.009741067886352539
+     1     1.346769e+00     1.624380e+00
+ * time: 0.02773594856262207
+     2    -1.871331e+00     1.854747e+00
+ * time: 0.04569411277770996
+     3    -3.715971e+00     1.730944e+00
+ * time: 0.07165813446044922
+     4    -4.965467e+00     1.545017e+00
+ * time: 0.12129712104797363
+     5    -6.639864e+00     1.162933e+00
+ * time: 0.14706206321716309
+     6    -7.335698e+00     8.239509e-01
+ * time: 0.17271208763122559
+     7    -7.541777e+00     9.384446e-01
+ * time: 0.19050908088684082
+     8    -7.696161e+00     7.709940e-01
+ * time: 0.20821714401245117
+     9    -7.748230e+00     7.708855e-01
+ * time: 0.22593212127685547
+    10    -7.792921e+00     4.981528e-01
+ * time: 0.24364113807678223
+    11    -7.819659e+00     3.256580e-01
+ * time: 0.261491060256958
+    12    -7.835988e+00     5.493460e-02
+ * time: 0.27918291091918945
+    13    -7.847238e+00     4.338459e-02
+ * time: 0.2969081401824951
+    14    -7.851638e+00     1.342136e-02
+ * time: 0.31467103958129883
+    15    -7.852175e+00     7.975014e-03
+ * time: 0.3324251174926758
+    16    -7.852542e+00     8.604744e-03
+ * time: 0.3502969741821289
+    17    -7.852603e+00     6.587431e-03
+ * time: 0.3680999279022217
+    18    -7.852627e+00     3.469541e-03
+ * time: 0.3859241008758545
+    19    -7.852642e+00     1.155596e-03
+ * time: 0.40375208854675293
+    20    -7.852645e+00     7.412742e-04
+ * time: 0.42150211334228516
+    21    -7.852646e+00     3.545065e-04
+ * time: 0.43929100036621094
+    22    -7.852647e+00     2.359929e-04
+ * time: 0.45710301399230957
+    23    -7.852647e+00     1.788694e-04
+ * time: 0.4750680923461914
+    24    -7.852647e+00     1.089434e-04
+ * time: 0.49291491508483887
+    25    -7.852647e+00     6.714092e-05
+ * time: 0.510746955871582
+    26    -7.852647e+00     3.321128e-05
+ * time: 0.5285310745239258
+    27    -7.852647e+00     1.693823e-05
+ * time: 0.5463840961456299
+    28    -7.852647e+00     1.056929e-05
+ * time: 0.5641839504241943
+    29    -7.852647e+00     8.789286e-06
+ * time: 0.5819680690765381
+    30    -7.852647e+00     3.450109e-06
+ * time: 0.5997219085693359
+    31    -7.852647e+00     1.778560e-06
+ * time: 0.6174831390380859
+    32    -7.852647e+00     1.203465e-06
+ * time: 0.6352689266204834
+    33    -7.852647e+00     6.892331e-07
+ * time: 0.6531870365142822
+    34    -7.852647e+00     4.232903e-07
+ * time: 0.6712639331817627
+    35    -7.852647e+00     3.980807e-07
+ * time: 0.68904709815979
+    36    -7.852647e+00     1.843266e-07
+ * time: 0.7069110870361328
+    37    -7.852647e+00     9.297747e-08
+ * time: 0.7247090339660645
+    38    -7.852647e+00     5.045442e-08
+ * time: 0.7425239086151123
+    39    -7.852647e+00     2.793805e-08
+ * time: 0.7602779865264893
+    40    -7.852647e+00     1.784985e-08
+ * time: 0.778101921081543
+    41    -7.852647e+00     1.150584e-08
+ * time: 0.795928955078125
+    42    -7.852647e+00     4.876097e-09
+ * time: 0.8138339519500732
+    43    -7.852647e+00     4.010880e-09
+ * time: 0.8462569713592529
+    44    -7.852647e+00     1.957352e-09
+ * time: 0.8712220191955566</code></pre><h2 id="Newton-algorithm"><a class="docs-heading-anchor" href="#Newton-algorithm">Newton algorithm</a><a id="Newton-algorithm-1"></a><a class="docs-heading-anchor-permalink" href="#Newton-algorithm" title="Permalink"></a></h2><p>Start not too far from the solution to ensure convergence: We run first a very crude SCF to get close and then switch to Newton.</p><pre><code class="language-julia hljs">scfres_start = self_consistent_field(basis; tol=0.5);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Diag   Δtime
 ---   ---------------   ---------   ---------   ----   ------
-  1   -7.846867563182                   -0.70    4.5</code></pre><p>Remove the virtual orbitals (which Newton cannot treat yet)</p><pre><code class="language-julia hljs">ψ = DFTK.select_occupied_orbitals(basis, scfres_start.ψ, scfres_start.occupation).ψ
+  1   -7.846833453148                   -0.70    4.8</code></pre><p>Remove the virtual orbitals (which Newton cannot treat yet)</p><pre><code class="language-julia hljs">ψ = DFTK.select_occupied_orbitals(basis, scfres_start.ψ, scfres_start.occupation).ψ
 scfres_newton = newton(basis, ψ; tol);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">n     Energy            log10(ΔE)   log10(Δρ)   Δtime
 ---   ---------------   ---------   ---------   ------
-  1   -7.852645894694                   -1.64
-  2   -7.852646686730       -6.10       -3.71    301ms
-  3   -7.852646686730      -13.26       -7.23    121ms</code></pre><h2 id="Comparison-of-results"><a class="docs-heading-anchor" href="#Comparison-of-results">Comparison of results</a><a id="Comparison-of-results-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-of-results" title="Permalink"></a></h2><pre><code class="language-julia hljs">println(&quot;|ρ_newton - ρ_scf|  = &quot;, norm(scfres_newton.ρ - scfres_scf.ρ))
+  1   -7.852645888474                   -1.64
+  2   -7.852646686730       -6.10       -3.71    285ms
+  3   -7.852646686730      -13.27       -7.23    120ms</code></pre><h2 id="Comparison-of-results"><a class="docs-heading-anchor" href="#Comparison-of-results">Comparison of results</a><a id="Comparison-of-results-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-of-results" title="Permalink"></a></h2><pre><code class="language-julia hljs">println(&quot;|ρ_newton - ρ_scf|  = &quot;, norm(scfres_newton.ρ - scfres_scf.ρ))
 println(&quot;|ρ_newton - ρ_scfv| = &quot;, norm(scfres_newton.ρ - scfres_scfv.ρ))
-println(&quot;|ρ_newton - ρ_dm|   = &quot;, norm(scfres_newton.ρ - scfres_dm.ρ))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">|ρ_newton - ρ_scf|  = 3.823309603881352e-7
-|ρ_newton - ρ_scfv| = 2.716050624428858e-7
-|ρ_newton - ρ_dm|   = 1.4236780527663167e-9</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../scf_callbacks/">« Monitoring self-consistent field calculations</a><a class="docs-footer-nextpage" href="../gross_pitaevskii/">Gross-Pitaevskii equation in one dimension »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Thursday 23 November 2023 07:58">Thursday 23 November 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+println(&quot;|ρ_newton - ρ_dm|   = &quot;, norm(scfres_newton.ρ - scfres_dm.ρ))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">|ρ_newton - ρ_scf|  = 3.24332873469033e-7
+|ρ_newton - ρ_scfv| = 4.0880614497049076e-7
+|ρ_newton - ρ_dm|   = 6.996230888750391e-10</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../scf_callbacks/">« Monitoring self-consistent field calculations</a><a class="docs-footer-nextpage" href="../gross_pitaevskii/">Gross-Pitaevskii equation in one dimension »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.1.2 on <span class="colophon-date" title="Saturday 25 November 2023 10:00">Saturday 25 November 2023</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
